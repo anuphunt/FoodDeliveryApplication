@@ -6,6 +6,7 @@ import com.fooddeliveryapp.storefront.models.UsersInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
@@ -55,5 +56,9 @@ public class UserResource {
         return user;
     }
 
-
+    @ApiOperation("Log in")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public LoginResponse login(@RequestBody LoginRequest request){
+        return new LoginResponse(true, "alsfsdlfjsdfljsdfl", "Login Success");
+    }
 }
