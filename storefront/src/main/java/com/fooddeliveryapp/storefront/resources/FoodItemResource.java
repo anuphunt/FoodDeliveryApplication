@@ -75,6 +75,5 @@ public class FoodItemResource {
             }
         }
         return new FoodsInfo(result);
-
     }
 }

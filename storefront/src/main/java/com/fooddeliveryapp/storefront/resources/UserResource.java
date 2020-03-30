@@ -50,7 +50,7 @@ public class UserResource {
     }
 
     @ApiOperation("Get user by username")
-    @RequestMapping(value = "{username}", method = RequestMethod.GET)
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
     public User getUserByUsername(@PathVariable String username){
         User user = null;
 
