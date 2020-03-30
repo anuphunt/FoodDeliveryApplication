@@ -1,12 +1,11 @@
 package com.fooddeliveryapp.storefront.resources;
 
 
-import com.fooddeliveryapp.storefront.models.User;
-import com.fooddeliveryapp.storefront.models.UsersInfo;
+import com.fooddeliveryapp.storefront.models.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserResource {
 
-    List<User> users = new ArrayList<>();
+    public static List<User> users = new ArrayList<>();
 
     @Autowired
     private RestTemplate restTemplate;
@@ -27,20 +26,13 @@ public class UserResource {
     public UsersInfo getAllUsers(){
 
         List<User> users = new ArrayList<>();
-        users.add(new User(111L, "Samsher Rana", "srana@miu.edu", "253-234-234", "234 random street"));
-        users.add(new User(112L, "Navin Poudel", "srana@miu.edu", "253-234-234", "234 random street"));
-        users.add(new User(113L, "Biswas Mishra", "srana@miu.edu", "253-234-234", "234 random street"));
-        users.add(new User(114L, "Pradip Acharya", "srana@miu.edu", "253-234-234", "234 random street"));
-        users.add(new User(115L, "Anup Dhakal", "srana@miu.edu", "253-234-234", "234 random street"));
+        users.add(new User(111L, "srana", "srana", "Samsher", "Rana", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
+        users.add(new User(112L, "npoudel", "npoudel", "Navin", "Poudel", "srana@miu.edu", "253-234-234", "234 random street", UserRole.ADMIN));
+        users.add(new User(113L, "bmishra", "bmishra", "Biswas"," Mishra", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
+        users.add(new User(114L, "pacharya", "pacharya","Pradip", "Acharya", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
+        users.add(new User(115L, "adhakal", "adhakal","Anup", "Dhakal", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
 
         return new UsersInfo(users);
-    }
-
-    @ApiOperation("Register new user")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User registerUser(@RequestBody User user){
-        users.add(user);
-        return user;
     }
 
     @ApiOperation("Get user by id")
@@ -56,9 +48,25 @@ public class UserResource {
         return user;
     }
 
-    @ApiOperation("Log in")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public LoginResponse login(@RequestBody LoginRequest request){
-        return new LoginResponse(true, "alsfsdlfjsdfljsdfl", "Login Success");
+    @ApiOperation("Get all restaurants")
+    @RequestMapping(value ="/restaurants", method = RequestMethod.POST)
+    public UsersInfo getAllRestaurants(){
+        List<User> dummyUsers = new ArrayList<User>();
+
+        dummyUsers.add(new User(111L, "srana", "srana", "Samsher", "Rana", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
+        dummyUsers.add(new User(112L, "npoudel", "npoudel", "Navin", "Poudel", "srana@miu.edu", "253-234-234", "234 random street", UserRole.ADMIN));
+        dummyUsers.add(new User(113L, "bmishra", "bmishra", "Biswas"," Mishra", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
+        dummyUsers.add(new User(114L, "pacharya", "pacharya","Pradip", "Acharya", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
+        dummyUsers.add(new User(115L, "adhakal", "adhakal","Anup", "Dhakal", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
+
+
+        List<User> result = new ArrayList<User>();
+        for(User user: dummyUsers){
+            if(user.getRole() == UserRole.RESTAURANT){
+                result.add(user);
+            }
+        }
+        return new UsersInfo(result);
     }
+
 }

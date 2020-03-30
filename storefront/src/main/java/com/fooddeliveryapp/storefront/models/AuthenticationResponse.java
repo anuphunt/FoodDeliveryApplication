@@ -1,13 +1,17 @@
-package com.fooddeliveryapp.storefront.resources;
+package com.fooddeliveryapp.storefront.models;
 
-public class LoginResponse {
+public class AuthenticationResponse {
     boolean Success;
-    String token;
+    String jwt;
     String msg;
 
-    public LoginResponse(boolean success, String token, String msg) {
+    public AuthenticationResponse(){
+
+    }
+
+    public AuthenticationResponse(boolean success, String token, String msg) {
         Success = success;
-        this.token = token;
+        this.jwt = token;
         this.msg = msg;
     }
 
@@ -19,12 +23,12 @@ public class LoginResponse {
         Success = success;
     }
 
-    public String getToken() {
-        return token;
+    public String getJwt() {
+        return jwt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setJwt(String token) {
+        this.jwt = token;
     }
 
     public String getMsg() {
