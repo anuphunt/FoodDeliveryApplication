@@ -1,11 +1,11 @@
 package com.fooddeliveryapp.storefront.resources;
 
 
+import com.fooddeliveryapp.storefront.exceptions.UserNotFoundException;
 import com.fooddeliveryapp.storefront.models.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class UserResource {
 
     @ApiOperation("Get user by id")
     @RequestMapping(value = "{id}", method= RequestMethod.GET)
-    public User getUser(@PathVariable Long id){
+    public User getUserById(@PathVariable Long id){
         User user = null;
 
         for(User u: users){
@@ -45,7 +45,22 @@ public class UserResource {
                 user = u;
             }
         }
-        return user;
+        if(user != null) return user;
+        else throw new UserNotFoundException(id);
+    }
+
+    @ApiOperation("Get user by username")
+    @RequestMapping(value = "{username}", method = RequestMethod.GET)
+    public User getUserByUsername(@PathVariable String username){
+        User user = null;
+
+        for(User u: users){
+            if(u.getUsername() == username){
+                user = u;
+            }
+        }
+        if(user != null) return user;
+        else throw new UserNotFoundException(username);
     }
 
     @ApiOperation("Get all restaurants")
