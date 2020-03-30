@@ -66,7 +66,20 @@ export default {
     checkForm: function (e) {
 
       if (this.firstName && this.lastName && this.email && this.phone && this.password && this.confirmPassword) {
-            this.axios.post('google.com').then((response)=>{
+            var posting_data = {};
+            posting_data['username'] = 'foo';
+            posting_data['password'] = 'foo';
+
+            this.axios({
+              method: 'post',
+              url: 'http://localhost:8081/authenticate',
+              dataType:'json',
+              data: {
+                username: 'foo',
+                password: 'foo'
+              }
+
+            }).then((response)=>{
                 alert('requested');
                 console.log(response);
             })
