@@ -22,6 +22,18 @@ public class UserController {
 		
 		return "login";
 	}
+
+	//GetAllUser
+	//GetUserById(Long Id)
+	//GetUserByUsername(String Username)
+	//GetAllRestaurants
+	//GetAllCustomers
+	//GetAllDrivers
+	//AddNewUser(User user)
+	//DeleteUser(Long Id)
+	//DeleteUser(String Username)
+	//UpdateUserInfo(User user)
+
 	
 	@GetMapping("/signup")
 	public String signupForm() {
