@@ -3,6 +3,7 @@ package com.fooddeliveryapp.storefront.resources;
 
 import com.fooddeliveryapp.storefront.models.AuthenticationRequest;
 import com.fooddeliveryapp.storefront.models.AuthenticationResponse;
+import com.fooddeliveryapp.storefront.models.User;
 import com.fooddeliveryapp.storefront.services.MyUserDetailsService;
 import com.fooddeliveryapp.storefront.util.JwtUtil;
 import io.swagger.annotations.Api;
@@ -31,6 +32,13 @@ public class AuthenticationResource {
 
     @Autowired
     private MyUserDetailsService userDetailsService;
+
+    @ApiOperation("Register new user")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public User registerUser(@RequestBody User user){
+        UserResource.users.add(user);
+        return user;
+    }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {

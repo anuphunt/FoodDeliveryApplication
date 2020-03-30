@@ -9,20 +9,24 @@ public class User implements UserDetails {
     private Long userId;
     private String username;
     private String password;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String email;
     private String phoneNumber;
     private String address;
+    private UserRole role;
 
     public User() {
     }
 
-    public User(Long userId, String username, String password, String name, String email, String phoneNumber, String address) {
+    public User(Long userId, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
         this.userId = userId;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.role = role;
     }
 
     public Long getUserId() {
@@ -33,20 +37,36 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPhoneNumber() {
