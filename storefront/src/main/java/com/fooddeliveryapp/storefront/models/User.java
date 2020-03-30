@@ -1,7 +1,14 @@
 package com.fooddeliveryapp.storefront.models;
 
-public class User {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+public class User implements UserDetails {
     private Long userId;
+    private String username;
+    private String password;
     private String name;
     private String email;
     private String phoneNumber;
@@ -10,7 +17,7 @@ public class User {
     public User() {
     }
 
-    public User(Long userId, String name, String email, String phoneNumber, String address) {
+    public User(Long userId, String username, String password, String name, String email, String phoneNumber, String address) {
         this.userId = userId;
         this.name = name;
         this.email = email;
@@ -56,5 +63,47 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
