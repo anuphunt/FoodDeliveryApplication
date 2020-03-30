@@ -3,17 +3,17 @@ package com.fooddeliveryapp.storefront.models;
 import java.util.List;
 
 public class FoodsInfo {
-    private List<Food> listOfFoods;
+    private List<FoodItem> listOfFoods;
 
-    public FoodsInfo(List<Food> listOfFoods) {
+    public FoodsInfo(List<FoodItem> listOfFoods) {
         this.listOfFoods = listOfFoods;
     }
 
-    public List<Food> getListOfFoods() {
+    public List<FoodItem> getListOfFoods() {
         return listOfFoods;
     }
 
-    public void setListOfFoods(List<Food> listOfFoods) {
+    public void setListOfFoods(List<FoodItem> listOfFoods) {
         this.listOfFoods = listOfFoods;
     }
 }
