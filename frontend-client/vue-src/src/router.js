@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Landing from './components/Landing.vue'
 import Login from './components/Login.vue'
 import Signup from './components/Signup.vue'
+import ForgotPassword from './components/ForgotPassword.vue'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
 			path:'/signup',
 			name:'Signup',
 			component:Signup
+		},
+		{
+			path:'/forgot-password',
+			name:'ForgotPassword',
+			component:ForgotPassword
 		}
 	]
 })
