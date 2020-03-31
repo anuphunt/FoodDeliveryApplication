@@ -7,6 +7,9 @@
 ### Java ###
 *.class
 
+# IntelliJ#
+.idea/
+
 # BlueJ files
 *.ctxt
 
