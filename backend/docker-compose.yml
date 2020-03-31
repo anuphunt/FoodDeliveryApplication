@@ -18,6 +18,7 @@ services:
     args:
       - JAR_FILE=build/libs/food-service-0.0.1-SNAPSHOT.jar
    working_dir: /food-service
+   container_name: food-service
    volumes:
     - ./food-service:/food-service
     - ~/.m2:/root/.m2
