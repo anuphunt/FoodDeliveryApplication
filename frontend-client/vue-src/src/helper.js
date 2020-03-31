@@ -77,9 +77,7 @@ module.exports = class Helper {
                 if (typeof (params.data) !== 'undefined') {
                     formData = this.getFormData(params.data);
                 }
-
-                
-                
+                               
 
                 if (typeof (params.url) === 'undefined') {
                     alert('Api is missing');
@@ -91,18 +89,46 @@ module.exports = class Helper {
                     if (typeof (params.type) !== 'undefined') {
                         method = params.type;
                     }
+                    params.type = method;
                     if (typeof(params.success) == 'function') {//start
 
                         if (window.$) {
 
-                            window.$.ajax({
+                            if(typeof(params.withData) != 'undefined'){
+                                if(params.withData == 'json'){
+                                    var object = {};
+                                    formData.forEach(function(value, key){
+                                        object[key] = value;
+                                    });
+                                    params.data = object
+                                    this.do_request(params);
+                                }else{
+                                    this.do_requestFormData(params);
+                                }
+                            }else{
+                                this.do_requestFormData(params);
+                            }
+
+                            
+                        } else {
+                            console.log('jquery not loaded');
+                        }
+
+                    }//end      
+
+                }
+            }
+    }
+
+    do_requestFormData(params){
+                        window.$.ajax({
                                 dataType: 'json',
                                 url: params.url,
-                                type: method,
+                                type: params.type,
                                 cache: false,
                                 contentType: false,
                                 processData: false,
-                                data: formData,
+                                data: params.data,
                                 xhr: function () {
                                     var myXhr = window.$.ajaxSettings.xhr();
                                     if (typeof(params.uploadProgress) == 'function') {
@@ -139,16 +165,33 @@ module.exports = class Helper {
                                         params.success(resp);
                                     }
                                 }
-                            })
-                        } else {
-                            console.log('jquery not loaded');
-                        }
-
-                    }//end      
-
-                }
-            }
+                        })
     }
+    do_request(params){
+        console.log(params);
+                    window.$.ajax({
+                                dataType: 'json',
+                                url: params.url,
+                                contentType: 'application/json',
+                                type: params.type,
+                                data: JSON.stringify(params.data),
+                                complete:  (resp) =>{
+
+                                    if(resp.status == 403 && this.getUserInfo().identity == ''){
+                                        this.unsetUserInfo();
+                                        window.location.href = '/';
+                                    }else if (typeof(params.complete) == 'function') {
+                                        params.complete(resp);
+                                    }
+                                },
+                                success:  (resp) =>{
+                                    if (typeof(params.success) == 'function') {
+                                        params.success(resp);
+                                    }
+                                }
+                        })
+    }
+
     scroll_to_bottom(selector) {
         var objDiv = document.querySelector(selector);
         if (objDiv) {

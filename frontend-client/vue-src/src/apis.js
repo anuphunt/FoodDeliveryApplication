@@ -3,10 +3,10 @@ module.exports = class Api {
 		return 'http://localhost:8081';
 	}
 	getRegisterApi(){
-		return this.getHostUrl()+'/register';
+		return this.getHostUrl()+'/authentication/register';
 	}
 	getLoginApi(){
-		return this.getHostUrl()+'/authenticate';
+		return this.getHostUrl()+'/authentication/login';
 	}
 
 }
