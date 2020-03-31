@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     restart: always
-    working_dir: /app
+    working_dir: /vue-src
     build:
       context: ./vue-src
     container_name: app
@@ -11,4 +11,4 @@ services:
       - ./vue-src:/vue-src
       - ~/.m2:/root/.m2
     ports:
-      - "8082:8082"
+      - "8080:8080"
