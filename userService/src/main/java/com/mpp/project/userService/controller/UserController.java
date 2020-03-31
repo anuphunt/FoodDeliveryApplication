@@ -1,10 +1,14 @@
 package com.mpp.project.userService.controller;
 
 import com.mpp.project.userService.model.User;
+import com.mpp.project.userService.model.UserRole;
 import com.mpp.project.userService.service.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -13,31 +17,6 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepo;
 
-//	@GetMapping({ "/","/login"})
-//	public String loginForm() {
-//
-//		return "login";
-//	}
-
-	//GetAllUser
-	//GetUserById(Long Id)
-	//GetUserByUsername(String Username)
-	//GetAllRestaurants
-	//GetAllCustomers
-	//GetAllDrivers
-	//AddNewUser(User user)
-	//DeleteUser(Long Id)
-	//DeleteUser(String Username)
-	//UpdateUserInfo(User user)
-
-	
-//	@GetMapping("/signup")
-//	public String signupForm() {
-//
-//
-//		return "signup";
-//	}
-//
 	@PostMapping("/register")
 	public User register(@RequestBody User user) {
 		userRepo.save(user);
@@ -65,20 +44,55 @@ public class UserController {
 		return null;
 	}
 
+	@GetMapping(path = "/restaurants")
+	public Iterable<User> getAllRestaurants(){
+		List<User> restaurants = new ArrayList<>();
+		List<User> allUsers = userRepo.findAll();
+		for(User u: allUsers){
+			String role = u.getRole();
+			if(role != null && role.equals(UserRole.RESTAURANT.toString())){
+				restaurants.add(u);
+			}
+		}
+		return restaurants;
+	}
 
-//
-//	@PostMapping(value="/login")
-//	public String userLogin(@ModelAttribute User user, HttpSession session) {
-//
-//		User u = urepo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-//
-//		if(u!=null) {
-//
-//			session.setAttribute("user", u);
-//
-//			return "home";
-//		}
-//
-//		return "login";
-//	}
+	@GetMapping(path = "/drivers")
+	public Iterable<User> getAllDrivers(){
+		List<User> drivers = new ArrayList<>();
+		List<User> allUsers = userRepo.findAll();
+		for(User u: allUsers){
+			String role = u.getRole();
+			if(role != null && role.equals(UserRole.DRIVER.toString())){
+				drivers.add(u);
+			}
+		}
+		return drivers;
+	}
+
+	@GetMapping(path ="/customers")
+	public Iterable<User> getAllCustomers(){
+		List<User> customers = new ArrayList<>();
+		List<User> allUsers = userRepo.findAll();
+		for(User u: allUsers){
+			String role = u.getRole();
+			if(role != null && role.equals(UserRole.CUSTOMER)){
+				customers.add(u);
+			}
+		}
+		return customers;
+	}
+
+	@GetMapping(path ="/admins")
+	public Iterable<User> getAllAdmins(){
+		List<User> admins = new ArrayList<>();
+		List<User> allUsers = userRepo.findAll();
+		for(User u: allUsers){
+			String role = u.getRole();
+			if(role != null && role.equals(UserRole.ADMIN)){
+				admins.add(u);
+			}
+		}
+		return admins;
+	}
 }
