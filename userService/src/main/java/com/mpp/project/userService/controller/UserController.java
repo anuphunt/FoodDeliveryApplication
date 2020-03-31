@@ -55,8 +55,14 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/singleUser/{username}")
-	public Optional<User> getUserByUsername(@PathVariable String username){
-		return userRepo.
+	public User getUserByUsername(@PathVariable String username){
+		Iterable<User> users =  userRepo.findAll();
+		for(User u: users){
+			if(u.getUsername().equals(username)){
+				return u;
+			}
+		}
+		return null;
 	}
 
 
