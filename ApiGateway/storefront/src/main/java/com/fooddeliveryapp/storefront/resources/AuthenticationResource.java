@@ -27,6 +27,7 @@ import javax.validation.Valid;
 
 @RestController
 @Api(value = "Authenticate users while logging in")
+@RequestMapping("/authentication")
 public class AuthenticationResource {
 
     @Autowired
@@ -49,7 +50,7 @@ public class AuthenticationResource {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
         try {

@@ -1,4 +1,4 @@
-package com.mpp.project.database;
+package com.mpp.project.userService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
