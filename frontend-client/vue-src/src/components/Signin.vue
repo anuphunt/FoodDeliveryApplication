@@ -28,8 +28,8 @@
                             <label>Email</label>
                             <input type="text" v-model="email" name="email" class="form-control mrgt-10 mrgb-10"/>
                             
-                            <label>Teliphone</label>
-                            <input type="text"  v-model="phone"  name="phone" class="form-control mrgt-10 mrgb-10"/>
+                            <label>Phone Number</label>
+                            <input type="text"  v-model="phoneNumber"  name="phoneNumber" class="form-control mrgt-10 mrgb-10"/>
                           
                           <hr/>
                           <label>Password</label>
@@ -49,46 +49,25 @@
        </div>
 </template>
 <script type="text/javascript">
+
 export default {
     name: 'Signup',
     data() {
+        var usertype = this.$route.params.usertype;
+
         return {
           errors:[],
           firstName:null,
           lastName:null,
           email:null,
-          phone:null,
+          phoneNumber:null,
           password:null,
-          confirmPassword:null
+          confirmPassword:null,
+          role:((usertype == 'user')?'CUSTOMER':((usertype == 'driver')?'DRIVER':'RESTAURANT'))
         }
     },
     methods:{
     checkForm: function (e) {
-
-      if (this.firstName && this.lastName && this.email && this.phone && this.password && this.confirmPassword) {
-            var posting_data = {};
-            posting_data['username'] = 'foo';
-            posting_data['password'] = 'foo';
-
-            this.axios({
-              method: 'post',
-              url: 'http://localhost:8081/authenticate',
-              dataType:'json',
-              data: {
-                username: 'foo',
-                password: 'foo'
-              }
-
-            }).then((response)=>{
-                alert('requested');
-                console.log(response);
-            })
-            .catch((errors)=>{
-                console.log(errors);
-
-            })
-      }
-
       this.errors = [];
       var i = 0;
 
@@ -122,6 +101,43 @@ export default {
             value:'Confirm Password is required'
         });
       }
+      if (this.password != this.confirmPassword) {
+        this.errors.push({
+            key:i++,
+            value:'Conform password does not match with password.'
+        });
+      }
+      console.log(this.errors.length);
+      if (this.errors.length == 0) {
+            //DRIVER, RESTAURANT, CUSTOMER, ADMIN
+            var formData = new FormData();
+            formData.append('firstName', this.firstName);
+            formData.append('lastName', this.lastName);
+            formData.append('email', this.email);
+            formData.append('phoneNumber', this.phoneNumber);
+            formData.append('username', 'foo');
+            formData.append('password', this.password);
+            formData.append('role', this.role);
+            formData.append('confirmPassword', this.confirmPassword);
+
+
+            this.helper.request({
+                  method: 'post',
+                  withData:'json',
+                  url: this.api.getRegisterApi(),
+                  dataType:'json',
+                  data: formData,
+                  success:(resp)=>{
+                    console.log(resp);
+                  },
+                  error:()=>{
+                      alert('request not completed.');
+                  }
+
+            })
+      }
+
+      
       e.preventDefault();
     }
 }
