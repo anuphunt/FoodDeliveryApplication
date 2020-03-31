@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class User implements UserDetails {
-    private Long userId;
+    private int userId;
     private String username;
     private String password;
     private String firstName;
@@ -19,7 +19,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(Long userId, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
+    public User(int userId, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,11 +29,11 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    public Long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

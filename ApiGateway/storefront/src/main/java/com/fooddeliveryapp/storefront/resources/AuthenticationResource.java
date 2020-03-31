@@ -1,6 +1,7 @@
 package com.fooddeliveryapp.storefront.resources;
 
 
+import com.fooddeliveryapp.storefront.Constants.ServicesUrl;
 import com.fooddeliveryapp.storefront.models.AuthenticationRequest;
 import com.fooddeliveryapp.storefront.models.AuthenticationResponse;
 import com.fooddeliveryapp.storefront.models.User;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import javax.validation.Valid;
 
 @RestController
 @Api(value = "Authenticate users while logging in")
@@ -32,14 +36,18 @@ public class AuthenticationResource {
     private JwtUtil jwtTokenUtil;
 
     @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
     private MyUserDetailsService userDetailsService;
 
+    @CrossOrigin
     @ApiOperation("Register new user")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User registerUser(@RequestBody User user){
-        UserResource.users.add(user);
-        return user;
+        return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/register", user, User.class);
     }
+
     @CrossOrigin
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
