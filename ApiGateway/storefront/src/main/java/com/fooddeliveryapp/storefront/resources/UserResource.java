@@ -43,22 +43,6 @@ public class UserResource {
     @ApiOperation("Get all restaurants")
     @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
     public Iterable<User> getAllRestaurants() {
-//        List<User> dummyUsers = new ArrayList<User>();
-//
-//        dummyUsers.add(new User(111, "srana", "srana", "Samsher", "Rana", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
-//        dummyUsers.add(new User(112, "npoudel", "npoudel", "Navin", "Poudel", "srana@miu.edu", "253-234-234", "234 random street", UserRole.ADMIN));
-//        dummyUsers.add(new User(113, "bmishra", "bmishra", "Biswas"," Mishra", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
-//        dummyUsers.add(new User(114, "pacharya", "pacharya","Pradip", "Acharya", "srana@miu.edu", "253-234-234", "234 random street", UserRole.RESTAURANT));
-//        dummyUsers.add(new User(115, "adhakal", "adhakal","Anup", "Dhakal", "srana@miu.edu", "253-234-234", "234 random street", UserRole.CUSTOMER));
-//
-//
-//        List<User> result = new ArrayList<User>();
-//        for(User user: dummyUsers){
-//            if(user.getRole() == UserRole.RESTAURANT){
-//                result.add(user);
-//            }
-//        }
-//        return new UsersInfo(result);
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/restaurants", Iterable.class);
     }
 
