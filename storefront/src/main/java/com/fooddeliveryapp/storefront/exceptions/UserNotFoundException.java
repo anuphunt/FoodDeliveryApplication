@@ -2,7 +2,7 @@ package com.fooddeliveryapp.storefront.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 
-    public UserNotFoundException(Long id) {
+    public UserNotFoundException(int id) {
         super("User not found with id " + id);
     }
 

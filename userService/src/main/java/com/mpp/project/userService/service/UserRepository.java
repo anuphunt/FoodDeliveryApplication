@@ -1,8 +1,7 @@
-package com.mpp.project.database.service;
+package com.mpp.project.userService.service;
 
+import com.mpp.project.userService.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.mpp.project.database.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
