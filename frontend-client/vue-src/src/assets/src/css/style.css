@@ -1101,3 +1101,21 @@ border-bottom:none;
 	.top-links ul li a{display:block;font-size:12px;padding:3px 3px 3px 10px;border-bottom:1px solid #eee; text-align:left; color:#454545;}
 	.top-links ul li:last-child a{border-bottom:none;}
 }
+.pull-right li
+{
+	float: right;
+}
+.top-right-new li a{
+	padding: 7px 5px;
+    display: inline-block;
+    color: #fff;
+}
+.top-right-new li a:hover{
+    color: #3ebbeb;
+}
+.top-right-new li .dropdown-menu a{
+	color: #000;
+}
+.wrap-word{
+	white-space: nowrap;
+}

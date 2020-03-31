@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import axios from 'axios'
 
+var Api = require('./apis.js');
+let api = new Api();
+Vue.prototype.api = api;
 
-Vue.prototype.axios = axios;
+var Helper = require('./helper.js');
+let helper = new Helper();
+Vue.prototype.helper = helper;
+
 
 new Vue({
 	router,
