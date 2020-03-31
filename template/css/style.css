@@ -1101,3 +1101,7 @@ border-bottom:none;
 	.top-links ul li a{display:block;font-size:12px;padding:3px 3px 3px 10px;border-bottom:1px solid #eee; text-align:left; color:#454545;}
 	.top-links ul li:last-child a{border-bottom:none;}
 }
+.pull-right li
+{
+	float: right;
+}
