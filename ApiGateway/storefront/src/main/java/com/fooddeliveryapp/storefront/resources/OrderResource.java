@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class OrderResource {
     public List<Order> orders = new ArrayList<>();
 
     private List<Order> getDummyData(){
-        List<Order> orders = new ArrayList<>();
         List<OrderEntity> orderEntities = new ArrayList<>();
         orderEntities.add(new OrderEntity(1, 1));
         orderEntities.add(new OrderEntity(2,2));
@@ -111,7 +111,7 @@ public class OrderResource {
 
     @ApiOperation("Get active order of a specific restaurant. Active oder of a retaurant means all the orders of the restaurant that are accepted by restaurant but picked up by diver.")
     @RequestMapping(value = "restaurants/active/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable int restaurantId){
+    public Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable int restaurantId){
         List<Order> allOrders = getDummyData();
         List<Order> activeOrders = new ArrayList<>();
         for(Order o: allOrders){
@@ -122,14 +122,35 @@ public class OrderResource {
         return activeOrders;
     }
 
-//    @ApiOperation(value = "Place an order by a customer.", consumes = "application/JSON")
-//    @RequestMapping(value = "orders/newOrder", method = RequestMethod.GET)
-//    private Order placeNewOrder(@RequestBody Order order){
-//
-//    }
-
+    @ApiOperation(value = "Place an order by a customer.", consumes = "application/JSON")
+    @RequestMapping(value = "orders/newOrder", method = RequestMethod.POST)
+    public Order placeNewOrder(@Valid @RequestBody Order order){
+        orders.add(order);
+        return order;
+    }
     //Accept a new order by a restaurant
-    //Reject a new order by a restaurant
+    @ApiOperation(value = "Restaurant accepts the order", consumes = "application/JSON")
+    @RequestMapping(value = "restaurant/acceptOrder", method = RequestMethod.PUT)
+    public Order acceptOrderByRestaurant(@RequestBody Order order){
+        Order o = null;
+        for(Order o1: orders){
+            if(o1.getOrderId() == order.getOrderId()){
+                o = o1;
+            }
+        }
+        if(o != null){
+            o.setOrderState(OrderState.ACCEPTED);
+        }
+        //SEND Put REQUEST HERE.
+        return o;
+    }
+
+    @ApiOperation(value = "Restaurant rejects the order. Returns an order with rejected status.")
+    @RequestMapping(value = "restaurant/rejectOrder", method = RequestMethod.PUT)
+    public Order rejectOrderByRestaurant(@Valid @RequestBody Order order){
+        //Send put request here.
+        return order;
+    }
     //book pick up by a driver
     //pick up order by a driver
     //deliver order by a driver

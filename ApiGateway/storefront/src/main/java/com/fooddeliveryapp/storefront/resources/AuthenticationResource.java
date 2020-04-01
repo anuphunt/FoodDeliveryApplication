@@ -45,7 +45,7 @@ public class AuthenticationResource {
     @CrossOrigin
     @ApiOperation("Register new user")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User registerUser(@RequestBody User user){
+    public User registerUser(@Valid @RequestBody User user){
         return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/register", user, User.class);
     }
 
@@ -62,12 +62,12 @@ public class AuthenticationResource {
             throw new Exception("Incorrect username or password", e);
         }
 
-
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
+        final User user = MyUserDetailsService.getUserByUsername(userDetails.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login"));
+        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login", user));
     }
 }
