@@ -95,4 +95,11 @@ public class UserController {
 		}
 		return admins;
 	}
+
+	@DeleteMapping(value = "delete/{id}")
+	public Optional<User> deleteUserById(@PathVariable int id){
+		Optional<User> user = getUserById(id);
+		userRepo.deleteById(id);
+		return user;
+	}
 }

@@ -6,9 +6,7 @@ import com.fooddeliveryapp.storefront.models.OrderState;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -20,6 +18,8 @@ import java.util.List;
 public class OrderResource {
     @Autowired
     private RestTemplate restTemplate;
+
+    public List<Order> orders = new ArrayList<>();
 
     private List<Order> getDummyData(){
         List<Order> orders = new ArrayList<>();
@@ -40,7 +40,7 @@ public class OrderResource {
 
     //Get All Orders of a customer
     @ApiOperation("Get all orders of a specific customer")
-    @RequestMapping(value = "/customers/{customerId}")
+    @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getAllOrdersOfCustomer(@PathVariable int customerId){
 
         List<Order> allOrders = getDummyData();
@@ -55,7 +55,7 @@ public class OrderResource {
     //Get All Orders of a restaurant
 
     @ApiOperation("Get all orders of a specific restaurant")
-    @RequestMapping(value = "restaurants/{restaurantId}")
+    @RequestMapping(value = "restaurants/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getAllOrdersOfRestaurant(@PathVariable int restaurantId){
         List<Order> allOrders = getDummyData();
         List<Order> restaurantOrders = new ArrayList<>();
@@ -70,7 +70,7 @@ public class OrderResource {
 
     //Get All picked up orders of a driver
     @ApiOperation("Get all picked up orders of a specific driver")
-    @RequestMapping(value = "drivers/{driverId}")
+    @RequestMapping(value = "drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
         List<Order> allOrders = getDummyData();
         List<Order> driverOrders = new ArrayList<>();
@@ -84,7 +84,7 @@ public class OrderResource {
 
     //Get active order of a driver
     @ApiOperation("Get active order of a driver. Active order means the order which is selected by driver to pickup, but hasn't delivered yet. Returns null if there is no active orders, otherwise returns one Order")
-    @RequestMapping(value = "drivers/active/{driverId}")
+    @RequestMapping(value = "drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
     private Order getActiveOrderOfDriver(@PathVariable int driverId){
         List<Order> allOrders = getDummyData();
         for(Order o: allOrders){
@@ -97,10 +97,10 @@ public class OrderResource {
 
     //Get active orders of a customer
     @ApiOperation("Get active order of a specific customer. Active order of customer means the orders of the customer which are not delivered yet. Returns an empty list if there is no active orders, otherwise returns list of orders.")
-    @RequestMapping(value = "customers/active/{customerId}")
+    @RequestMapping(value = "customers/active/{customerId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getActiveOrdersOfCustomer(@PathVariable int customerId){
         List<Order> allOrders = getDummyData();
-        List<Order> activeOrders = getDummyData();
+        List<Order> activeOrders = new ArrayList<>();
         for(Order o: allOrders){
             if(o.getCustomerId() == customerId && o.getOrderState() != OrderState.DELIVERED){
                 activeOrders.add(o);
@@ -108,8 +108,26 @@ public class OrderResource {
         }
         return activeOrders;
     }
-    //Get active order of a restaurant
-    //Place a new order by a user
+
+    @ApiOperation("Get active order of a specific restaurant. Active oder of a retaurant means all the orders of the restaurant that are accepted by restaurant but picked up by diver.")
+    @RequestMapping(value = "restaurants/active/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
+    private Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable int restaurantId){
+        List<Order> allOrders = getDummyData();
+        List<Order> activeOrders = new ArrayList<>();
+        for(Order o: allOrders){
+            if(o.getRestaurantId() == restaurantId && o.getOrderState() == OrderState.ACCEPTED){
+                activeOrders.add(o);
+            }
+        }
+        return activeOrders;
+    }
+
+//    @ApiOperation(value = "Place an order by a customer.", consumes = "application/JSON")
+//    @RequestMapping(value = "orders/newOrder", method = RequestMethod.GET)
+//    private Order placeNewOrder(@RequestBody Order order){
+//
+//    }
+
     //Accept a new order by a restaurant
     //Reject a new order by a restaurant
     //book pick up by a driver

@@ -35,7 +35,7 @@ public class UserResource {
     @ApiOperation("Get user by username")
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
     public User getUserByUsername(@PathVariable String username) {
-        User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/singleUser/" + username, User.class);
+        User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/singleuser/" + username, User.class);
         if (user != null) return user;
         else throw new UserNotFoundException(username);
     }
