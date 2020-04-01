@@ -175,6 +175,7 @@ module.exports = class Helper {
                                         params.success(resp);
                                     }
                                 }
+                                
                         })
     }
     do_request(params){
@@ -189,13 +190,25 @@ module.exports = class Helper {
                                 type: params.type,
                                 data: JSON.stringify(params.data),
                                 complete:  (resp) =>{
-
-                                    if(resp.status == 403 && this.getUserInfo().identity == ''){
-                                        this.unsetUserInfo();
-                                        window.location.href = '/';
-                                    }else if (typeof(params.complete) == 'function') {
-                                        params.complete(resp);
+                                    if (typeof(params.complete) == 'function') {
+                                        if(resp.status == 403){//credials
+                                            params.complete(resp);
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }
+                                        
+                                    }else{
+                                        if(resp.status == 403){//credials
+                                            this.showMessage('danger','Username or password is not matched.');
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }
                                     }
+                                    
                                 },
                                 success:  (resp) =>{
                                     if (typeof(params.success) == 'function') {
@@ -210,6 +223,24 @@ module.exports = class Helper {
         if (objDiv) {
             objDiv.scrollTop = objDiv.scrollHeight;
         }
+    }
+    showMessage(type,message){
+
+        var ele = window.$(".global-message");
+        ele.removeClass('bg-success');
+        ele.removeClass('bg-danger');
+        if(type == 'success'){
+            ele.addClass('bg-success');
+            ele.find('.error-heading').hide();
+            ele.find('.success-heading').show();
+        }else{
+            ele.addClass('bg-danger');
+            ele.find('.success-heading').hide();        
+            ele.find('.error-heading').show();        
+        }
+        ele.find('.message-box').text(message);
+        ele.show(0).delay(5000).hide(0);
+        
     }
 
 }

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="container">
-              <div class="row">
+        <div class="container container-height">
+              <div class="row" >
                 <div class="col-sm-12 col-md-12 mrgb-30">
                     <div class="heading-all mrgb-20">
                           <div class="clearfix">
@@ -12,7 +12,13 @@
                         <div class="row">
                         <div class="col-sm-6 col-md-6">
                           <div class="clearfix mrgb-30">
-                            <h3 class="mrgb-10">I am a returning customer</h3>
+                            <h3 class="mrgb-10">Login</h3>
+                            <p v-if="errors.length" class="text-danger">
+                              <b>Please correct the following error(s):</b>
+                              <ul>
+                                <li v-for="error in errors"   :key="error.key">{{ error.value }}</li>
+                              </ul>
+                            </p>
                             <form method="post" @submit="doSignup" action="./">
                               <span >Login Id or email address</span>
                               <input type="text" v-model="username"  name="username" class="form-control mrgt-10 mrgb-10"/>
@@ -35,21 +41,20 @@
     </div>
 </template>
 <script>
-    export default ({
+    export default {
         name:'Login',
         data(){
-          console.log('here');
-          return {
-            username:null,
-            password:null
-          }
+           return {
+              errors:[],
+              username:null,
+              password:null
+            }
         },
         methods:{
 
-          doSignup:()=>{
+          doSignup:function(e){
               this.errors = [];
               var i = 0;
-
               if (!this.username) {
                 this.errors.push({
                     key:i++,
@@ -63,26 +68,28 @@
                 });
               }
               if (this.errors.length == 0) {
-                var formData = new FormData();
-                    formData.append('username', this.username);
-                    formData.append('password', this.password);
 
-                    this.helper.request({
-                          method: 'post',
-                          withData:'json',
-                          url: this.api.getLoginApi(),
-                          dataType:'json',
-                          data: formData,
-                          success:()=>{
-                            this.$router.push('/message');
-                          },
-                          error:()=>{
-                              alert('request not completed.');
-                          }
+                    var formData = new FormData();
+                        formData.append('username', this.username);
+                        formData.append('password', this.password);
 
-                    })
+                        this.helper.request({
+                              method: 'post',
+                              withData:'json',
+                              url: this.api.getLoginApi(),
+                              dataType:'json',
+                              data: formData,
+                              complete:()=>{
+                                this.helper.showMessage('danger','Invalid Username or Password');
+                              },
+                              success:()=>{
+                                this.helper.showMessage('success','Login successfully.');
+                              }
+
+                        })
               }
+              e.preventDefault();
           }
         }
-    })
+    }
 </script>

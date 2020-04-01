@@ -88,6 +88,11 @@
                     <p>© 2019 LockDownFood.com | All Right Reserved.</p>
                 </div>
             </div>
+            <div class="global-message">
+                <h3 class="success-heading">Success</h3>
+                <h3 class="error-heading">Error</h3>
+                <p class="message-box"></p>
+            </div>
             
         </footer><!-- footer end -->
 </template>
