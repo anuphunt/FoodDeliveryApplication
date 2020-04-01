@@ -28,7 +28,8 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public Optional<User> getUserById(@PathVariable int id){
+	public Optional<User> getUserById(@PathVariable int id)
+	{
 		return userRepo.findById(id);
 	}
 
@@ -37,6 +38,7 @@ public class UserController {
 		Iterable<User> users =  userRepo.findAll();
 		for(User u: users){
 			if(u.getUsername().equals(username)){
+				u.setPassword(null);
 				return u;
 			}
 		}
