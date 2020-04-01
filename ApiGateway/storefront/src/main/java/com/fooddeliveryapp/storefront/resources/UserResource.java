@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*", allowCredentials = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "All data regarding users")
 @RequestMapping("/users")
 

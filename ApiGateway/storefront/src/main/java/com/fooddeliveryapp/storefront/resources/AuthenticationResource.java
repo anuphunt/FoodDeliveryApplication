@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin(allowedHeaders = "*", allowCredentials = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "Authenticate users while logging in")
 public class AuthenticationResource {
 
