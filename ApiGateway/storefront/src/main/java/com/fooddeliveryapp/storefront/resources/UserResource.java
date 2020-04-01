@@ -20,7 +20,6 @@ public class UserResource {
 
     @ApiOperation("Get all users.")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/JSON")
-
     public Iterable<User> getAllUsers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/all", Iterable.class);
     }
@@ -34,6 +33,7 @@ public class UserResource {
     }
 
     @ApiOperation("Get user by username")
+    @CrossOrigin
     @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = "application/JSON")
     public User getUserByUsername(@PathVariable String username) {
         User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/singleuser/" + username, User.class);
