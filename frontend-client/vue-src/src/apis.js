@@ -8,5 +8,8 @@ module.exports = class Api {
 	getLoginApi(){
 		return this.getHostUrl()+'/authentication/login';
 	}
+	getUserInfoApi(){
+		return this.getHostUrl()+'/users';
+	}
 
 }

@@ -12,22 +12,12 @@
                         <div class="row">
                         <div class="col-sm-6 col-md-6">
                           <div class="clearfix mrgb-30">
-                            <h3 class="mrgb-10">I am a new customer</h3>
-                            <h4 class="font-14 mrgb-10">Register Account</h4>
-                            <p class="mrgb-20">By creating an account you will be able to order faster, be up to date on  an order's
-                              status, keep track of the order you have previously made. </p>
-                            <!-- <a href="#" class="btn-all">Register</a>  -->
-                            <router-link class="btn-all" to="/signup">Register</router-link>
-                          </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                          <div class="clearfix mrgb-30">
                             <h3 class="mrgb-10">I am a returning customer</h3>
-                            <form method="post" action="./">
+                            <form method="post" @submit="doSignup" action="./">
                               <span >Login Id or email address</span>
-                              <input type="text" name="email" class="form-control mrgt-10 mrgb-10"/>
+                              <input type="text" v-model="username"  name="username" class="form-control mrgt-10 mrgb-10"/>
                               <span class="mrgb-20">Password</span>
-                              <input type="password" name="loginpassword" class="form-control mrgt-10 mrgb-10" />
+                              <input type="password" v-model="password"  name="password" class="form-control mrgt-10 mrgb-10" />
                               <span>
                                 <router-link class="font-14 active-text" to="/forgot-password">Forget Password</router-link>
                             </span>
@@ -46,6 +36,53 @@
 </template>
 <script>
     export default ({
-        name:'Login'
+        name:'Login',
+        data(){
+          console.log('here');
+          return {
+            username:null,
+            password:null
+          }
+        },
+        methods:{
+
+          doSignup:()=>{
+              this.errors = [];
+              var i = 0;
+
+              if (!this.username) {
+                this.errors.push({
+                    key:i++,
+                    value:'Username is required'
+                });
+              }
+              if (!this.password) {
+                this.errors.push({
+                    key:i++,
+                    value:'Password is required'
+                });
+              }
+              if (this.errors.length == 0) {
+                var formData = new FormData();
+                    formData.append('username', this.username);
+                    formData.append('password', this.password);
+
+                    this.helper.request({
+                          method: 'post',
+                          withData:'json',
+                          url: this.api.getLoginApi(),
+                          dataType:'json',
+                          data: formData,
+                          success:()=>{
+                            this.$router.push('/message');
+                          },
+                          error:()=>{
+                              alert('request not completed.');
+                          }
+
+                    })
+              }
+          }
+        }
     })
 </script>

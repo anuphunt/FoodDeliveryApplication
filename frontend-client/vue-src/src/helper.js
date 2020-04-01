@@ -1,4 +1,10 @@
 module.exports = class Helper {
+
+    userRole = {
+        user:'CUSTOMER',
+        driver:'DRIVER',
+        restaurant:'RESTAURANT'
+    }
     
     getUserInfo () {
             var userInfo = {
@@ -62,8 +68,9 @@ module.exports = class Helper {
         localStorage.setItem('userInfo', JSON.stringify(datas));
     }
     getFormData(formData){
-        formData.append('identity',this.getUserInfo().identity);
-        formData.append('userToken',this.getUserInfo().userToken);
+
+        // formData.append('identity',this.getUserInfo().identity);
+        // formData.append('userToken',this.getUserInfo().userToken);
 
         return formData;
     }
@@ -123,6 +130,9 @@ module.exports = class Helper {
     do_requestFormData(params){
                         window.$.ajax({
                                 dataType: 'json',
+                                headers: {
+                                    'Authorization':this.getUserInfo().userToken,
+                                },
                                 url: params.url,
                                 type: params.type,
                                 cache: false,
@@ -172,6 +182,9 @@ module.exports = class Helper {
                     window.$.ajax({
                                 dataType: 'json',
                                 url: params.url,
+                                headers: {
+                                    'Authorization':this.getUserInfo().userToken,
+                                },
                                 contentType: 'application/json',
                                 type: params.type,
                                 data: JSON.stringify(params.data),
