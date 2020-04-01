@@ -19,13 +19,13 @@ public class UserResource {
     private RestTemplate restTemplate;
 
     @ApiOperation("Get all users.")
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/JSON")
     public Iterable<User> getAllUsers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/all", Iterable.class);
     }
 
     @ApiOperation("Get user by id")
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/JSON")
     public User getUserById(@PathVariable int id) {
         User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/" + id, User.class);
         if (user != null) return user;
@@ -33,7 +33,8 @@ public class UserResource {
     }
 
     @ApiOperation("Get user by username")
-    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    @CrossOrigin
+    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET, produces = "application/JSON")
     public User getUserByUsername(@PathVariable String username) {
         User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/singleuser/" + username, User.class);
         if (user != null) return user;
@@ -41,19 +42,19 @@ public class UserResource {
     }
 
     @ApiOperation("Get all restaurants")
-    @RequestMapping(value = "/restaurants", method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurants", method = RequestMethod.GET, produces = "application/JSON")
     public Iterable<User> getAllRestaurants() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/restaurants", Iterable.class);
     }
 
     @ApiOperation("Get all drivers")
-    @RequestMapping(value = "/drivers", method = RequestMethod.GET)
+    @RequestMapping(value = "/drivers", method = RequestMethod.GET, produces = "application/JSON")
     public Iterable<User> getAllDrivers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/drivers", Iterable.class);
     }
 
     @ApiOperation("Get all customers")
-    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    @RequestMapping(value = "/customers", method = RequestMethod.GET, produces = "application/JSON")
     public Iterable<User> getAllCustomers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/customers", Iterable.class);
     }

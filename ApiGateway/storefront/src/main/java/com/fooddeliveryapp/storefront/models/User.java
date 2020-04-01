@@ -3,15 +3,29 @@ package com.fooddeliveryapp.storefront.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 
 public class User{
+
     private int userId;
+
+    @NotBlank(message = "Username is mandatory.")
     private String username;
+
+    @NotBlank(message = "Password is mandatory.")
     private String password;
+
+    @NotBlank(message ="First Name is mandatory.")
     private String firstName;
+
+    @NotBlank(message = "Last Name is mandatory.")
     private String lastName;
+
+    @NotBlank(message = "Email is mandatory.")
     private String email;
+
+    @NotBlank(message = "Phone number is mandatory")
     private String phoneNumber;
     private String address;
     private UserRole role;

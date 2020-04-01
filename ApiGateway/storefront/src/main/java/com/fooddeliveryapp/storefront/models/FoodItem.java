@@ -1,7 +1,11 @@
 package com.fooddeliveryapp.storefront.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class FoodItem {
     Long foodId;
+
+    @NotBlank(message = "Name of the food is mandatory.")
     String name;
     String description;
     String imageUrl;

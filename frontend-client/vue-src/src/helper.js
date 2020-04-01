@@ -1,4 +1,10 @@
 module.exports = class Helper {
+
+    userRole = {
+        user:'CUSTOMER',
+        driver:'DRIVER',
+        restaurant:'RESTAURANT'
+    }
     
     getUserInfo () {
             var userInfo = {
@@ -62,8 +68,9 @@ module.exports = class Helper {
         localStorage.setItem('userInfo', JSON.stringify(datas));
     }
     getFormData(formData){
-        formData.append('identity',this.getUserInfo().identity);
-        formData.append('userToken',this.getUserInfo().userToken);
+
+        // formData.append('identity',this.getUserInfo().identity);
+        // formData.append('userToken',this.getUserInfo().userToken);
 
         return formData;
     }
@@ -123,6 +130,9 @@ module.exports = class Helper {
     do_requestFormData(params){
                         window.$.ajax({
                                 dataType: 'json',
+                                headers: {
+                                    'Authorization':this.getUserInfo().userToken,
+                                },
                                 url: params.url,
                                 type: params.type,
                                 cache: false,
@@ -152,39 +162,74 @@ module.exports = class Helper {
                                     return myXhr;
                                 },
                                 complete:  (resp) =>{
-
-                                    if(resp.status == 403 && this.getUserInfo().identity == ''){
-                                        this.unsetUserInfo();
-                                        window.location.href = '/';
-                                    }else if (typeof(params.complete) == 'function') {
-                                        params.complete(resp);
+                                    if (typeof(params.complete) == 'function') {
+                                        if(resp.status == 403){//credials
+                                            params.complete(resp);
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }else if(resp.status == 500){
+                                            this.showMessage('danger','Internal Server Error.');
+                                        }
+                                        
+                                    }else{
+                                        if(resp.status == 403){//credials
+                                            this.showMessage('danger','Username or password is not matched.');
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }
                                     }
+                                    
                                 },
                                 success:  (resp) =>{
                                     if (typeof(params.success) == 'function') {
                                         params.success(resp);
                                     }
                                 }
+                                
                         })
     }
     do_request(params){
         console.log(params);
+
                     window.$.ajax({
                                 dataType: 'json',
                                 url: params.url,
+                                headers: {
+                                    'Authorization':this.getUserInfo().userToken,
+                                },
                                 contentType: 'application/json',
                                 type: params.type,
-                                data: JSON.stringify(params.data),
+                                data: (JSON.stringify(params.data) == '{}'?{}:JSON.stringify(params.data)),
                                 complete:  (resp) =>{
-
-                                    if(resp.status == 403 && this.getUserInfo().identity == ''){
-                                        this.unsetUserInfo();
-                                        window.location.href = '/';
-                                    }else if (typeof(params.complete) == 'function') {
-                                        params.complete(resp);
+                                    if (typeof(params.complete) == 'function') {
+                                        if(resp.status == 403){//credials
+                                            params.complete(resp);
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }else if(resp.status == 500){
+                                            this.showMessage('danger','Internal Server Error.');
+                                        }
+                                        
+                                    }else{
+                                        if(resp.status == 403){//credials
+                                            this.showMessage('danger','Username or password is not matched.');
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }
                                     }
+                                    
                                 },
                                 success:  (resp) =>{
+
+                                    
                                     if (typeof(params.success) == 'function') {
                                         params.success(resp);
                                     }
@@ -197,6 +242,24 @@ module.exports = class Helper {
         if (objDiv) {
             objDiv.scrollTop = objDiv.scrollHeight;
         }
+    }
+    showMessage(type,message){
+
+        var ele = window.$(".global-message");
+        ele.removeClass('bg-success');
+        ele.removeClass('bg-danger');
+        if(type == 'success'){
+            ele.addClass('bg-success');
+            ele.find('.error-heading').hide();
+            ele.find('.success-heading').show();
+        }else{
+            ele.addClass('bg-danger');
+            ele.find('.success-heading').hide();        
+            ele.find('.error-heading').show();        
+        }
+        ele.find('.message-box').text(message);
+        ele.show(0).delay(5000).hide(0);
+        
     }
 
 }

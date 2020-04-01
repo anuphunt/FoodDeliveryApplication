@@ -4,6 +4,9 @@ import Landing from './components/Landing.vue'
 import Login from './components/Login.vue'
 import Signin from './components/Signin.vue'
 import ForgotPassword from './components/ForgotPassword.vue'
+import Account from './components/Account.vue'
+import PasswordChange from './components/PasswordChange.vue'
+import Cms from './components/Cms.vue'
 
 Vue.use(Router)
 
@@ -25,10 +28,27 @@ export default new Router({
 			name:'Signin',
 			component:Signin
 		},
+
 		{
 			path:'/forgot-password',
 			name:'ForgotPassword',
 			component:ForgotPassword
+		},
+		{
+			path:'/profile',
+			name:'Account',
+			component:Account
+		},
+		{
+			path:'/passwordchange',
+			name:'PasswordChange',
+			component:PasswordChange
+		},
+		{
+			path:'/cms/:slug',
+			name:'Cms',
+			component:Cms
 		}
-	]
+	],
+	duplicateNavigationPolicy: 'reload'
 })

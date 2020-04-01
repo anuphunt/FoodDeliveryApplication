@@ -45,7 +45,7 @@ public class AuthenticationResource {
     @CrossOrigin
     @ApiOperation("Register new user")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User registerUser(@RequestBody User user){
+    public User registerUser(@Valid @RequestBody User user){
         return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/register", user, User.class);
     }
 
@@ -61,7 +61,6 @@ public class AuthenticationResource {
         catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
