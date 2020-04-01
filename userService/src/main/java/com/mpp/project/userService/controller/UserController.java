@@ -32,7 +32,7 @@ public class UserController {
 		return userRepo.findById(id);
 	}
 
-	@PostMapping(path = "/singleuser/{username}")
+	@GetMapping(path = "/singleuser/{username}")
 	public User getUserByUsername(@PathVariable String username){
 		Iterable<User> users =  userRepo.findAll();
 		for(User u: users){
