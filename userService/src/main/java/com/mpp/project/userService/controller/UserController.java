@@ -22,6 +22,14 @@ public class UserController {
 		return user;
 	}
 
+	@PostMapping(value = "/update/{id}")
+	public User updateUser(@RequestBody User user, @PathVariable("id") int id){
+		if(user.getId()==id){
+            userRepo.save(user);
+		}
+		return user;
+	}
+	
 	@GetMapping(path = "/all")
 	public Iterable<User> getAllUsers(){
 		return userRepo.findAll();
@@ -97,10 +105,11 @@ public class UserController {
 		return admins;
 	}
 
-	@DeleteMapping(value = "delete/{id}")
-	public Optional<User> deleteUserById(@PathVariable int id){
+	@GetMapping(value = "/delete/{id}")
+	public Optional<User> deleteUserById(@PathVariable("id") int id){
 		Optional<User> user = getUserById(id);
 		userRepo.deleteById(id);
 		return user;
 	}
+
 }
