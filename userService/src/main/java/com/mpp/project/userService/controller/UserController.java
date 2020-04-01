@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,15 +28,17 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public Optional<User> getUserById(@PathVariable int id){
+	public Optional<User> getUserById(@PathVariable int id)
+	{
 		return userRepo.findById(id);
 	}
 
-	@PostMapping(path = "/singleuser/{username}")
+	@GetMapping(path = "/singleuser/{username}")
 	public User getUserByUsername(@PathVariable String username){
 		Iterable<User> users =  userRepo.findAll();
 		for(User u: users){
 			if(u.getUsername().equals(username)){
+				u.setPassword(null);
 				return u;
 			}
 		}

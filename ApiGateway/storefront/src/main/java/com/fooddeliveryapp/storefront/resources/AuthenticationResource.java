@@ -42,14 +42,12 @@ public class AuthenticationResource {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    @CrossOrigin
     @ApiOperation("Register new user")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User registerUser(@Valid @RequestBody User user){
         return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/register", user, User.class);
     }
-
-    @CrossOrigin
+    
     @ApiOperation("Log in user. Returns 403 access denied if the username or password is incorrect.")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
@@ -65,9 +63,8 @@ public class AuthenticationResource {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        final User user = MyUserDetailsService.getUserByUsername(userDetails.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login", user));
+        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login"));
     }
 }

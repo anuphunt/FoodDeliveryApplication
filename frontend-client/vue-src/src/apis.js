@@ -9,7 +9,10 @@ module.exports = class Api {
 		return this.getHostUrl()+'/login';
 	}
 	getUserInfoApi(){
-		return this.getHostUrl()+'/users';
+		return this.getHostUrl()+'/users';//+{id} with get request
+	}
+	getUserInfoByUsernameApi(){
+		return this.getHostUrl()+'/users/username';//+{id} with get request
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.fooddeliveryapp.storefront.models;
 
-import com.sun.javafx.beans.IDProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

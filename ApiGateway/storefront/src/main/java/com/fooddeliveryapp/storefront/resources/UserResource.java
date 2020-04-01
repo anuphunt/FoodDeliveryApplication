@@ -20,6 +20,7 @@ public class UserResource {
 
     @ApiOperation("Get all users.")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/JSON")
+
     public Iterable<User> getAllUsers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/all", Iterable.class);
     }

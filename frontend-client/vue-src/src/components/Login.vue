@@ -74,7 +74,7 @@
                         formData.append('password', this.password);
 
                         this.helper.request({
-                              method: 'post',
+                              type: 'post',
                               withData:'json',
                               url: this.api.getLoginApi(),
                               dataType:'json',
@@ -83,7 +83,22 @@
                                 this.helper.showMessage('danger','Invalid Username or Password');
                               },
                               success:()=>{
+
                                 this.helper.showMessage('success','Login successfully.');
+                                this.helper.request({
+                                type: 'get',
+                                withData:'json',
+                                url: this.api.getUserInfoByUsernameApi()+'/'+this.username,
+                                dataType:'json',
+                                complete:()=>{
+                                  this.helper.showMessage('danger','Error found');
+                                },
+                                success:()=>{
+                                  this.helper.showMessage('success','user data found.');
+                                }
+
+                        })
+
                               }
 
                         })

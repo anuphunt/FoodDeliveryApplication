@@ -151,7 +151,25 @@ public class OrderResource {
         //Send put request here.
         return order;
     }
-    //book pick up by a driver
-    //pick up order by a driver
-    //deliver order by a driver
+
+    @ApiOperation(value = "Driver chooses to pick up order.")
+    @RequestMapping(value = "driver/requestPickup", method = RequestMethod.PUT)
+    public Order requestPickupBydriver(@Valid @RequestBody Order order){
+        //Send put request here.
+        return order;
+    }
+
+    @ApiOperation(value = "Driver picks up the order from restaurant. Order State is changed to accepted.")
+    @RequestMapping(value = "driver/pickUpOrder", method = RequestMethod.PUT)
+    public Order pickUpOrderByDriver(@Valid @RequestBody Order order){
+        //Send put request here
+        return order;
+    }
+
+    @ApiOperation(value = "Driver delivers the order to customer.")
+    @RequestMapping(value = "driver/deliverOrder", method = RequestMethod.PUT)
+    public Order deliverOrderByDriver(@Valid @RequestBody Order order){
+        //Send put request here.
+        return order;
+    }
 }
