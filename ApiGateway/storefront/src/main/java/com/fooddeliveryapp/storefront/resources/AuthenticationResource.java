@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(allowedHeaders = "*", allowCredentials = "*")
 @Api(value = "Authenticate users while logging in")
 public class AuthenticationResource {
 
@@ -42,14 +43,12 @@ public class AuthenticationResource {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
-    @CrossOrigin
     @ApiOperation("Register new user")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User registerUser(@Valid @RequestBody User user){
         return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/register", user, User.class);
     }
 
-    @CrossOrigin
     @ApiOperation("Log in user. Returns 403 access denied if the username or password is incorrect.")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {

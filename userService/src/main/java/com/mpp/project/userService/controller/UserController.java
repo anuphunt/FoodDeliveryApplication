@@ -38,7 +38,6 @@ public class UserController {
 		Iterable<User> users =  userRepo.findAll();
 		for(User u: users){
 			if(u.getUsername().equals(username)){
-				u.setPassword(null);
 				return u;
 			}
 		}
