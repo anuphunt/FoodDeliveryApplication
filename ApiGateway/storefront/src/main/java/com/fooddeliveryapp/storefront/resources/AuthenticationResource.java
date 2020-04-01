@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
 @RestController
 @Api(value = "Authenticate users while logging in")
-@RequestMapping("/authentication")
 public class AuthenticationResource {
 
     @Autowired
@@ -50,9 +50,9 @@ public class AuthenticationResource {
     }
 
     @CrossOrigin
+    @ApiOperation("Log in user. Returns 403 access denied if the username or password is incorrect.")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
