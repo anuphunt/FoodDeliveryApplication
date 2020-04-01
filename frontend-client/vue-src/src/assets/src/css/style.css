@@ -1119,3 +1119,25 @@ border-bottom:none;
 .wrap-word{
 	white-space: nowrap;
 }
+.global-message{
+	padding: 15px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border-radius: 5px;
+}
+.global-message .error-heading,.global-message .success-heading{
+	display: none;
+	
+}
+.bg-success{
+	color: #006d00;
+	background: #72c772;
+}
+.bg-danger{
+	background: #f99797;
+	color: #8a0000
+}
+.container-height{
+	min-height: 580px;
+}

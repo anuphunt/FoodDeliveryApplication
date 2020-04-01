@@ -4,15 +4,17 @@ public class AuthenticationResponse {
     boolean Success;
     String jwt;
     String msg;
+    User user;
 
     public AuthenticationResponse(){
 
     }
 
-    public AuthenticationResponse(boolean success, String token, String msg) {
+    public AuthenticationResponse(boolean success, String token, String msg, User user) {
         Success = success;
         this.jwt = token;
         this.msg = msg;
+        this.user = user;
     }
 
     public boolean isSuccess() {

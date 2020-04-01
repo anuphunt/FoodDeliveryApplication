@@ -11,6 +11,11 @@ let helper = new Helper();
 Vue.prototype.helper = helper;
 
 
+var Content = require('./content.js');
+let content = new Content();
+Vue.prototype.content = content;
+
+
 new Vue({
 	router,
 	render: h => h(App),
