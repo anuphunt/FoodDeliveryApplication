@@ -26,11 +26,4 @@ public class MyUserDetailsService implements UserDetailsService {
         User user = restTemplate.postForObject(ServicesUrl.userServiceUrl + "/singleuser/" + userName,null, User.class);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
-
-    public static User getUserByUsername(String username){
-        UserResource userResource = new UserResource();
-        User user = userResource.getUserByUsername(username);
-        return user;
-    }
-
 }

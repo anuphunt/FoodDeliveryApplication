@@ -65,9 +65,8 @@ public class AuthenticationResource {
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
 
-        final User user = MyUserDetailsService.getUserByUsername(userDetails.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login", user));
+        return ResponseEntity.ok(new AuthenticationResponse(true, jwt, "Successful login"));
     }
 }
