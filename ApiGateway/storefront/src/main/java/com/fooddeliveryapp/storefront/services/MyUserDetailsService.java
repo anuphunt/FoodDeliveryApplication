@@ -18,12 +18,11 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     private RestTemplate restTemplate;
-    private UserResource userResource;
 
     @CrossOrigin
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException{
-        User user = restTemplate.postForObject(ServicesUrl.userServiceUrl + "/singleuser/" + userName,null, User.class);
+        User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/singleuser/" + userName, User.class);
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 }
