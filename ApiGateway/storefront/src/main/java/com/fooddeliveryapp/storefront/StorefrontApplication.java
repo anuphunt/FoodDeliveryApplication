@@ -24,7 +24,7 @@ public class StorefrontApplication {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                .paths(PathSelectors.any()).build().pathMapping("/authenticate")
+                .paths(PathSelectors.any()).build().pathMapping("/")
                 .apiInfo(apiInfo()).useDefaultResponseMessages(false);
     }
     @Bean
