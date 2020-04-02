@@ -1,3 +1,5 @@
-<h1> How to run</h1>
+###How to run
 
 docker-compose up
+
+http://localhost:8081/swagger-ui.html
