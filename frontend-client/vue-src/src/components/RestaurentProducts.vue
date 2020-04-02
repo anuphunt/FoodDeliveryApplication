@@ -1,12 +1,12 @@
 <template>
     <div class="container container-height">
         <div class="row">
-          <div class="col-sm-4" v-for="(restaurent, index) in restaurents" :key="index">
-            <router-link :to="{path: '/restautent-foods/' + restaurent.id}" >
+          <div class="col-sm-4" v-for="(food, index) in foods" :key="index">
+            <router-link :to="{path: '/food-details/' + food.id}" >
               <div class="panel panel-default">
               <div class="panel-body">
                   <img src="/dummy.jpg">
-                     {{restaurent.firstName}}
+                     {{food}}
                    </div>
               </div>
             </router-link>
@@ -16,33 +16,34 @@
 </template>
 <script type="text/javascript">
 export default {
-  name: 'Landing',
+  name: 'RestaurentProducts',
   props: {
     msg: String
   },
   data(){
-    
+    var apiFoods = []
     return {
-      restaurents:[]
+      foods:apiFoods
     }
   },
   mounted(){
+
     if(this.helper.getUserInfo().username == ''){
             this.helper.unsetUserInfo();
             this.$router.push('/login');
     }else{
-      
-        if(this.helper.getUserInfo().role == this.helper.userRole.user){
+
+        if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
 
                         this.helper.request({
                               type: 'get',
                               withData:'json',
-                              url: this.api.getAllRestaurentApi(),
+                              url: this.api.getRestaurentFoods()+'/5',
                               dataType:'json',
                               complete:()=>{
                               },
                               success:(resp)=>{
-                                this.restaurents = resp;
+                                this.foods = resp;
                               }
 
                         })
@@ -52,8 +53,10 @@ export default {
            this.helper.unsetUserInfo();
            this.$router.push('/login');
         }
-        
+
     }
+        
+    
   }
 }
 </script>
