@@ -11,7 +11,7 @@
                 
               <div class="panel-body">
 <!--                 <div class="col-md-3"></div>
- -->                <div class="col-md-3">
+ -->               <div class="col-md-3">
                   <img src="/dummy.jpg"></div>
                   <div class="col-md-3">
                  <table class="table table-striped">
@@ -46,7 +46,7 @@ export default {
     msg: String
   },
   data(){
-    // var account = {};
+
     return {
     
       account:{}
@@ -68,6 +68,7 @@ export default {
                               complete:()=>{
                               },
                               success:(resp)=>{
+                                
                                 this.account= resp;
                               }
 
