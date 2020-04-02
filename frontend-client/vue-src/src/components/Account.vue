@@ -8,17 +8,79 @@
                     </div>
                     <div class="hding-sept"></div>
                 </div>
+                
+              <div class="panel-body">
+<!--                 <div class="col-md-3"></div>
+ -->                <div class="col-md-3">
+                  <img src="/dummy.jpg"></div>
+                  <div class="col-md-3">
+                 <table class="table table-striped">
+                  <tbody>
+                    <tr class="table-primary"><td>Username</td><td>{{account.username}}</td></tr>
+                    <tr class="table-primary"><td>First Name</td><td>{{account.firstName}}</td></tr>
+                    <tr class="table-primary"><td>Last Name</td><td>{{account.Lastname}}</td></tr>
+                    <tr class="table-primary"><td>Email</td><td>{{account.email}}</td></tr>
+                    <tr class="table-primary"><td>Address</td><td>{{account.address}}</td></tr>
+                    
+                    <tr class="table-primary"><td>Phone Number</td><td>{{account.phoneNumber}}</td></tr>
+                    <tr class="table-primary"><td></td><td><router-link to="/edit-account">Edit Info</router-link></td></tr>
+
+                    </tbody> 
+                   </table>
+                  
+                   </div>
+            
                 <form method="post" action="./">
 
                 </form>
            </div>
         </div>
        </div>
+     </div>
 </template>
 <script type="text/javascript">
 
 export default {
-    name: 'Account'
+    name: 'Account',
+    props: {
+    msg: String
+  },
+  data(){
+    // var account = {};
+    return {
+    
+      account:{}
+    }
+  },
+  mounted(){
+
+    if(this.helper.getUserInfo().username == ''){
+            this.helper.unsetUserInfo();
+            this.$router.push('/login');
+    }else{
+
+
+                        this.helper.request({
+                              type: 'get',
+                              withData:'json',
+                              url: this.api.getUserInfoByUsernameApi()+'/'+this.helper.getUserInfo().username,
+                              dataType:'json',
+                              complete:()=>{
+                              },
+                              success:(resp)=>{
+                                this.account= resp;
+                              }
+
+                        })
+
+
+       
+
+    }
+        
+    
+  }
 
 }
+
 </script>
