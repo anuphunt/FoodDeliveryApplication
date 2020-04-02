@@ -2,7 +2,7 @@
     <div class="container container-height">
         <div class="row">
           <div class="col-sm-4" v-for="(food, index) in foods" :key="index">
-            <router-link :to="{path: '/food-details/' + food.id}" >
+            <router-link :to="{path: '/food-details/' + food.foodId}" >
               <div class="panel panel-default">
               <div class="panel-body">
                   <img src="/dummy.jpg">
@@ -38,11 +38,12 @@ export default {
                         this.helper.request({
                               type: 'get',
                               withData:'json',
-                              url: this.api.getRestaurentFoods()+'/5',
+                              url: this.api.getRestaurentFoods()+'/'+this.$route.params.id,
                               dataType:'json',
                               complete:()=>{
                               },
                               success:(resp)=>{
+
                                 this.foods = resp;
                               }
 
