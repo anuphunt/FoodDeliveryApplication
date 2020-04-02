@@ -8,7 +8,7 @@ import Account from './components/Account.vue'
 import PasswordChange from './components/PasswordChange.vue'
 import Cms from './components/Cms.vue'
 import RestaurentProducts from './components/RestaurentProducts.vue'
-import EditAccount from './components/edit-account.vue'
+import FoodDetails from './components/FoodDetails.vue'
 
 Vue.use(Router)
 
@@ -57,9 +57,9 @@ export default new Router({
 			component:RestaurentProducts
 		},
 		{
-			path:'/edit-account/:id',
-			name:'EditAccount',
-			component:EditAccount
+			path:'/foods/:id',
+			name:'FoodDetails',
+			component:FoodDetails
 		}
 	],
 	duplicateNavigationPolicy: 'reload'

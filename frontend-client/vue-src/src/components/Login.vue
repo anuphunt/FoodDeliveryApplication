@@ -78,6 +78,7 @@
                               withData:'json',
                               url: this.api.getLoginApi(),
                               dataType:'json',
+                              auth:false,
                               data: formData,
                               complete:()=>{
                                 this.helper.showMessage('danger','Invalid Username or Password');

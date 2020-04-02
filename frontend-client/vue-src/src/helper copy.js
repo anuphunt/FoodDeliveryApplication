@@ -78,7 +78,6 @@ module.exports = class Helper {
 
             if (typeof (params) === 'undefined') {
                 alert('Empty parameter found.');
-
             } else {
 
                 var formData = new FormData();
@@ -88,7 +87,7 @@ module.exports = class Helper {
                                
 
                 if (typeof (params.url) === 'undefined') {
-                    alert('Api url is missing');
+                    alert('Api is missing');
                 } else {
                     if (typeof(params.beforeSend) == 'function') {
                         params.beforeSend();
@@ -102,46 +101,67 @@ module.exports = class Helper {
 
                         if (window.$) {
 
-                            var ajaxParms = {};
-                            ajaxParms['dataType'] = 'json';
-                            if(typeof(params.auth) == 'undefined'){
-                                ajaxParms['headers'] = {
-                                    'Authorization':'Bearer '+this.getUserInfo().username
-                                };
-                            }else{
-                                if(params.auth == true){
-                                    ajaxParms['headers'] = {
-                                        'Authorization':'Bearer '+this.getUserInfo().username
-                                    };
+                            if(typeof(params.withData) != 'undefined'){
+                                if(params.withData == 'json'){
+                                    var object = {};
+                                    formData.forEach(function(value, key){
+                                        object[key] = value;
+                                    });
+                                    params.data = object
+                                    this.do_request(params);
+                                }else{
+                                    this.do_requestFormData(params);
                                 }
-                                
+                            }else{
+                                this.do_requestFormData(params);
                             }
+
                             
-                            ajaxParms['url'] = params.url;
-                            ajaxParms['type'] = params.type;
-                            ajaxParms['xhr'] = function () {
-                                                    var myXhr = window.$.ajaxSettings.xhr();
-                                                    if (typeof(params.uploadProgress) == 'function') {
-                                                        if (myXhr.upload) {
-                                                            myXhr.upload.addEventListener('progress', function (e) {
-                                                                var uploaded = e.loaded;
-                                                                var total_size = e.total;
-                                                                var percentage = (uploaded / total_size) * 100;
-                                                                if (percentage > 100) {
-                                                                    percentage = 100;
-                                                                }
-                                                                var return_datas = {
-                                                                    uploaded: uploaded,
-                                                                    total_size: total_size,
-                                                                    uploading_percent: percentage,
-                                                                };
-                                                                params.uploadProgress(return_datas);
-                                                            }, false);
-                                                        }
-                                                    }
-                                                    return myXhr;
+                        } else {
+                            console.log('jquery not loaded');
+                        }
+
+                    }//end      
+
+                }
+            }
+    }
+
+    do_requestFormData(params){
+                        window.$.ajax({
+                                dataType: 'json',
+                                headers: {
+                                    'Authorization':'Bearer '+this.getUserInfo().username,
+                                },
+                                url: params.url,
+                                type: params.type,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: params.data,
+                                xhr: function () {
+                                    var myXhr = window.$.ajaxSettings.xhr();
+                                    if (typeof(params.uploadProgress) == 'function') {
+                                        if (myXhr.upload) {
+                                            myXhr.upload.addEventListener('progress', function (e) {
+                                                var uploaded = e.loaded;
+                                                var total_size = e.total;
+                                                var percentage = (uploaded / total_size) * 100;
+                                                if (percentage > 100) {
+                                                    percentage = 100;
+                                                }
+                                                var return_datas = {
+                                                    uploaded: uploaded,
+                                                    total_size: total_size,
+                                                    uploading_percent: percentage,
                                                 };
-                            ajaxParms['complete'] = (resp) =>{
+                                                params.uploadProgress(return_datas);
+                                            }, false);
+                                        }
+                                    }
+                                    return myXhr;
+                                },
+                                complete:  (resp) =>{
                                     if (typeof(params.complete) == 'function') {
                                         if(resp.status == 403){//credials
                                             params.complete(resp);
@@ -163,50 +183,58 @@ module.exports = class Helper {
                                         }
                                     }
                                     
-                                };
-                            ajaxParms['success'] = (resp) =>{
+                                },
+                                success:  (resp) =>{
                                     if (typeof(params.success) == 'function') {
                                         params.success(resp);
                                     }
-                            };
-                            if(typeof(params.withData) != 'undefined'){
-                                if(params.withData == 'json'){
-                                    var object = {};
-                                    var cnt = 0;
-                                    formData.forEach(function(value, key){
-                                        object[key] = value;
-                                        cnt++;
-                                    });
-                                    //ajaxParms['contentType'] = 'application/json';
-                                    if(cnt > 0){
-                                        ajaxParms['data'] = JSON.stringify(object);
+                                }
+                                
+                        })
+    }
+    do_request(params){
+        console.log(params);
+
+                    window.$.ajax({
+                                dataType: 'json',
+                                url: params.url,
+                                headers: {
+                                    'Authorization':'Bearer '+this.getUserInfo().username,
+                                },
+                                contentType: 'application/json',
+                                type: params.type,
+                                data: (JSON.stringify(params.data) == '{}'?{}:JSON.stringify(params.data)),
+                                complete:  (resp) =>{
+                                    if (typeof(params.complete) == 'function') {
+                                        if(resp.status == 403){//credials
+                                            params.complete(resp);
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }else if(resp.status == 500){
+                                            this.showMessage('danger','Internal Server Error.');
+                                        }
+                                        
+                                    }else{
+                                        if(resp.status == 403){//credials
+                                            this.showMessage('danger','Username or password is not matched.');
+                                        }else if(resp.status == 404){
+                                            this.showMessage('danger','Record not found.');
+                                        }else if(resp.status == 400){
+                                            this.showMessage('danger','Bad Request found.');
+                                        }
                                     }
                                     
-                                    window.$.ajax(ajaxParms);
-                                }else{
-                                    ajaxParms['data'] = params.data;
-                                    ajaxParms['cache'] = false;
-                                    ajaxParms['contentType'] = false;
-                                    ajaxParms['processData'] = false;
-                                    window.$.ajax(ajaxParms);
+                                },
+                                success:  (resp) =>{
+
+
+                                    if (typeof(params.success) == 'function') {
+                                        params.success(resp);
+                                    }
                                 }
-                            }else{
-                                ajaxParms['data'] = params.data;
-                                ajaxParms['cache'] = false;
-                                ajaxParms['contentType'] = false;
-                                ajaxParms['processData'] = false;
-                                window.$.ajax(ajaxParms);
-                            }
-
-                            
-                        } else {
-                            console.log('jquery not loaded');
-                        }
-
-                    }//end      
-
-                }
-            }
+                        })
     }
 
     scroll_to_bottom(selector) {

@@ -18,7 +18,11 @@ module.exports = class Api {
 		return this.getHostUrl()+'/users/restaurants';
 	}
 	getRestaurentFoods(){
-		return this.getHostUrl()+'/foods';
+		return this.getHostUrl()+'/foods/restaurant';
 	}
-
+	getFoodDetailApi(){
+		return this.getHostUrl()+'/foods';//+{id}
+	}
+	//http://localhost:8081/foods/89
+	//http://localhost:8081/foods/14
 }
