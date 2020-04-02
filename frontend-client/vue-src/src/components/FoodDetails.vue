@@ -178,7 +178,8 @@ export default {
   },
   methods:{
     addToCart:function(foodId){
-      alert(foodId);
+      
+      this.helper.addToCart(foodId,this.quantity);
     }
   },
   mounted(){
