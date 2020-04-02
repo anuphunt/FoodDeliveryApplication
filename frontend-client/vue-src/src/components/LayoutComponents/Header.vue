@@ -67,7 +67,7 @@
                         <div class="col-sm-3 col-md-2">
                             <button class="hd-cart pull-right">
                                 <span class="text">CART</span>
-                                <span class="cart-count">10</span>
+                                <span class="cart-count">{{countCart}}</span>
                             </button>
                         </div>
                     </div><!-- row end -->
@@ -85,3 +85,15 @@
             </div><!-- container end -->
         </header><!-- header end -->
 </template>
+<script type="text/javascript">
+  export default{
+    data(){
+      var getCart = this.helper.getCart();
+      return {
+        countCart:getCart.length
+      }
+    },
+    methods:{
+    }
+  }
+</script>

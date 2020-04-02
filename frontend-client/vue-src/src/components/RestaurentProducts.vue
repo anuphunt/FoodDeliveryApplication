@@ -2,26 +2,28 @@
     <div class="container container-height">
         <div class="row">
           <div class="col-sm-4" v-for="(food, index) in foods" :key="index">
-            <router-link :to="{path: '/foods/' + food.foodId}" >
+            
               <div class="grid-item">
                         <div class="p-item mrgb-30">
-                            <div class="p-item-img">
-                                <div class="p-item-img">
+                          <div class="">
+                                  <router-link :to="{path: '/foods/' + food.foodId}" >
                                   <img alt="3" src="/dummy.jpg">
-                                  <a class="qv-btn" href="#">Buy Now</a>
+                                </router-link>
                                 </div>
-                            </div>
                             <div class="p-item-info">
                                 <div class="price-tag">
+                                  
                                     <h3 class="font-24 active-text">$690.00</h3>
+                                  
                                     <!-- <span class="cut-price">$690.00</span> -->
                                 </div>
+                                <router-link :to="{path: '/foods/' + food.foodId}" >
                                 <h2>{{food.name}}</h2>
-                                <button class="btn-all" >Add to Cart</button>
+                                </router-link>
+                                <button class="btn-all" v-on:click="addToCart(food.foodId)" >Add to Cart</button>
                             </div>
                         </div>
                     </div>
-            </router-link>
           </div>
         </div>
     </div>
@@ -39,8 +41,9 @@ export default {
     }
   },
   methods:{
-    addToCart:function(){
-      alert('fdfdfd');
+    addToCart:function(foodId){
+      
+      this.helper.addToCart(foodId,this.quantity);
     }
   },
   mounted(){

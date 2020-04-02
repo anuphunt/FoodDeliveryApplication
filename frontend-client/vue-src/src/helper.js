@@ -6,25 +6,57 @@ module.exports = class Helper {
         restaurant:'RESTAURANT'
     }
     addToCart(itemId,qty){
+        
         if(this.getCart().length <= 0){
-            localStorage.setItem('cartInfo', JSON.stringify({foodId:itemId,quantity:qty}));
+            var items = [];
+            items.push({foodId:itemId,quantity:qty});
+            localStorage.setItem('cartInfo', JSON.stringify(items));
+            this.changeToHeader();
 
         }else{
-            var oldItem = this.getCart();
-            oldItem.push({foodId:itemId,quantity:qty});
-            localStorage.setItem('cartInfo', JSON.stringify(oldItem));
+
+            var oldItems = this.getCart();
+            var count = 0;
+            var found = false;
+            oldItems.map((oldItem)=>{
+                if(oldItem.foodId == itemId){
+                    oldItems[count].quantity = qty;
+                    found = true;
+                    localStorage.setItem('cartInfo', JSON.stringify(oldItems));
+                    this.changeToHeader();
+                
+                }
+                count++;
+            })
+            if(found === false){
+                oldItems.push({foodId:itemId,quantity:qty});
+                localStorage.setItem('cartInfo', JSON.stringify(oldItems));
+                this.changeToHeader();
+            }
+            
         }
 
     }
+    changeToHeader(){
+        if(document.querySelector(".cart-count")){
+            document.querySelector(".cart-count").innerHTML = this.getCart().length;
+        }
+    }
     getCart(){
-        var cartItem = [];
-        var localCart = JSON.parse(localStorage.getItem('userInfo'));
+
+            var localCart = JSON.parse(localStorage.getItem('cartInfo'));
+
             if (typeof (localCart) === 'object') {
-                if (localCart !== null) {
+                if(localCart == null){
+                    return [];
+                }else{
                     return localCart;
-                }
+                }                
+            }else{
+
+                return [];
             }
-            return cartItem;
+            
     }
     
     getUserInfo () {
