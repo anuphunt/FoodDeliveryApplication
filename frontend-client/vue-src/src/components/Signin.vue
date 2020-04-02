@@ -165,6 +165,7 @@ export default {
             this.helper.request({
                   method: 'post',
                   withData:'json',
+                  auth:false,
                   url: this.api.getRegisterApi(),
                   dataType:'json',
                   data: formData,
