@@ -17,5 +17,8 @@ module.exports = class Api {
 	getAllRestaurentApi(){
 		return this.getHostUrl()+'/users/restaurants';
 	}
+	getRestaurentFoods(){
+		return this.getHostUrl()+'/foods';
+	}
 
 }

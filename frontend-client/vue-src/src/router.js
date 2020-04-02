@@ -7,6 +7,7 @@ import ForgotPassword from './components/ForgotPassword.vue'
 import Account from './components/Account.vue'
 import PasswordChange from './components/PasswordChange.vue'
 import Cms from './components/Cms.vue'
+import RestaurentProducts from './components/RestaurentProducts.vue'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ export default new Router({
 			path:'/cms/:slug',
 			name:'Cms',
 			component:Cms
+		},
+		{
+			path:'/restautent-foods/:id',
+			name:'RestaurentProducts',
+			component:RestaurentProducts
 		}
 	],
 	duplicateNavigationPolicy: 'reload'
