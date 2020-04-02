@@ -38,7 +38,7 @@ public class FoodItemResource {
     }
 
     @ApiOperation("Get food by id.")
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public FoodItem getFoodById(@PathVariable Long id) {
 
         List<FoodItem> dummyFoods = getDummyData();
@@ -52,7 +52,7 @@ public class FoodItemResource {
     }
 
     @ApiOperation("Get all foods of one restaurant with restaurant ID")
-    @RequestMapping(value = "restaurant/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/restaurant/{id}", method = RequestMethod.GET)
     public Iterable<FoodItem> getAllFoodsOfRestaurant(@PathVariable Long id){
         List<FoodItem> dummyFoods = getDummyData();
         List<FoodItem> foods = new ArrayList<>();

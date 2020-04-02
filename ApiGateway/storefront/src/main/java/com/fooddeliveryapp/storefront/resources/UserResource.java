@@ -27,7 +27,7 @@ public class UserResource {
     }
 
     @ApiOperation("Get user by id")
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = "application/JSON")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/JSON")
     public User getUserById(@PathVariable int id) {
         User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/" + id, User.class);
         if (user != null) return user;

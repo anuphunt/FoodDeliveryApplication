@@ -56,7 +56,7 @@ public class OrderResource {
     //Get All Orders of a restaurant
 
     @ApiOperation("Get all orders of a specific restaurant")
-    @RequestMapping(value = "restaurants/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
+    @RequestMapping(value = "/restaurants/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getAllOrdersOfRestaurant(@PathVariable int restaurantId){
         List<Order> allOrders = getDummyData();
         List<Order> restaurantOrders = new ArrayList<>();
@@ -71,7 +71,7 @@ public class OrderResource {
 
     //Get All picked up orders of a driver
     @ApiOperation("Get all picked up orders of a specific driver")
-    @RequestMapping(value = "drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
+    @RequestMapping(value = "/drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
     private Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
         List<Order> allOrders = getDummyData();
         List<Order> driverOrders = new ArrayList<>();
@@ -85,7 +85,7 @@ public class OrderResource {
 
     //Get active order of a driver
     @ApiOperation("Get active order of a driver. Active order means the order which is selected by driver to pickup, but hasn't delivered yet. Returns null if there is no active orders, otherwise returns one Order")
-    @RequestMapping(value = "drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
+    @RequestMapping(value = "/drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
     private Order getActiveOrderOfDriver(@PathVariable int driverId){
         List<Order> allOrders = getDummyData();
         for(Order o: allOrders){
@@ -111,7 +111,7 @@ public class OrderResource {
     }
 
     @ApiOperation("Get active order of a specific restaurant. Active oder of a retaurant means all the orders of the restaurant that are accepted by restaurant but picked up by diver.")
-    @RequestMapping(value = "restaurants/active/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
+    @RequestMapping(value = "/restaurants/active/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
     public Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable int restaurantId){
         List<Order> allOrders = getDummyData();
         List<Order> activeOrders = new ArrayList<>();
@@ -124,14 +124,14 @@ public class OrderResource {
     }
 
     @ApiOperation(value = "Place an order by a customer.", consumes = "application/JSON")
-    @RequestMapping(value = "orders/newOrder", method = RequestMethod.POST)
+    @RequestMapping(value = "/newOrder", method = RequestMethod.POST)
     public Order placeNewOrder(@Valid @RequestBody Order order){
         orders.add(order);
         return order;
     }
     //Accept a new order by a restaurant
     @ApiOperation(value = "Restaurant accepts the order", consumes = "application/JSON")
-    @RequestMapping(value = "restaurant/acceptOrder", method = RequestMethod.PUT)
+    @RequestMapping(value = "/restaurants/acceptOrder", method = RequestMethod.PUT)
     public Order acceptOrderByRestaurant(@RequestBody Order order){
         Order o = null;
         for(Order o1: orders){
@@ -147,28 +147,28 @@ public class OrderResource {
     }
 
     @ApiOperation(value = "Restaurant rejects the order. Returns an order with rejected status.")
-    @RequestMapping(value = "restaurant/rejectOrder", method = RequestMethod.PUT)
+    @RequestMapping(value = "/restaurants/rejectOrder", method = RequestMethod.PUT)
     public Order rejectOrderByRestaurant(@Valid @RequestBody Order order){
         //Send put request here.
         return order;
     }
 
     @ApiOperation(value = "Driver chooses to pick up order.")
-    @RequestMapping(value = "driver/requestPickup", method = RequestMethod.PUT)
+    @RequestMapping(value = "/drivers/requestPickup", method = RequestMethod.PUT)
     public Order requestPickupBydriver(@Valid @RequestBody Order order){
         //Send put request here.
         return order;
     }
 
     @ApiOperation(value = "Driver picks up the order from restaurant. Order State is changed to accepted.")
-    @RequestMapping(value = "driver/pickUpOrder", method = RequestMethod.PUT)
+    @RequestMapping(value = "/drivers/pickUpOrder", method = RequestMethod.PUT)
     public Order pickUpOrderByDriver(@Valid @RequestBody Order order){
         //Send put request here
         return order;
     }
 
     @ApiOperation(value = "Driver delivers the order to customer.")
-    @RequestMapping(value = "driver/deliverOrder", method = RequestMethod.PUT)
+    @RequestMapping(value = "/drivers/deliverOrder", method = RequestMethod.PUT)
     public Order deliverOrderByDriver(@Valid @RequestBody Order order){
         //Send put request here.
         return order;
