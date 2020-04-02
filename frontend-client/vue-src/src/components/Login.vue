@@ -96,7 +96,7 @@
                                 success:(resp)=>{
 
                                   this.helper.showMessage('success','Login successfully.');
-                                  resp.username = jwt;
+                                  resp.userToken = jwt;
                                   this.helper.setUserInfo(resp);
 
                                   setTimeout(function(){ 
