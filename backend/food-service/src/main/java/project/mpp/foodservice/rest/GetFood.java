@@ -15,15 +15,12 @@ import project.mpp.foodservice.service.FoodService;
 @RestController
 public class GetFood {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
     @Autowired
     private FoodService service;
 
-    @GetMapping("/getfoodbyid")
+    @GetMapping("/foods")
     public Food greeting(@RequestParam(value = "id", defaultValue = "5") Long id) {
         Food foodById = service.findById((long)id);
-        return new Food(foodById.getId(), foodById.getName(), foodById.getPrice());
+        return new Food(foodById.getId(), foodById.getName(), foodById.getPrice(), foodById.getDescription(), foodById.getImageUrl(), foodById.getRestaurantId());
     }
 }
