@@ -27,14 +27,8 @@ public class FoodServiceApplication {
     public void checkIfWorks(){
         repository.deleteAll();
 
-        service.create(new Food(1L, "Biryani", 5.00));
+        service.create(new Food(1L, "Biryani", 5.00, "Indian Cuisine best for hot weather.", "http://localhost:8081/swagger-ui.html#/food-item-resource", 1));
 
-        service.create(new Food(2L, "Mo:Mo", 3.50));
-
-        List<Food> findAll = service.findAll();
-        for(Food food: findAll)
-        {
-            System.out.println(food.getId()+":"+food.getName());
-        }
+        service.create(new Food(2L, "Mo:Mo", 3.50, "Nepali Cuisine best for cold weather.", "http://localhost:8081/swagger-ui.html#/food-item-resource", 2));
     }
 }
