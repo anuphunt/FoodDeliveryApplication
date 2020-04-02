@@ -83,8 +83,6 @@
                                 this.helper.showMessage('danger','Invalid Username or Password');
                               },
                               success:()=>{
-
-                                this.helper.showMessage('success','Login successfully.');
                                 this.helper.request({
                                 type: 'get',
                                 withData:'json',
@@ -93,8 +91,10 @@
                                 complete:()=>{
                                   this.helper.showMessage('danger','Error found');
                                 },
-                                success:()=>{
-                                  this.helper.showMessage('success','user data found.');
+                                success:(resp)=>{
+                                  this.helper.showMessage('success','Login successfully.');
+                                  this.helper.setUserInfo(resp);
+                                  window.location.href = "/";
                                 }
 
                         })

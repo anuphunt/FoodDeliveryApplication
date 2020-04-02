@@ -8,8 +8,7 @@ module.exports = class Helper {
     
     getUserInfo () {
             var userInfo = {
-                identity: '',
-                userToken: '',
+                username: '',
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -18,14 +17,9 @@ module.exports = class Helper {
             var userInfoLocal = JSON.parse(localStorage.getItem('userInfo'));
             if (typeof (userInfoLocal) === 'object') {
                 if (userInfoLocal !== null) {
-                    if (typeof (userInfo.identity) !== 'undefined') {
-                        if (userInfoLocal.identity !== '') {
-                            userInfo.identity = userInfoLocal.identity;
-                        }
-                    }
-                    if (typeof (userInfo.userToken) !== 'undefined') {
-                        if (userInfoLocal.userToken !== '') {
-                            userInfo.userToken = userInfoLocal.userToken;
+                    if (typeof (userInfo.username) !== 'undefined') {
+                        if (userInfoLocal.username !== '') {
+                            userInfo.username = userInfoLocal.username;
                         }
                     }
                     if (typeof (userInfo.firstName) !== 'undefined') {
@@ -57,20 +51,20 @@ module.exports = class Helper {
         var userInfo = this.getUserInfo();
         if (userInfo.identity != '') {
             var userInfoLocal = JSON.parse(localStorage.getItem('userInfo'));
-            userInfoLocal.userToken = newToken;
-            this.set_userInfo(userInfoLocal);
+            userInfoLocal.username = newToken;
+            this.setUserInfo(userInfoLocal);
         }
     }
     unsetUserInfo() {
         localStorage.removeItem('userInfo');
     }
-    set_userInfo(datas) {  
+    setUserInfo(datas) {  
         localStorage.setItem('userInfo', JSON.stringify(datas));
     }
     getFormData(formData){
 
         // formData.append('identity',this.getUserInfo().identity);
-        // formData.append('userToken',this.getUserInfo().userToken);
+        // formData.append('username',this.getUserInfo().username);
 
         return formData;
     }
@@ -131,7 +125,7 @@ module.exports = class Helper {
                         window.$.ajax({
                                 dataType: 'json',
                                 headers: {
-                                    'Authorization':this.getUserInfo().userToken,
+                                    'Authorization':this.getUserInfo().username,
                                 },
                                 url: params.url,
                                 type: params.type,
@@ -199,7 +193,7 @@ module.exports = class Helper {
                                 dataType: 'json',
                                 url: params.url,
                                 headers: {
-                                    'Authorization':this.getUserInfo().userToken,
+                                    'Authorization':this.getUserInfo().username,
                                 },
                                 contentType: 'application/json',
                                 type: params.type,
@@ -229,7 +223,7 @@ module.exports = class Helper {
                                 },
                                 success:  (resp) =>{
 
-                                    
+
                                     if (typeof(params.success) == 'function') {
                                         params.success(resp);
                                     }

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "All data regarding orders")
 @RequestMapping("/orders")
 public class OrderResource {

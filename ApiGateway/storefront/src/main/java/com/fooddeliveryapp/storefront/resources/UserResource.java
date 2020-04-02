@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "All data regarding users")
 @RequestMapping("/users")
+
 public class UserResource {
 
     @Autowired
@@ -20,7 +22,6 @@ public class UserResource {
 
     @ApiOperation("Get all users.")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/JSON")
-
     public Iterable<User> getAllUsers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/all", Iterable.class);
     }
