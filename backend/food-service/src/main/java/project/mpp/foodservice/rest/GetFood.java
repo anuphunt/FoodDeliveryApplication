@@ -15,9 +15,6 @@ import project.mpp.foodservice.service.FoodService;
 @RestController
 public class GetFood {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
     @Autowired
     private FoodService service;
 
