@@ -94,7 +94,11 @@
                                 success:(resp)=>{
                                   this.helper.showMessage('success','Login successfully.');
                                   this.helper.setUserInfo(resp);
-                                  window.location.href = "/";
+
+                                  setTimeout(function(){ 
+                                      window.location.href = "/";
+                                   }, 1000);
+                                  
                                 }
 
                         })

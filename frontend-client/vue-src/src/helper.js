@@ -12,6 +12,7 @@ module.exports = class Helper {
                 firstName: '',
                 lastName: '',
                 email: '',
+                role: '',
                 profilePic: '',
             };
             var userInfoLocal = JSON.parse(localStorage.getItem('userInfo'));
@@ -35,6 +36,11 @@ module.exports = class Helper {
                     if (typeof (userInfo.email) !== 'undefined') {
                         if (userInfoLocal.email !== '') {
                             userInfo.email = userInfoLocal.email;
+                        }
+                    }
+                    if (typeof (userInfo.role) !== 'undefined') {
+                        if (userInfoLocal.role !== '') {
+                            userInfo.role = userInfoLocal.role;
                         }
                     }
                     if (typeof (userInfo.profilePic) !== 'undefined') {

@@ -14,5 +14,8 @@ module.exports = class Api {
 	getUserInfoByUsernameApi(){
 		return this.getHostUrl()+'/users/username';//+{id} with get request
 	}
+	getAllRestaurentApi(){
+		return this.getHostUrl()+'/users/restaurants';
+	}
 
 }
