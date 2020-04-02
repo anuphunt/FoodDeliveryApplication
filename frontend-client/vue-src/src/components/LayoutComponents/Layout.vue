@@ -7,8 +7,10 @@
     </div>
 </template>
 <script>
-import Footer from './Footer';
 import Header from './Header';
+import Footer from './Footer';
+
+
 import './../../assets/bootstrap-3.3.7-dist/css/bootstrap.min.css'
 import './../../assets/src/css/menu.css'
 import './../../assets/src/css/style.css'
