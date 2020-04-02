@@ -131,7 +131,7 @@ module.exports = class Helper {
                         window.$.ajax({
                                 dataType: 'json',
                                 headers: {
-                                    'Authorization':this.getUserInfo().username,
+                                    'Authorization':'Bearer '+this.getUserInfo().username,
                                 },
                                 url: params.url,
                                 type: params.type,
@@ -199,7 +199,7 @@ module.exports = class Helper {
                                 dataType: 'json',
                                 url: params.url,
                                 headers: {
-                                    'Authorization':this.getUserInfo().username,
+                                    'Authorization':'Bearer '+this.getUserInfo().username,
                                 },
                                 contentType: 'application/json',
                                 type: params.type,
