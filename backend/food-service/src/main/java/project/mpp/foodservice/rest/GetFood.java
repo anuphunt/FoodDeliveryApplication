@@ -18,9 +18,9 @@ public class GetFood {
     @Autowired
     private FoodService service;
 
-    @GetMapping("/getfoodbyid")
+    @GetMapping("/foods")
     public Food greeting(@RequestParam(value = "id", defaultValue = "5") Long id) {
         Food foodById = service.findById((long)id);
-        return new Food(foodById.getId(), foodById.getName(), foodById.getPrice());
+        return new Food(foodById.getId(), foodById.getName(), foodById.getPrice(), foodById.getDescription(), foodById.getImageUrl(), foodById.getRestaurantId());
     }
 }

@@ -21,6 +21,11 @@ public class Food {
     @NotNull
     private Double price;
 
+    private String description;
+    private String imageUrl;
+    private Integer restaurantId;
+
+
     public Food(){
     }
 
@@ -40,10 +45,37 @@ public class Food {
         this.price = price;
     }
 
-    public Food(Long id, @NotNull String name, @NotNull Double price){
+    public String getDescription() {
+        return description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public Food(Long id, @NotNull String name, @NotNull Double price, String description, String imageurl, Integer restaurantId){
         this.id = id;
         this.name=name;
         this.price=price;
+        this.description=description;
+        this.imageUrl = imageurl;
+        this.restaurantId = restaurantId;
     }
 
 
