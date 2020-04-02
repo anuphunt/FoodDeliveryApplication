@@ -180,7 +180,6 @@ module.exports = class Helper {
                                         object[key] = value;
                                         cnt++;
                                     });
-                                    //ajaxParms['contentType'] = 'application/json';
                                     if(cnt > 0){
                                         ajaxParms['data'] = JSON.stringify(object);
                                     }

@@ -13,11 +13,11 @@
                             </div>
                             <div class="p-item-info">
                                 <div class="price-tag">
-                                    <span class="reg-price">$690.00</span>
+                                    <h3 class="font-24 active-text">$690.00</h3>
                                     <!-- <span class="cut-price">$690.00</span> -->
                                 </div>
-                                <h2><a href="#">{{food.name}}</a></h2>
-                                <button class="btn-all">Add to Cart</button>
+                                <h2>{{food.name}}</h2>
+                                <button class="btn-all" >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -36,6 +36,11 @@ export default {
     var apiFoods = []
     return {
       foods:apiFoods
+    }
+  },
+  methods:{
+    addToCart:function(){
+      alert('fdfdfd');
     }
   },
   mounted(){
