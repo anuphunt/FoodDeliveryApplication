@@ -104,6 +104,7 @@ module.exports = class Helper {
 
                             var ajaxParms = {};
                             ajaxParms['dataType'] = 'json';
+
                             if(typeof(params.auth) == 'undefined'){
                                 ajaxParms['headers'] = {
                                     'Authorization':'Bearer '+this.getUserInfo().username
@@ -113,9 +114,11 @@ module.exports = class Helper {
                                     ajaxParms['headers'] = {
                                         'Authorization':'Bearer '+this.getUserInfo().username
                                     };
+
                                 }
                                 
                             }
+                            console.log(ajaxParms);
                             
                             ajaxParms['url'] = params.url;
                             ajaxParms['type'] = params.type;
@@ -181,6 +184,7 @@ module.exports = class Helper {
                                     if(cnt > 0){
                                         ajaxParms['data'] = JSON.stringify(object);
                                     }
+                                    ajaxParms['contentType'] = 'application/json';
                                     
                                     window.$.ajax(ajaxParms);
                                 }else{
