@@ -5,10 +5,32 @@ module.exports = class Helper {
         driver:'DRIVER',
         restaurant:'RESTAURANT'
     }
+    addToCart(itemId,qty){
+        if(this.getCart().length <= 0){
+            localStorage.setItem('cartInfo', JSON.stringify({foodId:itemId,quantity:qty}));
+
+        }else{
+            var oldItem = this.getCart();
+            oldItem.push({foodId:itemId,quantity:qty});
+            localStorage.setItem('cartInfo', JSON.stringify(oldItem));
+        }
+
+    }
+    getCart(){
+        var cartItem = [];
+        var localCart = JSON.parse(localStorage.getItem('userInfo'));
+            if (typeof (localCart) === 'object') {
+                if (localCart !== null) {
+                    return localCart;
+                }
+            }
+            return cartItem;
+    }
     
     getUserInfo () {
             var userInfo = {
                 username: '',
+                userToken: '',
                 firstName: '',
                 lastName: '',
                 email: '',
@@ -21,6 +43,11 @@ module.exports = class Helper {
                     if (typeof (userInfo.username) !== 'undefined') {
                         if (userInfoLocal.username !== '') {
                             userInfo.username = userInfoLocal.username;
+                        }
+                    }
+                    if (typeof (userInfo.userToken) !== 'undefined') {
+                        if (userInfoLocal.userToken !== '') {
+                            userInfo.userToken = userInfoLocal.userToken;
                         }
                     }
                     if (typeof (userInfo.firstName) !== 'undefined') {
@@ -57,7 +84,7 @@ module.exports = class Helper {
         var userInfo = this.getUserInfo();
         if (userInfo.identity != '') {
             var userInfoLocal = JSON.parse(localStorage.getItem('userInfo'));
-            userInfoLocal.username = newToken;
+            userInfoLocal.userToken = newToken;
             this.setUserInfo(userInfoLocal);
         }
     }
@@ -107,12 +134,12 @@ module.exports = class Helper {
 
                             if(typeof(params.auth) == 'undefined'){
                                 ajaxParms['headers'] = {
-                                    'Authorization':'Bearer '+this.getUserInfo().username
+                                    'Authorization':'Bearer '+this.getUserInfo().userToken
                                 };
                             }else{
                                 if(params.auth == true){
                                     ajaxParms['headers'] = {
-                                        'Authorization':'Bearer '+this.getUserInfo().username
+                                        'Authorization':'Bearer '+this.getUserInfo().userToken
                                     };
 
                                 }

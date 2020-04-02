@@ -65,7 +65,7 @@
                         <hr/>
                         
                         <div class="mrgb-10">
-                          <button class="btn-cart" v-on:click="addToCart"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
+                          <button class="btn-cart" v-on:click="addToCart(food.foodId)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
                         </div>
                         <hr/>
                         
@@ -177,9 +177,8 @@ export default {
     }
   },
   methods:{
-    addToCart:function(e){
-
-      e.preventDefault();
+    addToCart:function(foodId){
+      alert(foodId);
     }
   },
   mounted(){
