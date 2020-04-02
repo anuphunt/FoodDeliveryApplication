@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-xs-8 col-sm-3 col-sm-3">
                             <div class="logo">
-                                <a href="index.html"><img src="/logo.png" alt="logo"></a>
+                                <router-link to="/"><img src="/logo.png" alt="logo"></router-link>
                             </div>
                         </div>
                         <div class="col-md-7">
