@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Food {
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     @Id
@@ -22,7 +22,6 @@ public class Food {
     private Double price;
 
     public Food(){
-
     }
 
     public String getName() {
@@ -41,7 +40,8 @@ public class Food {
         this.price = price;
     }
 
-    public Food(@NotNull String name, @NotNull Double price){
+    public Food(Long id, @NotNull String name, @NotNull Double price){
+        this.id = id;
         this.name=name;
         this.price=price;
     }
