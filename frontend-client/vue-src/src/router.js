@@ -9,6 +9,7 @@ import PasswordChange from './components/PasswordChange.vue'
 import Cms from './components/Cms.vue'
 import RestaurentProducts from './components/RestaurentProducts.vue'
 import FoodDetails from './components/FoodDetails.vue'
+import EditAccount from './components/edit-account.vue'
 
 Vue.use(Router)
 
@@ -60,6 +61,11 @@ export default new Router({
 			path:'/foods/:id',
 			name:'FoodDetails',
 			component:FoodDetails
+		},
+		{
+			path:'/edit-account/',
+			name:'EditAccount',
+			component:EditAccount
 		}
 	],
 	duplicateNavigationPolicy: 'reload'
