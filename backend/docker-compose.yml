@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   hk-mysql:
    container_name: mysql57
    image: mysql/mysql-server:5.7
@@ -14,18 +15,20 @@ services:
     - "3308:3308"
    restart: always
 
-#  food-service:
-#   restart: always
-#   build:
-#    context: ./food-service
-#   working_dir: /food-service
-#   container_name: food-service
-#   volumes:
-#    - ./food-service:/food-service
-#    - ~/.m2:/root/.m2
-#   expose:
-#    - "8080"
-#   ports:
-#    - "8080:8080"
-#   depends_on:
-#    - hk-mysql
+  food-service:
+   restart: always
+   build:
+    context: ./food-service
+   working_dir: /food-service
+   container_name: food-service
+   volumes:
+    - ./food-service:/food-service
+    - ~/.m2:/root/.m2
+   expose:
+    - "8080"
+   ports:
+    - "8080:8080"
+   environment:
+    - "SPRING_PROFILES_ACTIVE=dev"
+   depends_on:
+    - hk-mysql
