@@ -1,5 +1,6 @@
 package com.mpp.project.userService.controller;
 
+import com.mpp.project.userService.Exception.UserNotFoundException;
 import com.mpp.project.userService.model.User;
 import com.mpp.project.userService.model.UserRole;
 import com.mpp.project.userService.service.UserRepository;
@@ -23,11 +24,14 @@ public class UserController {
 	}
 
 	@PostMapping(value = "/update/{id}")
-	public User updateUser(@RequestBody User user, @PathVariable("id") int id){
-		if(user.getId()==id){
-            userRepo.save(user);
-		}
-		return user;
+	public User updateUser(@RequestBody User user, @PathVariable int id){
+		User userdb = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User with this id not found"));
+		userdb.setFirstName(user.getFirstName());
+		userdb.setLastName(user.getLastName());
+		userdb.setEmail(user.getEmail());
+		userdb.setPhone(user.getPhone());
+		final User updatedUser = userRepo.save(userdb);
+		return updatedUser;
 	}
 	
 	@GetMapping(path = "/all")

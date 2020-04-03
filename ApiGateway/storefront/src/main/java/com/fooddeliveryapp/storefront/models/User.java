@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class User{
 
-    private int userId;
+    private int id;
 
     @NotBlank(message = "Username is mandatory.")
     private String username;
@@ -33,8 +33,8 @@ public class User{
     public User() {
     }
 
-    public User(int userId, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
-        this.userId = userId;
+    public User(int id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -44,11 +44,11 @@ public class User{
     }
 
     public int getUserId() {
-        return userId;
+        return id;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.id = userId;
     }
 
     public String getEmail() {
