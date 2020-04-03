@@ -98,10 +98,15 @@ export default {
       if (this.errors.length == 0) {
             //DRIVER, RESTAURANT, CUSTOMER, ADMIN
             var formData = new FormData();
-            formData.append('firstName', this.firstName);
-            formData.append('lastName', this.lastName);
-            formData.append('email', this.email);
-            formData.append('phoneNumber', this.phoneNumber);
+            formData.append('firstName', this.profile.firstName);
+            formData.append('lastName', this.profile.lastName);
+            formData.append('email', this.profile.email);
+            formData.append('phoneNumber', this.profile.phoneNumber);
+            formData.append('password', this.profile.password);
+            formData.append('role', this.profile.role);
+            formData.append('username', this.profile.username);
+            formData.append('userID', 2);
+
           
 
             this.helper.request({
