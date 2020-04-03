@@ -10,7 +10,6 @@ import Cms from './components/Cms.vue'
 import RestaurentProducts from './components/RestaurentProducts.vue'
 import FoodDetails from './components/FoodDetails.vue'
 import EditAccount from './components/edit-account.vue'
-import CartDetails from './components/CartDetails.vue'
 
 Vue.use(Router)
 
@@ -60,6 +59,7 @@ export default new Router({
 		},
 		{
 			path:'/foods/:id',
+			
 			name:'FoodDetails',
 			component:FoodDetails
 		},
@@ -67,11 +67,6 @@ export default new Router({
 			path:'/edit-account/',
 			name:'EditAccount',
 			component:EditAccount
-		},
-		{
-			path:'/cart-details/',
-			name:'CartDetails',
-			component:CartDetails
 		}
 	],
 	duplicateNavigationPolicy: 'reload'
