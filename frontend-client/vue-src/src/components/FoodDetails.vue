@@ -178,6 +178,8 @@ export default {
   },
   methods:{
     addToCart:function(foodId,quantity,food){
+      console.log('foodId',foodId);
+      console.log('food',food);
       food.quantity = quantity;
       this.helper.addToCart(foodId,food);
     }
