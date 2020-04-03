@@ -25,7 +25,7 @@ module.exports = class Api {
 	}
 	getEditAccountApi()
 	{
-	return this.getHostUrl()+'/useredit';//+{id}
+	return this.getHostUrl()+'/userid';//+{id}
 
 	}
 	//http://localhost:8081/foods/89
