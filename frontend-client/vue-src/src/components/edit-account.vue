@@ -45,7 +45,7 @@
 <script type="text/javascript">
   import Required from './Required'
 export default {
-    name: 'EditAccount',
+    //name: 'EditAccount',
     components:{
       Required
     },
@@ -102,24 +102,23 @@ export default {
             formData.append('lastName', this.profile.lastName);
             formData.append('email', this.profile.email);
             formData.append('phoneNumber', this.profile.phoneNumber);
-            formData.append('password', this.profile.password);
-            formData.append('role', this.profile.role);
-            formData.append('username', this.profile.username);
-            formData.append('userID', 2);
+            // formData.append('userID', 2);
 
           
 
             this.helper.request({
                   method: 'post',
                   withData:'json',
-                  url: this.api.getEditAccountApi(),
+                  url: this.api.getEditAccountApi()+'/'+this.profile.username,
                   dataType:'json',
                   data: formData,
                   success:()=>{
-                    this.$router.push('/message');
+                    this.helper.showMessage('success','Sucessfully changed account info!!!');
+                    this.$router.push('/profile');
                   },
                   error:()=>{
-                      alert('request not completed.');
+                    this.helper.showMessage('error','Sorry, Please try again!!!');
+                      this.$router.push('/profile');
                   }
 
             })
@@ -148,6 +147,7 @@ mounted(){
                               },
                               success:(resp)=>{
                                 this.profile= resp;
+                                
                               }
 
                         })
