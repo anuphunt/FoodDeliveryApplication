@@ -23,9 +23,11 @@ public class UserController {
 		return user;
 	}
 
-	@PostMapping(value = "/update/{id}")
-	public User updateUser(@RequestBody User user, @PathVariable int id){
-		User userdb = userRepo.findById(id).orElseThrow(() -> new UserNotFoundException("User with this id not found"));
+	@PostMapping(value = "/update/{username}")
+	public User updateUser(@RequestBody User user, @PathVariable String username){
+
+		User userdb = userRepo.findByUsername(username);
+		if(userdb == null) throw new UserNotFoundException("User with username "+ username +"not found.");
 		userdb.setFirstName(user.getFirstName());
 		userdb.setLastName(user.getLastName());
 		userdb.setEmail(user.getEmail());
