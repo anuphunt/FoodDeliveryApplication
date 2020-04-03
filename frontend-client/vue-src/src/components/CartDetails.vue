@@ -30,12 +30,12 @@
                             <td>
                                 
                               <div class="det-qty pull-left">
-                                <input class="qtyfield qtyfield1" type="text" v-model="food.details.quantity">
-                                <button item_no="1" class="qtyminus" v-on:click="decrease(food.details)"><i class="fa fa-minus"></i></button>
-                                <button item_no="1" class="qtyplus" v-on:click="increase(food.details)"><i class="fa fa-plus"></i></button>
+                                <input class="qtyfield qtyfield1" type="number" v-model="food.details.quantity" v-on:keyup="onKeyUp(food.foodId,food.details)">
+                                <button item_no="1" class="qtyminus" v-on:click="decrease(food.foodId,food.details)"><i class="fa fa-minus"></i></button>
+                                <button item_no="1" class="qtyplus" v-on:click="increase(food.foodId,food.details)"><i class="fa fa-plus"></i></button>
                               </div>
 
-                              <a href="#" class="cart-action"><i class="fa fa-remove"></i></a></td>
+                              <a href="" v-on:click="removeItem(food.foodId)" class="cart-action"><i class="fa fa-remove"></i></a></td>
                             <td>USD{{food.details.quantity*100}}</td>
                           </tr>
                         </tbody>
@@ -659,14 +659,26 @@ export default {
       
       this.helper.addToCart(foodId,quantity);
     },
-    increase(details){
+    increase(foodId,details){
+      details.quantity = parseInt(details.quantity);
       details.quantity += 1;
+      this.helper.addToCart(foodId,details);
     },
-    decrease(details){
+    decrease(foodId,details){
+      details.quantity = parseInt(details.quantity);
       details.quantity -= 1;
       if(details.quantity<=0){
         details.quantity = 0;
       }
+      this.helper.addToCart(foodId,details);
+    },
+    onKeyUp(foodId,details){
+
+      details.quantity = parseInt(details.quantity);
+      if(details.quantity<=0){
+        details.quantity = 0;
+      }
+      this.helper.addToCart(foodId,details);
     },
     getSubtotal(){
       var total = 0;
@@ -686,6 +698,17 @@ export default {
     },
     getTotal(){
       return this.getSubtotal()+this.getTax()+this.getVatAmt();
+    },
+    removeItem(foodId){
+      var newRecord = this.cartItems;
+      this.helper.makeCartEmpty();
+      newRecord.map((cartItem)=>{
+          if(cartItem.foodId != foodId){
+              this.helper.addToCart(cartItem.foodId,cartItem.details);
+          }
+      });
+      this.cartItems = this.helper.getCart();
+
     }
   },
   mounted(){

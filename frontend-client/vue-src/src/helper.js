@@ -40,11 +40,6 @@ module.exports = class Helper {
         }        
 
     }
-    changeToHeader(){
-        if(document.querySelector(".cart-count")){
-            document.querySelector(".cart-count").innerHTML = this.getCart().length;
-        }
-    }
     getCart(){
 
             var localCart = JSON.parse(localStorage.getItem('cartInfo'));
@@ -61,6 +56,15 @@ module.exports = class Helper {
             }
             
     }
+    makeCartEmpty(){
+        localStorage.removeItem('cartInfo');
+    }
+    changeToHeader(){
+        if(document.querySelector(".cart-count")){
+            document.querySelector(".cart-count").innerHTML = this.getCart().length;
+        }
+    }
+    
     
     getUserInfo () {
             var userInfo = {
