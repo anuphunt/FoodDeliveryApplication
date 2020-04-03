@@ -57,6 +57,7 @@ module.exports = class Helper {
             
     }
     makeCartEmpty(){
+        
         localStorage.removeItem('cartInfo');
     }
     changeToHeader(){

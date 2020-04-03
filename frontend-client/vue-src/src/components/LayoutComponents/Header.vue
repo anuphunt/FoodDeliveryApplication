@@ -68,7 +68,8 @@
                             </div>
                         </div>
                         <div class="col-sm-3 col-md-2">
-                          <router-link to="/cart-details" class="hd-cart pull-right">
+
+                          <router-link v-if="getCustomerRole()" to="/cart-details" class="hd-cart pull-right">
 
                                 <span class="text">CART</span>
                                 <span class="cart-count">{{countCart}}</span>
@@ -93,7 +94,10 @@
 <script type="text/javascript">
   export default{
     data(){
-      var getCart = this.helper.getCart();
+      var getCart = [];
+      if(this.checkLogin()){
+          getCart = this.helper.getCart();
+      }
       return {
         countCart:getCart.length
       }
@@ -122,6 +126,16 @@
           }else{
             return this.helper.getUserInfo().username;
           }
+      },
+      getCustomerRole:function(){
+          if(this.helper.getUserInfo().userToken == ''){
+            return true;
+          }else{
+            if(this.helper.getUserInfo().role == this.helper.userRole.user){
+              return true;
+            }
+          }
+          return false;
       }
     }
   }

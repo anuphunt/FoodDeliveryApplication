@@ -44,6 +44,7 @@
     export default {
         name:'Login',
         data(){
+          
            return {
               errors:[],
               username:null,
@@ -99,8 +100,13 @@
                                   resp2.userToken = resp.jwt;
                                   this.helper.setUserInfo(resp2);
 
-                                  setTimeout(function(){ 
-                                      window.location.href = "/";
+                                  setTimeout(()=>{ 
+                                      if(resp2.role == this.helper.userRole.restaurant){
+                                        window.location.href = "/pending-order";
+                                      }else{
+                                        window.location.href = "/";
+                                      }
+                                      
                                    }, 1000);
                                   
                                 }
