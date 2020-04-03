@@ -59,4 +59,10 @@ public class UserResource {
     public Iterable<User> getAllCustomers() {
         return restTemplate.getForObject(ServicesUrl.userServiceUrl + "/customers", Iterable.class);
     }
+
+    @ApiOperation("Update User information")
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public User updateUserInfo(@RequestBody User user){
+        return restTemplate.postForObject(ServicesUrl.userServiceUrl +"/update/" + user.getUserId(), user, User.class);
+    }
 }
