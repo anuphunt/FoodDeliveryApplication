@@ -73,10 +73,10 @@
                                 </div>
                             </address>                          
                             <ul class="social-link">
-                                <li><a href="#" target="_blank"><img src="images/icons/fb.png" alt="fb"></a></li>
-                                <li><a href="#" target="_blank"><img src="images/icons/youtube.png" alt="youtube"></a></li>
-                                <li><a href="#" target="_blank"><img src="images/icons/gplus.png" alt="gplus"></a></li>
-                                <li><a href="#" target="_blank"><img src="images/icons/instagram.png" alt="instagram"></a></li>
+                                <li><a href="#" target="_blank"><img src="/social-images/fb.png" alt="fb"></a></li>
+                                <li><a href="#" target="_blank"><img src="/social-images/youtube.png" alt="youtube"></a></li>
+                                <li><a href="#" target="_blank"><img src="/social-images/gplus.png" alt="gplus"></a></li>
+                                <li><a href="#" target="_blank"><img src="/social-images/instagram.png" alt="instagram"></a></li>
                             </ul>
                         </div>
                         

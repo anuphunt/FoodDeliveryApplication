@@ -44,6 +44,7 @@
     export default {
         name:'Login',
         data(){
+
            return {
               errors:[],
               username:null,
@@ -84,7 +85,6 @@
                                 this.helper.showMessage('danger','Invalid Username or Password');
                               },
                               success:(resp)=>{
-                                var jwt = resp.jwt;
                                 this.helper.request({
                                 type: 'get',
                                 withData:'json',
@@ -93,15 +93,20 @@
                                 complete:()=>{
                                   this.helper.showMessage('danger','Error found');
                                 },
-                                success:(resp)=>{
+                                success:(resp2)=>{
 
                                   this.helper.showMessage('success','Login successfully.');
-                                  resp.username = this.username;
-                                  resp.userToken = jwt;
-                                  this.helper.setUserInfo(resp);
+                                  resp2.username = this.username;
+                                  resp2.userToken = resp.jwt;
+                                  this.helper.setUserInfo(resp2);
 
-                                  setTimeout(function(){ 
-                                      window.location.href = "/";
+                                  setTimeout(()=>{ 
+                                      if(resp2.role == this.helper.userRole.restaurant){
+                                        window.location.href = "/order/new";
+                                      }else{
+                                        window.location.href = "/";
+                                      }
+                                      
                                    }, 1000);
                                   
                                 }
