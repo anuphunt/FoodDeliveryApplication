@@ -7,7 +7,7 @@
                         <div class="p-item mrgb-30">
                           <div class="">
                                   <router-link :to="{path: '/foods/' + food.foodId}" >
-                                  <img alt="3" src="/dummy.jpg">
+                                  <img alt="3" src="/dummy-food.jpg">
                                 </router-link>
                                 </div>
                             <div class="p-item-info">
@@ -20,7 +20,7 @@
                                 <router-link :to="{path: '/foods/' + food.foodId}" >
                                 <h2>{{food.name}}</h2>
                                 </router-link>
-                                <button class="btn-all" v-on:click="addToCart(food.foodId)" >Add to Cart</button>
+                                <button class="btn-all" v-on:click="addToCart(food.foodId,1,food)" >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,9 @@ export default {
     }
   },
   methods:{
-    addToCart:function(foodId){
-      
-      this.helper.addToCart(foodId,this.quantity);
+    addToCart:function(foodId,quantity,food){
+      food.quantity = quantity;
+      this.helper.addToCart(foodId,food);
     }
   },
   mounted(){

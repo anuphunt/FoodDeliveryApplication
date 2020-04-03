@@ -18,7 +18,7 @@
                   <tbody>
                     <tr class="table-primary"><td>Username</td><td>{{account.username}}</td></tr>
                     <tr class="table-primary"><td>First Name</td><td>{{account.firstName}}</td></tr>
-                    <tr class="table-primary"><td>Last Name</td><td>{{account.Lastname}}</td></tr>
+                    <tr class="table-primary"><td>Last Name</td><td>{{account.lastName}}</td></tr>
                     <tr class="table-primary"><td>Email</td><td>{{account.email}}</td></tr>
                     <tr class="table-primary"><td>Address</td><td>{{account.address}}</td></tr>
                     
