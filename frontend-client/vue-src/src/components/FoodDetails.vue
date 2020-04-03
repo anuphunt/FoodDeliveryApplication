@@ -2,16 +2,16 @@
     <div class="container container-height">
         <div class="row">
     <div class="row">
-                  <div class="col-sm-7 col-md-7">
+                  <div class="col-sm-4 col-md-4">
                         <div class="zoomwrap mrgb-30">
                             <ul id="glasscase" class="gc-start">
-                              <li><img src="/dummy.jpg" alt="single-shop-02" /></li>
+                              <li><img src="/dummy-food.jpg" alt="single-shop-02" /></li>
                               
                             </ul>
                          </div> 
                      </div> 
                      
-                     <div class="col-sm-5 col-md-5">
+                     <div class="col-sm-8 col-md-8">
                       
                         <div class="mrgb-10 clearfix">
                             <h2>{{food.name}}</h2>
@@ -65,7 +65,7 @@
                         <hr/>
                         
                         <div class="mrgb-10">
-                          <button class="btn-cart" v-on:click="addToCart(food.foodId)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
+                          <button class="btn-cart" v-on:click="addToCart(food.foodId,quantity,food)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
                         </div>
                         <hr/>
                         
@@ -173,12 +173,15 @@ export default {
         name:null,
         
       },
-      quantity:2
+      quantity:1
     }
   },
   methods:{
-    addToCart:function(foodId){
-      alert(foodId);
+    addToCart:function(foodId,quantity,food){
+      console.log('foodId',foodId);
+      console.log('food',food);
+      food.quantity = quantity;
+      this.helper.addToCart(foodId,food);
     }
   },
   mounted(){

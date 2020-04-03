@@ -2,15 +2,21 @@
     <div class="container container-height">
         <div class="row">
           <div class="col-sm-4" v-for="(restaurent, index) in restaurents" :key="index">
-            <router-link :to="{path: '/restautent-foods/' + restaurent.id}" >
-              <div class="panel panel-default">
-              <div class="panel-body">
-                  <img src="/dummy.jpg">
-                     {{restaurent.firstName}}
-                   </div>
-              </div>
-            </router-link>
-          </div>
+                <router-link :to="{path: '/restautent-foods/' + restaurent.id}" >
+                <div class="grid-item">
+                              <div class="p-item mrgb-30">
+                                <div class="">
+                                        <img alt="3" src="/dummy-res.jpg">
+                                      </div>
+                                  <div class="p-item-info">
+                                      <div class="price-tag">
+                                        <h3 class="font-24 active-text">{{restaurent.firstName}}</h3>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </router-link>
+                </div>
         </div>
     </div>
 </template>

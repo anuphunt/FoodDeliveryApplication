@@ -5,26 +5,61 @@ module.exports = class Helper {
         driver:'DRIVER',
         restaurant:'RESTAURANT'
     }
-    addToCart(itemId,qty){
-        if(this.getCart().length <= 0){
-            localStorage.setItem('cartInfo', JSON.stringify({foodId:itemId,quantity:qty}));
+    addToCart(itemId,details){
+        if(typeof(details) == 'object'){
+            details.quantity = parseInt(details.quantity);
+            if(this.getCart().length <= 0){
+                var items = [];
+                items.push({foodId:itemId,details:details});
+                localStorage.setItem('cartInfo', JSON.stringify(items));
+                this.changeToHeader();
 
-        }else{
-            var oldItem = this.getCart();
-            oldItem.push({foodId:itemId,quantity:qty});
-            localStorage.setItem('cartInfo', JSON.stringify(oldItem));
-        }
+            }else{
+
+                var oldItems = this.getCart();
+                var count = 0;
+                var found = false;
+                oldItems.map((oldItem)=>{
+                    if(oldItem.foodId == itemId){
+                        oldItems[count].details = details;
+                        found = true;
+                        localStorage.setItem('cartInfo', JSON.stringify(oldItems));
+                        this.changeToHeader();
+                    
+                    }
+                    count++;
+                })
+                if(found === false){
+                    oldItems.push({foodId:itemId,details:details});
+                    localStorage.setItem('cartInfo', JSON.stringify(oldItems));
+                    this.changeToHeader();
+                }
+                
+            }
+            this.showMessage('success','Added Successfully.');
+        }        
 
     }
+    changeToHeader(){
+        if(document.querySelector(".cart-count")){
+            document.querySelector(".cart-count").innerHTML = this.getCart().length;
+        }
+    }
     getCart(){
-        var cartItem = [];
-        var localCart = JSON.parse(localStorage.getItem('userInfo'));
+
+            var localCart = JSON.parse(localStorage.getItem('cartInfo'));
+
             if (typeof (localCart) === 'object') {
-                if (localCart !== null) {
+                if(localCart == null){
+                    return [];
+                }else{
                     return localCart;
-                }
+                }                
+            }else{
+
+                return [];
             }
-            return cartItem;
+            
     }
     
     getUserInfo () {
