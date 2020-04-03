@@ -20,6 +20,25 @@ public class User {
 	private String state;
 	private int zipCode;
 	private String phone;
+
+	public User() {
+	}
+
+	public User(int id, String username,String password, String role, String firstName,
+				String lastName, String email, String streetAddress, String city, int zipCode, String phone){
+		this.id =id;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.phone = phone;
+	}
+
 	public int getId() {
 		return id;
 	}
