@@ -65,7 +65,7 @@
                         <hr/>
                         
                         <div class="mrgb-10">
-                          <button class="btn-cart" v-on:click="addToCart(food.foodId,quantity)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
+                          <button class="btn-cart" v-on:click="addToCart(food.foodId,quantity,food)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
                         </div>
                         <hr/>
                         
@@ -177,9 +177,9 @@ export default {
     }
   },
   methods:{
-    addToCart:function(foodId,quantity){
-
-      this.helper.addToCart(foodId,quantity);
+    addToCart:function(foodId,quantity,food){
+      food.quantity = quantity;
+      this.helper.addToCart(foodId,food);
     }
   },
   mounted(){

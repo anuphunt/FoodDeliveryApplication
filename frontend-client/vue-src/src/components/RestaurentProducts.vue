@@ -20,7 +20,7 @@
                                 <router-link :to="{path: '/foods/' + food.foodId}" >
                                 <h2>{{food.name}}</h2>
                                 </router-link>
-                                <button class="btn-all" v-on:click="addToCart(food.foodId,1)" >Add to Cart</button>
+                                <button class="btn-all" v-on:click="addToCart(food.foodId,1,food)" >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,9 @@ export default {
     }
   },
   methods:{
-    addToCart:function(foodId,quantity){
-
-      this.helper.addToCart(foodId,quantity);
+    addToCart:function(foodId,quantity,food){
+      food.quantity = quantity;
+      this.helper.addToCart(foodId,food);
     }
   },
   mounted(){

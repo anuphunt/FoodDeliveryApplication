@@ -1,12 +1,13 @@
 <template>
     <div class="container container-height">
         <div class="row">
+          
         </div>
     </div>
 </template>
 <script type="text/javascript">
 export default {
-  name: 'RestaurentProducts',
+  name: 'CartDetails',
   props: {
     msg: String
   },
@@ -29,7 +30,7 @@ export default {
     }else{
 
         if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-                     
+                     this.helper.addToCart(8,6);
 
         }else{
            this.helper.unsetUserInfo();
