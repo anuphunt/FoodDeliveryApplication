@@ -76,7 +76,7 @@ export default new Router({
 			component:CartDetails
 		},
 		{
-			path:'/pending-order',
+			path:'/order/:type',
 			name:'RestaurentOrderList',
 			component:RestaurentOrderList
 		}

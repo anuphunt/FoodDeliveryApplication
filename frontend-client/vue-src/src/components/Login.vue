@@ -44,7 +44,7 @@
     export default {
         name:'Login',
         data(){
-          
+
            return {
               errors:[],
               username:null,
@@ -102,7 +102,7 @@
 
                                   setTimeout(()=>{ 
                                       if(resp2.role == this.helper.userRole.restaurant){
-                                        window.location.href = "/pending-order";
+                                        window.location.href = "/order/new";
                                       }else{
                                         window.location.href = "/";
                                       }

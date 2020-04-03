@@ -26,6 +26,13 @@ module.exports = class Api {
 	getEditAccountApi(){
 		return this.getHostUrl()+'/users/update';//+{id}
 	}
+
+
+	// Order restaurent service
+	getRestaurentPendingOrderApi(){
+		return this.getHostUrl()+'/orders/restaurants/pendingOrders';//+{restaurantId}
+	}
+
 	//http://localhost:8081/foods/89
 	//http://localhost:8081/foods/14
 }

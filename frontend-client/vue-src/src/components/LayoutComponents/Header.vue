@@ -51,7 +51,7 @@
 
                 </div><!-- container end -->
             </div>
-            <div class="hd-bottom">
+            <div class="hd-bottom" style="margin-bottom: 15px">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-8 col-sm-3 col-sm-3">
@@ -79,7 +79,7 @@
                     </div><!-- row end -->
                 </div>
             </div>
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-1 mrgb-30"></div>
                     <div class="col-sm-12 col-md-10 mrgb-30"></div>
@@ -88,8 +88,8 @@
                         <a id="navToggle" class="animated-arrow slideLeft"><span></span></a>
                     </div>
                 </div>
-            </div><!-- container end -->
-        </header><!-- header end -->
+            </div> -->
+        </header>
 </template>
 <script type="text/javascript">
   export default{
