@@ -61,8 +61,8 @@ public class UserResource {
     }
 
     @ApiOperation("Update User information")
-    @RequestMapping(value = "/update",method = RequestMethod.POST)
-    public User updateUserInfo(@RequestBody User user){
-        return restTemplate.postForObject(ServicesUrl.userServiceUrl +"/update/" + user.getUserId(), user, User.class);
+    @RequestMapping(value = "/update/{id}",method = RequestMethod.POST)
+    public User updateUserInfo(@RequestBody User user, @PathVariable int id){
+        return restTemplate.postForObject(ServicesUrl.userServiceUrl +"/update/" + id, user, User.class);
     }
 }
