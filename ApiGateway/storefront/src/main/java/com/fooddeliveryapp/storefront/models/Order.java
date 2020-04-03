@@ -1,9 +1,12 @@
 package com.fooddeliveryapp.storefront.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 public class Order {
-    private int orderId;
+    @JsonIgnore
+    private String id;
     private int customerId;
     private int restaurantId;
     private List<OrderEntity> orderItems;
@@ -13,8 +16,8 @@ public class Order {
 
     public Order(){}
 
-    public Order(int orderId, int customerId, int restaurantId, List<OrderEntity> orderItems, int driverId, OrderState orderState, int modifiedBy) {
-        this.orderId = orderId;
+    public Order(String id, int customerId, int restaurantId, List<OrderEntity> orderItems, int driverId, OrderState orderState, int modifiedBy) {
+        this.id = id;
         this.customerId = customerId;
         this.restaurantId = restaurantId;
         this.orderItems = orderItems;
@@ -24,12 +27,12 @@ public class Order {
 
     }
 
-    public int getOrderId() {
-        return orderId;
+    public String getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getCustomerId() {
