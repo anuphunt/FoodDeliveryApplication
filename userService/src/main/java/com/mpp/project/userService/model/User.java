@@ -1,14 +1,15 @@
 package com.mpp.project.userService.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class User {
 	@Id
-	@GeneratedValue
-	private int id;
+	@JsonIgnore
+	private String id;
 	private String username;
 	private String password;
 	private String role;
@@ -24,9 +25,8 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String username,String password, String role, String firstName,
-				String lastName, String email, String streetAddress, String city, int zipCode, String phone){
-		this.id =id;
+	public User(String id, String username, String password, String role, String firstName, String lastName, String email, String streetAddress, String city, String state, int zipCode, String phone) {
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -35,15 +35,16 @@ public class User {
 		this.email = email;
 		this.streetAddress = streetAddress;
 		this.city = city;
+		this.state = state;
 		this.zipCode = zipCode;
 		this.phone = phone;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
