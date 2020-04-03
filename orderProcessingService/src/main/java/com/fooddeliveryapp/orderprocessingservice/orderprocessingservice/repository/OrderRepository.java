@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RepositoryRestResource(collectionResourceRel = "Order", path = "order")
-public interface OrderRepository extends MongoRepository<Order, Integer> {
+public interface OrderRepository extends MongoRepository<Order, String> {
 
 }

@@ -14,12 +14,17 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @GetMapping(path = "/{id}")
-    public Optional<Order> getById(@PathVariable int id){
+    public Optional<Order> getById(@PathVariable String id){
         return orderRepository.findById(id);
     }
 
     @RequestMapping(value = "/newOrder", method = RequestMethod.POST)
     public Order addNewOrder(@RequestBody Order order){
         return orderRepository.insert(order);
+    }
+
+    @GetMapping(path = "/all")
+    public Iterable<Order> getAll(){
+        return orderRepository.findAll();
     }
 }
