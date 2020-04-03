@@ -59,6 +59,7 @@ export default new Router({
 		},
 		{
 			path:'/foods/:id',
+			
 			name:'FoodDetails',
 			component:FoodDetails
 		},
