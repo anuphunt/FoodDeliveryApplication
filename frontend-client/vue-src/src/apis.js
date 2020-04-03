@@ -23,6 +23,11 @@ module.exports = class Api {
 	getFoodDetailApi(){
 		return this.getHostUrl()+'/foods';//+{id}
 	}
+	getEditAccountApi()
+	{
+	return this.getHostUrl()+'/useredit';//+{id}
+
+	}
 	//http://localhost:8081/foods/89
 	//http://localhost:8081/foods/14
 }
