@@ -2,21 +2,23 @@ package com.fooddeliveryapp.orderprocessingservice.orderprocessingservice.models
 
 import org.springframework.data.annotation.Id;
 
-public class Food {
+public class OrderEntity {
+    @Id
+    String id;
     int foodId;
     int quantity;
 
-    public Food(int id, int quantity) {
-        this.foodId = id;
+    public OrderEntity(String id, int foodId, int quantity) {
+        this.id = id;
+        this.foodId = foodId;
         this.quantity = quantity;
     }
-
-    public int getId() {
+    public int getFoodId() {
         return foodId;
     }
 
-    public void setId(int id) {
-        this.foodId = id;
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public int getQuantity() {
