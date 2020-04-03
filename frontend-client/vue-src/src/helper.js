@@ -35,6 +35,7 @@ module.exports = class Helper {
             }
             
         }
+        this.showMessage('success','Added Successfully.');
 
     }
     changeToHeader(){

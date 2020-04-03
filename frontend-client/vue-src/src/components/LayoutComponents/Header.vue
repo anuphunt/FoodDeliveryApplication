@@ -65,10 +65,12 @@
                             </div>
                         </div>
                         <div class="col-sm-3 col-md-2">
-                            <button class="hd-cart pull-right">
+                          <router-link to="/cart-details" class="hd-cart pull-right">
+
                                 <span class="text">CART</span>
                                 <span class="cart-count">{{countCart}}</span>
-                            </button>
+
+                          </router-link>
                         </div>
                     </div><!-- row end -->
                 </div>
