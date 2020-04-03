@@ -23,22 +23,22 @@ public class OrderResource {
 
     public List<Order> orders = new ArrayList<>();
 
-    private List<Order> getDummyData(){
-        List<OrderEntity> orderEntities = new ArrayList<>();
-        orderEntities.add(new OrderEntity(1, 1));
-        orderEntities.add(new OrderEntity(2,2));
-        orderEntities.add(new OrderEntity(3, 3));
-
-        orders.add(new Order(1, 2, 3, orderEntities, 4, OrderState.PENDING, 1));
-        orders.add(new Order(2, 2, 3, orderEntities, 4, OrderState.PENDING, 1));
-        orders.add(new Order(3, 2, 3, orderEntities, 4, OrderState.DELIVERED, 2));
-        orders.add(new Order(4, 2, 3, orderEntities, 4, OrderState.DELIVERED, 3));
-        orders.add(new Order(5, 2, 3, orderEntities, 4, OrderState.ACCEPTED, 4));
-        orders.add(new Order(6, 2, 3, orderEntities, 4, OrderState.PICKEDUP, 1));
-        orders.add(new Order(7, 2, 3, orderEntities, 4, OrderState.REJECTED, 1));
-
-        return orders;
-    }
+//    private List<Order> getDummyData(){
+//        List<OrderEntity> orderEntities = new ArrayList<>();
+//        orderEntities.add(new OrderEntity(1, 1));
+//        orderEntities.add(new OrderEntity(2,2));
+//        orderEntities.add(new OrderEntity(3, 3));
+//
+//        orders.add(new Order(1, 2, 3, orderEntities, 4, OrderState.PENDING, 1));
+//        orders.add(new Order(2, 2, 3, orderEntities, 4, OrderState.PENDING, 1));
+//        orders.add(new Order(3, 2, 3, orderEntities, 4, OrderState.DELIVERED, 2));
+//        orders.add(new Order(4, 2, 3, orderEntities, 4, OrderState.DELIVERED, 3));
+//        orders.add(new Order(5, 2, 3, orderEntities, 4, OrderState.ACCEPTED, 4));
+//        orders.add(new Order(6, 2, 3, orderEntities, 4, OrderState.PICKEDUP, 1));
+//        orders.add(new Order(7, 2, 3, orderEntities, 4, OrderState.REJECTED, 1));
+//
+//        return orders;
+//    }
 
     //Get All Orders of a customer
     @ApiOperation("Get all orders of a specific customer")
@@ -84,31 +84,31 @@ public class OrderResource {
 
 
     //Get All picked up orders of a driver
-    @ApiOperation("Get all picked up orders of a specific driver")
-    @RequestMapping(value = "/drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
-        List<Order> allOrders = getDummyData();
-        List<Order> driverOrders = new ArrayList<>();
-        for(Order o: allOrders){
-            if(o.getDriverId() == driverId){
-                driverOrders.add(o);
-            }
-        }
-        return driverOrders;
-    }
+//    @ApiOperation("Get all orders of a specific driver")
+//    @RequestMapping(value = "/drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
+//    private Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
+//        List<Order> allOrders = getDummyData();
+//        List<Order> driverOrders = new ArrayList<>();
+//        for(Order o: allOrders){
+//            if(o.getDriverId() == driverId){
+//                driverOrders.add(o);
+//            }
+//        }
+//        return driverOrders;
+//    }
 
     //Get active order of a driver
-    @ApiOperation("Get active order of a driver. Active order means the order which is selected by driver to pickup, but hasn't delivered yet. Returns null if there is no active orders, otherwise returns one Order")
-    @RequestMapping(value = "/drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Order getActiveOrderOfDriver(@PathVariable int driverId){
-        List<Order> allOrders = getDummyData();
-        for(Order o: allOrders){
-            if(o.getDriverId() == driverId && o.getOrderState() != OrderState.DELIVERED){
-                return o;
-            }
-        }
-        return null;
-    }
+//    @ApiOperation("Get active order of a driver. Active order means the order which is selected by driver to pickup, but hasn't delivered yet. Returns null if there is no active orders, otherwise returns one Order")
+//    @RequestMapping(value = "/drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
+//    private Order getActiveOrderOfDriver(@PathVariable int driverId){
+//        List<Order> allOrders = getDummyData();
+//        for(Order o: allOrders){
+//            if(o.getDriverId() == driverId && o.getOrderState() != OrderState.DELIVERED){
+//                return o;
+//            }
+//        }
+//        return null;
+//    }
 
     //Get active orders of a customer
     @ApiOperation("Get active order of a specific customer. Active order of customer means the orders of the customer which are not delivered yet. Returns an empty list if there is no active orders, otherwise returns list of orders.")
@@ -144,9 +144,9 @@ public class OrderResource {
         return order;
     }
     //Accept a new order by a restaurant
-    @ApiOperation(value = "Restaurant accepts the order", consumes = "application/JSON")
-    @RequestMapping(value = "/restaurants/acceptOrder", method = RequestMethod.POST)
-    public Order acceptOrderByRestaurant(@RequestBody Order order){
+    @ApiOperation(value = "Restaurant accepts the order")
+    @RequestMapping(value = "/restaurants/acceptorder/{orderId}", method = RequestMethod.GET)
+    public Order acceptOrderByRestaurant(@PathVariable String orderId){
         Order o = null;
         for(Order o1: orders){
             if(o1.getOrderId() == order.getOrderId()){
@@ -167,24 +167,24 @@ public class OrderResource {
         return order;
     }
 
-    @ApiOperation(value = "Driver chooses to pick up order.")
-    @RequestMapping(value = "/drivers/requestPickup", method = RequestMethod.POST)
-    public Order requestPickupBydriver(@Valid @RequestBody Order order){
-        //Send put request here.
-        return order;
-    }
+//    @ApiOperation(value = "Driver chooses to pick up order.")
+//    @RequestMapping(value = "/drivers/requestPickup", method = RequestMethod.POST)
+//    public Order requestPickupBydriver(@Valid @RequestBody Order order){
+//        //Send put request here.
+//        return order;
+//    }
+//
+//    @ApiOperation(value = "Driver picks up the order from restaurant. Order State is changed to accepted.")
+//    @RequestMapping(value = "/drivers/pickUpOrder", method = RequestMethod.POST)
+//    public Order pickUpOrderByDriver(@Valid @RequestBody Order order){
+//        //Send put request here
+//        return order;
+//    }
 
-    @ApiOperation(value = "Driver picks up the order from restaurant. Order State is changed to accepted.")
-    @RequestMapping(value = "/drivers/pickUpOrder", method = RequestMethod.POST)
-    public Order pickUpOrderByDriver(@Valid @RequestBody Order order){
-        //Send put request here
-        return order;
-    }
-
-    @ApiOperation(value = "Driver delivers the order to customer.")
-    @RequestMapping(value = "/drivers/deliverOrder", method = RequestMethod.POST)
-    public Order deliverOrderByDriver(@Valid @RequestBody Order order){
-        //Send put request here.
-        return order;
-    }
+//    @ApiOperation(value = "Driver delivers the order to customer.")
+//    @RequestMapping(value = "/drivers/deliverOrder", method = RequestMethod.POST)
+//    public Order deliverOrderByDriver(@Valid @RequestBody Order order){
+//        //Send put request here.
+//        return order;
+//    }
 }
