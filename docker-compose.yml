@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+  webapp:
+    restart: always
+    working_dir: /vue-src
+    build:
+      context: ./vue-src
+    container_name: app
+    volumes:
+      - ./vue-src:/vue-src
+      - ~/.m2:/root/.m2
+    ports:
+      - "8080:8080"
+
+  api:
+    restart: always
+    working_dir: /storefront
+    build:
+      context: ./storefront
+    container_name: api-layer
+    volumes:
+      - ./storefront:/storefront
+      - ~/.m2:/root/.m2
+    ports:
+      - "8081:8081"
+
+  mysql:
+    container_name: mysql57
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: demo_java
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: hello_java
+    volumes:
+      - ./food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3318:3306"
+    restart: always
+
+  bk-food:
+    restart: always
+    build:
+      context: ./food-service
+    working_dir: /food-service
+    container_name: food-service
+    volumes:
+      - /Users/bish/.gradle/:/home/gradle/.gradle
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-service
+
+#  bk-user:
+#    restart: always
+#    build:
+#      context: ./food-service
+#    working_dir: /food-service
+#    container_name: food-service
+#    volumes:
+#      - /Users/bish/.gradle/:/home/gradle/.gradle
+#    expose:
+#      - "8080"
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql-service
+
+#  bk-order:
+#    restart: always
+#    build:
+#      context: ./food-service
+#    working_dir: /food-service
+#    container_name: food-service
+#    volumes:
+#      - /Users/bish/.gradle/:/home/gradle/.gradle
+#    expose:
+#      - "8080"
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - mysql-service
