@@ -13,6 +13,8 @@ import EditAccount from './components/edit-account.vue'
 import CartDetails from './components/CartDetails.vue'
 import RestaurentOrderList from './components/RestaurentOrderList.vue'
 import CantactUs from './components/contact-us.vue'
+import ManageRestaurentFood from './components/ManageRestaurentFood.vue'
+import RestaurentFoodForm from './components/RestaurentFoodForm.vue'
 
 Vue.use(Router)
 
@@ -85,6 +87,16 @@ export default new Router({
 			path:'/contact-us',
 			name:'CantactUs',
 			component:CantactUs
+		},
+		{  
+			path:'/product-management',
+			name:'ManageRestaurentFood',
+			component:ManageRestaurentFood
+		},
+		{  
+			path:'/restaurent-add-food',
+			name:'RestaurentFoodForm',
+			component:RestaurentFoodForm
 		}
 	],
 	duplicateNavigationPolicy: 'reload'

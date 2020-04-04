@@ -24,6 +24,11 @@
           <router-link to="/order/rejected">Rejected orders</router-link>
         </li>
       </ul>
+      <ul class="nav navbar-nav pull-right">
+          <li>
+            <router-link to="/product-management">Manage products</router-link>
+          </li>
+      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

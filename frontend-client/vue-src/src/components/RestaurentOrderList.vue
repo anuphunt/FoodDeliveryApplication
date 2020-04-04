@@ -1,5 +1,6 @@
 <template>
     <div class="container container-height">
+        <div class="col-lg-12">
         <div class="row">
           <RestaurentNav/>
           <table cellspacing="0" id="tech-companies-1" class="table table-small-font table-bordered table-striped">
@@ -25,6 +26,7 @@
                           </tr>
                         </tbody>
                       </table>
+        </div>
         </div>
     </div>
 </template>

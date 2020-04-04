@@ -26,11 +26,15 @@ module.exports = class Api {
 	getEditAccountApi(){
 		return this.getHostUrl()+'/users/update';//+{id}
 	}
-
-
+	getPlaceOrderApi(){
+		return this.getHostUrl()+'/orders/new';
+	}
 	// Order restaurent service
 	getRestaurentPendingOrderApi(){
 		return this.getHostUrl()+'/orders/restaurants/pendingOrders';//+{restaurantId}
+	}
+	getRestaurentAddFoodApi(){
+		return this.getHostUrl()+'/foods/new';
 	}
 
 	//http://localhost:8081/foods/89
