@@ -1,19 +1,19 @@
 version: '3'
 services:
 
-  hk-mysql:
-   container_name: mysql57
-   image: mysql/mysql-server:5.7
-   environment:
-    MYSQL_ROOT_PASSWORD: 1234
-    MYSQL_USER: demo_java
-    MYSQL_PASSWORD: 1234
-    MYSQL_DATABASE: hello_java
-   volumes:
-    - ./food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-   ports:
-    - "3308:3308"
-   restart: always
+ mysql-service:
+  container_name: mysql57
+  image: mysql:latest
+  environment:
+   MYSQL_ROOT_PASSWORD: 1234
+   MYSQL_USER: demo_java
+   MYSQL_PASSWORD: 1234
+   MYSQL_DATABASE: hello_java
+  volumes:
+   - ./food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+  ports:
+   - "3318:3306"
+  restart: always
 
   food-service:
    restart: always

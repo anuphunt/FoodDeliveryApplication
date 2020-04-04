@@ -35,7 +35,7 @@
                                 <button item_no="1" class="qtyplus" v-on:click="increase(food.foodId,food.details)"><i class="fa fa-plus"></i></button>
                               </div>
 
-                              <a href="" v-on:click="removeItem(food.foodId)" class="cart-action"><i class="fa fa-remove"></i></a></td>
+                              <a href="" v-on:click="removeItem($event,food.foodId)" class="cart-action"><i class="fa fa-remove"></i></a></td>
                             <td>USD{{food.details.quantity*100}}</td>
                           </tr>
                         </tbody>
@@ -657,12 +657,12 @@ export default {
   methods:{
     addToCart:function(foodId,quantity){
       
-      this.helper.addToCart(foodId,quantity);
+      this.helper.addToCart(foodId,quantity,false);
     },
     increase(foodId,details){
       details.quantity = parseInt(details.quantity);
       details.quantity += 1;
-      this.helper.addToCart(foodId,details);
+      this.helper.addToCart(foodId,details,false);
     },
     decrease(foodId,details){
       details.quantity = parseInt(details.quantity);
@@ -670,7 +670,7 @@ export default {
       if(details.quantity<=0){
         details.quantity = 0;
       }
-      this.helper.addToCart(foodId,details);
+      this.helper.addToCart(foodId,details,false);
     },
     onKeyUp(foodId,details){
 
@@ -678,7 +678,7 @@ export default {
       if(details.quantity<=0){
         details.quantity = 0;
       }
-      this.helper.addToCart(foodId,details);
+      this.helper.addToCart(foodId,details,false);
     },
     getSubtotal(){
       var total = 0;
@@ -699,16 +699,17 @@ export default {
     getTotal(){
       return this.getSubtotal()+this.getTax()+this.getVatAmt();
     },
-    removeItem(foodId){
+    removeItem(e,foodId){
       var newRecord = this.cartItems;
       this.helper.makeCartEmpty();
       newRecord.map((cartItem)=>{
           if(cartItem.foodId != foodId){
-              this.helper.addToCart(cartItem.foodId,cartItem.details);
+              this.helper.addToCart(cartItem.foodId,cartItem.details,false);
           }
       });
+      this.helper.showMessage('success','Food has been removed successfully.');
       this.cartItems = this.helper.getCart();
-
+      e.preventDefault();
     }
   },
   mounted(){
@@ -718,14 +719,11 @@ export default {
             this.$router.push('/login');
     }else{
 
-        if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-                     this.helper.addToCart(8,6);
+        if(this.helper.getUserInfo().role != this.helper.userRole.user){
+              this.helper.unsetUserInfo();
+           this.$router.push('/login');       
 
-        }else{
-           this.helper.unsetUserInfo();
-           this.$router.push('/login');
         }
-
     }
         
     
