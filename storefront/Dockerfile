@@ -1,5 +1,5 @@
 FROM gradle:jdk10 as builder
-COPY --chown=gradle:gradle . /home/gradle/src
+COPY --chown=gradle:gradle storefront /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build
 

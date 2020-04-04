@@ -1,13 +1,8 @@
 package project.mpp.foodservice.persistence;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import project.mpp.foodservice.domain.Food;
 
-import java.util.List;
+public interface FoodRepository extends MongoRepository<Food, String> {
 
-@Repository
-public interface FoodRepository extends CrudRepository<Food, Long> {
-
-    Iterable<Food> findAllFoodByRestaurantId(Integer restaurantId);
-
+    Iterable<Food> findAllFoodByRestaurantId(String restaurantId);
 }

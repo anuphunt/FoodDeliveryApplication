@@ -1,19 +1,17 @@
 package com.fooddeliveryapp.storefront.models;
 
-import javax.validation.constraints.NotBlank;
+public class Food {
+    private String id;
+    private String name;
+    private Double price;
+    private String description;
+    private String imageUrl;
+    private String restaurantId;
 
-public class FoodItem {
-    Long foodId;
-
-    @NotBlank(message = "Name of the food is mandatory.")
-    String name;
-    String description;
-    String imageUrl;
-    Long restaurantId;
-
-    public FoodItem(Long foodId, String name, String description, String imageUrl, Long restaurantId) {
-        this.foodId = foodId;
+    public Food(String id, String name, Double price, String description, String imageUrl, String restaurantId) {
+        this.id = id;
         this.name = name;
+        this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.restaurantId = restaurantId;
@@ -43,19 +41,19 @@ public class FoodItem {
         this.imageUrl = imageUrl;
     }
 
-    public Long getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(Long restaurantId) {
+    public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
 
-    public Long getFoodId() {
-        return foodId;
+    public String getFoodId() {
+        return id;
     }
 
-    public void setFoodId(Long foodId) {
-        this.foodId = foodId;
+    public void setFoodId(String id) {
+        this.id = id;
     }
 }

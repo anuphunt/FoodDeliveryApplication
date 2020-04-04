@@ -1,44 +1,49 @@
 package project.mpp.foodservice.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Document
 public class Food {
-    public Long getId() {
-        return this.id;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    private Long id;
+    private String id;
     @NotNull
     private String name;
     @NotNull
     private Double price;
-
     private String description;
     private String imageUrl;
-    private Integer restaurantId;
+    private String restaurantId;
 
+    public Food(String id, @NotNull String name, @NotNull Double price, String description, String imageUrl, String restaurantId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.restaurantId = restaurantId;
+    }
 
-    public Food(){
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 
     public void setPrice(Double price) {
@@ -49,35 +54,23 @@ public class Food {
         return description;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
-    public Integer getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
-    public Food(Long id, @NotNull String name, @NotNull Double price, String description, String imageurl, Integer restaurantId){
-        this.id = id;
-        this.name=name;
-        this.price=price;
-        this.description=description;
-        this.imageUrl = imageurl;
+    public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
-
-
-
 }
