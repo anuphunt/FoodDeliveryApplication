@@ -51,7 +51,7 @@
 
                 </div><!-- container end -->
             </div>
-            <div class="hd-bottom">
+            <div class="hd-bottom" style="margin-bottom: 15px">
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-8 col-sm-3 col-sm-3">
@@ -68,7 +68,8 @@
                             </div>
                         </div>
                         <div class="col-sm-3 col-md-2">
-                          <router-link to="/cart-details" class="hd-cart pull-right">
+
+                          <router-link v-if="getCustomerRole()" to="/cart-details" class="hd-cart pull-right">
 
                                 <span class="text">CART</span>
                                 <span class="cart-count">{{countCart}}</span>
@@ -78,7 +79,7 @@
                     </div><!-- row end -->
                 </div>
             </div>
-            <div class="container">
+            <!-- <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-1 mrgb-30"></div>
                     <div class="col-sm-12 col-md-10 mrgb-30"></div>
@@ -87,13 +88,16 @@
                         <a id="navToggle" class="animated-arrow slideLeft"><span></span></a>
                     </div>
                 </div>
-            </div><!-- container end -->
-        </header><!-- header end -->
+            </div> -->
+        </header>
 </template>
 <script type="text/javascript">
   export default{
     data(){
-      var getCart = this.helper.getCart();
+      var getCart = [];
+      if(this.checkLogin()){
+          getCart = this.helper.getCart();
+      }
       return {
         countCart:getCart.length
       }
@@ -122,6 +126,16 @@
           }else{
             return this.helper.getUserInfo().username;
           }
+      },
+      getCustomerRole:function(){
+          if(this.helper.getUserInfo().userToken == ''){
+            return true;
+          }else{
+            if(this.helper.getUserInfo().role == this.helper.userRole.user){
+              return true;
+            }
+          }
+          return false;
       }
     }
   }
