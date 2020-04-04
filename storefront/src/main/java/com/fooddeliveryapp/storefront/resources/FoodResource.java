@@ -38,12 +38,12 @@ public class FoodResource {
 
     @ApiOperation("Add new food")
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public Food addNew(@PathVariable Food food){
+    public Food addNew(@RequestBody Food food){
         return restTemplate.postForObject(foodServiceUrl + "/new", food, Food.class);
     }
 
     @ApiOperation("Delete food.")
-    @RequestMapping(value = "/delete/{foodId}")
+    @RequestMapping(value = "/delete/{foodId}", method = RequestMethod.POST)
     public Food deleteFood(@PathVariable String foodId){
         return restTemplate.getForObject(foodServiceUrl + "/delete/" + foodId, Food.class);
     }
