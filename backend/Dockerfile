@@ -5,10 +5,10 @@ FROM openjdk:10-jre-slim
 FROM openjdk:8 AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/home/gradle/
 WORKDIR $APP_HOME
-COPY build.gradle settings.gradle gradlew $APP_HOME
-COPY gradle $APP_HOME/gradle
+COPY food-service/build.gradle settings.gradle gradlew $APP_HOME
+COPY food-service/gradle $APP_HOME/gradle
 RUN ./gradlew build || return 0
-COPY . .
+COPY food-service .
 #RUN ./gradlew build
 #
 #
