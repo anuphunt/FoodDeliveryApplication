@@ -7,17 +7,19 @@ import javax.validation.constraints.NotNull;
 @Document
 public class Food {
     @Id
-    @NotNull
     private String id;
     @NotNull
     private String name;
     @NotNull
-    private Double price;
+    private double price;
     private String description;
     private String imageUrl;
     private String restaurantId;
 
-    public Food(String id, @NotNull String name, @NotNull Double price, String description, String imageUrl, String restaurantId) {
+    public Food() {
+    }
+
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -42,11 +44,11 @@ public class Food {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

@@ -1,14 +1,17 @@
 package com.fooddeliveryapp.storefront.models;
 
+
+import javax.validation.constraints.NotNull;
+
 public class Food {
     private String id;
     private String name;
-    private Double price;
+    private double price;
     private String description;
     private String imageUrl;
     private String restaurantId;
 
-    public Food(String id, String name, Double price, String description, String imageUrl, String restaurantId) {
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -17,12 +20,31 @@ public class Food {
         this.restaurantId = restaurantId;
     }
 
+    public Food() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getDescription() {
@@ -47,13 +69,5 @@ public class Food {
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
-    }
-
-    public String getFoodId() {
-        return id;
-    }
-
-    public void setFoodId(String id) {
-        this.id = id;
     }
 }

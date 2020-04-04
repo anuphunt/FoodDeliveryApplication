@@ -10,10 +10,10 @@ import project.mpp.foodservice.service.FoodService;
 public class AddNewFood {
 
     @Autowired
-    private FoodRepository foodRepository;
+    private FoodService service;
 
     @PostMapping(path="/new")
-    Food addNew(@RequestBody Food food) {
-        return foodRepository.save(food);
+    public Food addNew(@RequestBody Food food) {
+        return service.create(food);
     }
 }
