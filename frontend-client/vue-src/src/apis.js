@@ -33,6 +33,9 @@ module.exports = class Api {
 	getRestaurentPendingOrderApi(){
 		return this.getHostUrl()+'/orders/restaurants/pendingOrders';//+{restaurantId}
 	}
+	getRestaurentAddFoodApi(){
+		return this.getHostUrl()+'/foods/new';
+	}
 
 	//http://localhost:8081/foods/89
 	//http://localhost:8081/foods/14

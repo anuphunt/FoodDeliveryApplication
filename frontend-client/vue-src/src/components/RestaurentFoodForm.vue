@@ -96,7 +96,7 @@ export default {
                         this.helper.request({
                               type: 'post',
                               withData:'json',
-                              url: this.api.getLoginApi(),
+                              url: this.api.getRestaurentAddFoodApi(),
                               dataType:'json',
                               auth:false,
                               data: formData,
