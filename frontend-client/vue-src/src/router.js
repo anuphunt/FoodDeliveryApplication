@@ -97,6 +97,11 @@ export default new Router({
 			path:'/restaurent-add-food',
 			name:'RestaurentFoodForm',
 			component:RestaurentFoodForm
+		},
+		{  
+			path:'/restaurent-update-food/:foodId',
+			name:'RestaurentFoodForm',
+			component:RestaurentFoodForm
 		}
 	],
 	duplicateNavigationPolicy: 'reload'

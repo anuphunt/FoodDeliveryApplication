@@ -75,6 +75,7 @@ module.exports = class Helper {
     
     getUserInfo () {
             var userInfo = {
+                id: '',
                 username: '',
                 userToken: '',
                 firstName: '',
@@ -86,6 +87,11 @@ module.exports = class Helper {
             var userInfoLocal = JSON.parse(localStorage.getItem('userInfo'));
             if (typeof (userInfoLocal) === 'object') {
                 if (userInfoLocal !== null) {
+                    if (typeof (userInfo.id) !== 'undefined') {
+                        if (userInfoLocal.id !== '') {
+                            userInfo.id = userInfoLocal.id;
+                        }
+                    }
                     if (typeof (userInfo.username) !== 'undefined') {
                         if (userInfoLocal.username !== '') {
                             userInfo.username = userInfoLocal.username;

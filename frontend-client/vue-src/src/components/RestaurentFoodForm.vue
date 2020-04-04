@@ -86,12 +86,12 @@ export default {
               }
 
               if (this.errors.length == 0) {
-
+                  console.log('this.$route.params.foodId',this.$route.params.foodId)
                     var formData = new FormData();
                         formData.append('name', this.name);
                         formData.append('price', this.price);
                         formData.append('imageUrl', this.imageUrl);
-                        formData.append('restaurantId', this.helper.getUserInfo().username);
+                        formData.append('restaurantId', this.helper.getUserInfo().id);
 
                         this.helper.request({
                               type: 'post',
@@ -103,8 +103,13 @@ export default {
                               complete:()=>{
                                 this.helper.showMessage('danger','Invalid Username or Password');
                               },
-                              success:(resp)=>{
-                                console.log(resp);
+                              success:()=>{
+
+                                this.showMessage('Product has been added successfully.');
+                                this.name = null;
+                                this.price = null;
+                                this.imageUrl = null;
+                                this.description = null;
 
                               }
 

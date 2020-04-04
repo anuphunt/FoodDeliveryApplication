@@ -22,8 +22,8 @@
                     <td>$100</td>
                     <td><img height="120" v-bind:alt="food.name" src="/dummy-food.jpg"></td>
                     <td width="120">
-                      <a href="" class="btn btn-xs btn-primary">Edit</a>
-                      &nbsp;<a href="" class="btn btn-xs btn-danger">Delete</a>
+                      <!-- <a href="" class="btn btn-xs btn-primary">Edit</a> -->
+                      <a href="" class="btn btn-xs btn-danger">Delete</a>
                     </td>
                   </tr>
                 </tbody>
@@ -63,8 +63,9 @@ export default {
     }else{
 
         if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-                        //var resId = this.$route.params.id;
-                        var resId = 12;
+
+                        var resId = this.helper.getUserInfo().id;
+                        // var resId = 12;
                         this.helper.request({
                               type: 'get',
                               withData:'json',
