@@ -2,59 +2,61 @@ version: '3'
 
 services:
   webapp:
+    image: webapp
     restart: always
     working_dir: /vue-src
     build:
-      context: ./vue-src
-    container_name: app
+      context: ./frontend-client
+    container_name: webapp-c
     volumes:
-      - ./vue-src:/vue-src
+      - ./frontend-client/vue-src:/vue-src
       - ~/.m2:/root/.m2
     ports:
       - "8080:8080"
 
   api:
+    image: api
     restart: always
     working_dir: /storefront
     build:
-      context: ./storefront
-    container_name: api-layer
+      context: ./ApiGateway
+    container_name: api-c
     volumes:
-      - ./storefront:/storefront
+      - ./ApiGateway/storefront:/storefront
       - ~/.m2:/root/.m2
     ports:
       - "8081:8081"
 
   mysql:
-    container_name: mysql57
-    image: mysql:latest
+    image: mysql
+    container_name: mysql-c
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: demo_java
       MYSQL_PASSWORD: 1234
       MYSQL_DATABASE: hello_java
     volumes:
-      - ./food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./backend/food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "3318:3306"
     restart: always
 
   bk-food:
+    image: bk-food
     restart: always
     build:
-      context: ./food-service
+      context: ./backend
     working_dir: /food-service
-    container_name: food-service
-    volumes:
-      - /Users/bish/.gradle/:/home/gradle/.gradle
+    container_name: food-c
     expose:
       - "8080"
     ports:
-      - "8080:8080"
+      - "8090:8080"
     depends_on:
-      - mysql-service
+      - mysql
 
 #  bk-user:
+#    image: bk-user
 #    restart: always
 #    build:
 #      context: ./food-service
@@ -70,6 +72,7 @@ services:
 #      - mysql-service
 
 #  bk-order:
+#    image: bk-order
 #    restart: always
 #    build:
 #      context: ./food-service

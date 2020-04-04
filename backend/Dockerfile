@@ -2,10 +2,10 @@
 # That connects to mysql database on another contianer
 FROM openjdk:10-jre-slim
 
-FROM openjdk:8 AS TEMP_BUILD_IMAGE
+FROM openjdk:10-jre-slim AS TEMP_BUILD_IMAGE
 ENV APP_HOME=/home/gradle/
 WORKDIR $APP_HOME
-COPY food-service/build.gradle settings.gradle gradlew $APP_HOME
+COPY food-service/build.gradle food-service/settings.gradle food-service/gradlew $APP_HOME
 COPY food-service/gradle $APP_HOME/gradle
 RUN ./gradlew build || return 0
 COPY food-service .
