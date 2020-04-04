@@ -38,7 +38,7 @@
                         
                         <div class="mrgb-10 clearfix">
                             <!-- <span class="det-pricecut pull-left">Rs 24,000</span> -->
-                            <span class="font-24 active-text regprice pull-left">Rs 23,000</span>
+                            <span class="font-24 active-text regprice pull-left">${{food.price}}</span>
                             <!-- <span class="offtag pull-left">10% OFF</span> -->
                         </div>
                         
@@ -65,7 +65,7 @@
                         <hr/>
                         
                         <div class="mrgb-10">
-                          <button class="btn-cart" v-on:click="addToCart(food.foodId,quantity,food)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
+                          <button class="btn-cart" v-on:click="addToCart(food.id,quantity,food)"><i class="fa fa-shopping-basket"></i>Add to Cart</button>
                         </div>
                         <hr/>
                         
@@ -171,17 +171,18 @@ export default {
     return {
       food:{
         name:null,
+        price:0
         
       },
       quantity:1
     }
   },
   methods:{
-    addToCart:function(foodId,quantity,food){
-      console.log('foodId',foodId);
+    addToCart:function(id,quantity,food){
+      console.log('id',id);
       console.log('food',food);
       food.quantity = quantity;
-      this.helper.addToCart(foodId,food);
+      this.helper.addToCart(id,food);
     }
   },
   mounted(){
@@ -192,12 +193,12 @@ export default {
     }else{
 
         if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-                        var foodId = this.$route.params.id;
+                        var id = this.$route.params.id;
                         this.helper.request({
                               type: 'get',
                               withData:'json',
                               auth:false,
-                              url: this.api.getFoodDetailApi()+'/'+foodId,
+                              url: this.api.getFoodDetailApi()+'/'+id,
                               dataType:'json',
                               complete:()=>{
                               },

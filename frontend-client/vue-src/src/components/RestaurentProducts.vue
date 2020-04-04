@@ -6,21 +6,21 @@
               <div class="grid-item">
                         <div class="p-item mrgb-30">
                           <div class="">
-                                  <router-link :to="{path: '/foods/' + food.foodId}" >
+                                  <router-link :to="{path: '/foods/' + food.id}" >
                                   <img alt="3" src="/dummy-food.jpg">
                                 </router-link>
                                 </div>
                             <div class="p-item-info">
                                 <div class="price-tag">
                                   
-                                    <h3 class="font-24 active-text">$690.00</h3>
+                                    <h3 class="font-24 active-text">${{food.price}}</h3>
                                   
                                     <!-- <span class="cut-price">$690.00</span> -->
                                 </div>
-                                <router-link :to="{path: '/foods/' + food.foodId}" >
+                                <router-link :to="{path: '/foods/' + food.id}" >
                                 <h2>{{food.name}}</h2>
                                 </router-link>
-                                <button class="btn-all" v-on:click="addToCart(food.foodId,1,food)" >Add to Cart</button>
+                                <button class="btn-all" v-on:click="addToCart(food.id,1,food)" >Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -41,9 +41,9 @@ export default {
     }
   },
   methods:{
-    addToCart:function(foodId,quantity,food){
+    addToCart:function(id,quantity,food){
       food.quantity = quantity;
-      this.helper.addToCart(foodId,food);
+      this.helper.addToCart(id,food);
     }
   },
   mounted(){
