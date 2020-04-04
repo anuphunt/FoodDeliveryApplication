@@ -19,10 +19,10 @@ services:
     restart: always
     working_dir: /storefront
     build:
-      context: ./ApiGateway
+      context: ./storefront
     container_name: api-c
     volumes:
-      - ./ApiGateway/storefront:/storefront
+      - ./storefront/storefront:/storefront
       - ~/.m2:/root/.m2
     ports:
       - "8081:8081"
