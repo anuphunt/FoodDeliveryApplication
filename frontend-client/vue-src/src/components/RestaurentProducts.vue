@@ -54,8 +54,8 @@ export default {
     }else{
 
         if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-                        //var resId = this.$route.params.id;
-                        var resId = 12;
+                        var resId = this.$route.params.id;
+                        //var resId = 12;
                         this.helper.request({
                               type: 'get',
                               withData:'json',
