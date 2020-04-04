@@ -14,21 +14,27 @@ services:
   ports:
    - "3318:3306"
   restart: always
+  networks:
+   - mynetwork
 
-  food-service:
-   restart: always
-   build:
-    context: ./food-service
-   working_dir: /food-service
-   container_name: food-service
-   volumes:
-    - ./food-service:/food-service
-    - ~/.m2:/root/.m2
-   expose:
-    - "8080"
-   ports:
-    - "8080:8080"
-   environment:
-    - "SPRING_PROFILES_ACTIVE=dev"
-   depends_on:
-    - hk-mysql
+ food-service:
+  restart: always
+  build:
+   context: ./food-service
+  working_dir: /food-service
+  container_name: food-service
+  volumes:
+   - /Users/bish/.gradle/:/home/gradle/.gradle
+  expose:
+   - "8080"
+  ports:
+   - "8080:8080"
+  depends_on:
+   - mysql-service
+  networks:
+   - mynetwork
+
+networks:
+ mynetwork:
+  driver: bridge
+
