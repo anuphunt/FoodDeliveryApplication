@@ -1,5 +1,6 @@
 package com.fooddeliveryapp.storefront.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,6 +9,7 @@ import java.util.Collection;
 
 public class User{
 
+    @JsonIgnore
     private int id;
 
     @NotBlank(message = "Username is mandatory.")

@@ -42,7 +42,7 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public Optional<User> getUserById(@PathVariable int id)
+	public Optional<User> getUserById(@PathVariable String id)
 	{
 		return userRepo.findById(id);
 	}
@@ -111,7 +111,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/delete/{id}")
-	public Optional<User> deleteUserById(@PathVariable("id") int id){
+	public Optional<User> deleteUserById(@PathVariable("id") String id){
 		Optional<User> user = getUserById(id);
 		userRepo.deleteById(id);
 		return user;
