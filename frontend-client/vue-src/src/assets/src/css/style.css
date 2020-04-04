@@ -1141,3 +1141,6 @@ border-bottom:none;
 .container-height{
 	min-height: 580px;
 }
+.router-link-active{
+	font-weight: bold;
+}

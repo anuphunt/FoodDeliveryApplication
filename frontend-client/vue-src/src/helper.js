@@ -64,6 +64,7 @@ module.exports = class Helper {
     makeCartEmpty(){
 
         localStorage.removeItem('cartInfo');
+        this.changeToHeader();
     }
     changeToHeader(){
         if(document.querySelector(".cart-count")){

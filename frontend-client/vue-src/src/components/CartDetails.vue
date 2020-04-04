@@ -635,7 +635,7 @@
                     
                     <a href="#" class="btn-all pull-left">Continue Shopping</a>
                     
-                    <a href="checkout.html" class="btn-all pull-right">Checkout</a>
+                    <a href="" v-on:click="placeOrder" class="btn-all pull-right">Checkout</a>
           
                 </div> <!-- mrgb-30 end -->
             </div>
@@ -710,6 +710,50 @@ export default {
       this.helper.showMessage('success','Food has been removed successfully.');
       this.cartItems = this.helper.getCart();
       e.preventDefault();
+    },
+    placeOrder(e){
+        var cartItems = this.helper.getCart();
+        if(cartItems.length > 0){
+
+            var orderItems = [];
+            var restaurantId = '';
+            cartItems.map((cartItem)=>{
+                restaurantId = cartItem.details.restaurantId;
+                orderItems.push({
+                    foodId:cartItem.foodId,
+                    quantity:cartItem.details.quantity
+                })
+            })
+            var formData = new FormData();
+            formData.append('customerId', this.helper.getUserInfo().username);
+            formData.append('restaurantId', restaurantId);
+
+            this.helper.request({
+                  method: 'post',
+                  withData:'json',
+                  auth:false,
+                  url: this.api.getPlaceOrderApi(),
+                  dataType:'json',
+                  data: formData,
+                  success:()=>{
+                    this.helper.showMessage('success','Order has been placed successfully.');
+
+                    this.helper.makeCartEmpty();
+                    setTimeout(()=>{ 
+                        this.$router.push('/');
+                    },1000);
+                  },
+                  error:()=>{
+
+                      this.helper.showMessage('error','Request is not success.');
+                  }
+
+            })
+        }else{
+            this.helper.showMessage('error','Your cart is empty.');
+        }
+        
+        e.preventDefault();
     }
   },
   mounted(){
