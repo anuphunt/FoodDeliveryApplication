@@ -1,16 +1,12 @@
 package com.fooddeliveryapp.storefront.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Collection;
 
 public class User{
 
-    @JsonIgnore
-    private int id;
+    private String id;
 
     @NotBlank(message = "Username is mandatory.")
     private String username;
@@ -35,7 +31,7 @@ public class User{
     public User() {
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
+    public User(String id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,11 +41,11 @@ public class User{
         this.role = role;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
