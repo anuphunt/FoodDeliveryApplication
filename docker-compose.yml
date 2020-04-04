@@ -13,6 +13,7 @@ services:
     ports:
       - "8081:8081"
   userservice:
+    restart: always
     working_dir: /userService
     build:
       context: ./userService
