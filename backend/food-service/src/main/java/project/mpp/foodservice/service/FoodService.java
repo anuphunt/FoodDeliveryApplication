@@ -4,9 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import project.mpp.foodservice.domain.Food;
+import project.mpp.foodservice.exceptions.FoodNotFoundException;
 import project.mpp.foodservice.persistence.FoodRepository;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,9 +25,9 @@ public class FoodService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Food findById(Long id){
+    public Food findById(String id){
         return foodPersistence.findById(id).orElseThrow(() ->
-            new EntityNotFoundException("Food not found with this id: " + id));
+            new FoodNotFoundException("Food not found with this id: " + id));
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

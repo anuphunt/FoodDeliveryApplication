@@ -1,10 +1,10 @@
-package com.fooddeliveryapp.orderprocessingservice.orderprocessingservice.Exceptions;
+package project.mpp.foodservice.exceptions;
 
-public class OrderNotFoundException extends RuntimeException {
+public class FoodNotFoundException extends RuntimeException {
     String message;
 
-    public OrderNotFoundException(String message) {
-        this.message = message;
+    public FoodNotFoundException(String foodId) {
+        this.message = "Food with id " + foodId + "not found.";
     }
 
     @Override
