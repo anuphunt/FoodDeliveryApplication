@@ -5,7 +5,7 @@ module.exports = class Helper {
         driver:'DRIVER',
         restaurant:'RESTAURANT'
     }
-    addToCart(itemId,details){
+    addToCart(itemId,details,message){
         if(typeof(details) == 'object'){
             details.quantity = parseInt(details.quantity);
             if(this.getCart().length <= 0){
@@ -36,7 +36,12 @@ module.exports = class Helper {
                 }
                 
             }
-            this.showMessage('success','Added Successfully.');
+            if(message === false){
+                 console.log('updated but message has not been shown.');
+            }else{
+                this.showMessage('success','Added Successfully.');
+            }
+            
         }        
 
     }
@@ -57,7 +62,7 @@ module.exports = class Helper {
             
     }
     makeCartEmpty(){
-        
+
         localStorage.removeItem('cartInfo');
     }
     changeToHeader(){
@@ -299,8 +304,13 @@ module.exports = class Helper {
             ele.find('.success-heading').hide();        
             ele.find('.error-heading').show();        
         }
+        ele.stop();
+        ele.css({
+            opacity:1
+        })
         ele.find('.message-box').text(message);
-        ele.show(0).delay(5000).hide(0);
+        ele.show(0).fadeOut(5000);
+
         
     }
 
