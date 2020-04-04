@@ -20,11 +20,12 @@ public class User {
 	private String state;
 	private int zipCode;
 	private String phone;
+	private String profilePicUrl;
 
 	public User() {
 	}
 
-	public User(String id, String username, String password, String role, String firstName, String lastName, String email, String streetAddress, String city, String state, int zipCode, String phone) {
+	public User(String id, String username, String password, String role, String firstName, String lastName, String email, String streetAddress, String city, String state, int zipCode, String phone, String profilePicUrl) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
@@ -37,6 +38,7 @@ public class User {
 		this.state = state;
 		this.zipCode = zipCode;
 		this.phone = phone;
+		this.profilePicUrl = profilePicUrl;
 	}
 
 	public String getId() {
