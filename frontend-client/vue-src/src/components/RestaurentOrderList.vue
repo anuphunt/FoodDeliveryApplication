@@ -54,9 +54,9 @@ export default {
     }else{
       
         if(this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-              var resId = 3;
+              // var resId = 3;
               var apiUrl = '';
-              // var resId = this.helper.getUserInfo();
+              var resId = this.helper.getUserInfo().id;
               if(this.orderType == 'new'){
                 apiUrl = this.api.getRestaurentPendingOrderApi()+'/'+resId;
               }else{
