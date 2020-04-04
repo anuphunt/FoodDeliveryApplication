@@ -12,6 +12,7 @@ import FoodDetails from './components/FoodDetails.vue'
 import EditAccount from './components/edit-account.vue'
 import CartDetails from './components/CartDetails.vue'
 import RestaurentOrderList from './components/RestaurentOrderList.vue'
+import CantactUs from './components/contact-us.vue'
 
 Vue.use(Router)
 
@@ -70,7 +71,7 @@ export default new Router({
 			name:'EditAccount',
 			component:EditAccount
 		},
-		{
+		{  
 			path:'/cart-details',
 			name:'CartDetails',
 			component:CartDetails
@@ -79,7 +80,12 @@ export default new Router({
 			path:'/order/:type',
 			name:'RestaurentOrderList',
 			component:RestaurentOrderList
+		},
+		{  
+			path:'/contact-us',
+			name:'CantactUs',
+			component:CantactUs
 		}
 	],
 	duplicateNavigationPolicy: 'reload'
-})
+}) 
