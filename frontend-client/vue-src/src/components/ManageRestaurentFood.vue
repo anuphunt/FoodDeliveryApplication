@@ -19,7 +19,7 @@
                 <tbody>
                   <tr v-for="(food, index) in foods" :key="index">
                     <td>{{food.name}}</td>
-                    <td>$100</td>
+                    <td>${{food.price}}</td>
                     <td><img height="120" v-bind:alt="food.name" src="/dummy-food.jpg"></td>
                     <td width="120">
                       <!-- <a href="" class="btn btn-xs btn-primary">Edit</a> -->

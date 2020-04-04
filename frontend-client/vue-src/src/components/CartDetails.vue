@@ -26,17 +26,17 @@
                           <tr v-for="(food,index) in cartItems" :key="index">
                             <td class="cart-prdimg"><a href="./"><img height="80px" src="/dummy-food.jpg" alt="rice"></a></td>
                             <td><a href="./" class="active-link">{{food.details.name}}</a></td>
-                            <td>USD 100</td>
+                            <td>${{food.details.price}}</td>
                             <td>
                                 
                               <div class="det-qty pull-left">
-                                <input class="qtyfield qtyfield1" type="number" v-model="food.details.quantity" v-on:keyup="onKeyUp(food.foodId,food.details)">
-                                <button item_no="1" class="qtyminus" v-on:click="decrease(food.foodId,food.details)"><i class="fa fa-minus"></i></button>
-                                <button item_no="1" class="qtyplus" v-on:click="increase(food.foodId,food.details)"><i class="fa fa-plus"></i></button>
+                                <input class="qtyfield qtyfield1" type="number" v-model="food.details.quantity" v-on:keyup="onKeyUp(food.id,food.details)">
+                                <button item_no="1" class="qtyminus" v-on:click="decrease(food.id,food.details)"><i class="fa fa-minus"></i></button>
+                                <button item_no="1" class="qtyplus" v-on:click="increase(food.id,food.details)"><i class="fa fa-plus"></i></button>
                               </div>
 
-                              <a href="" v-on:click="removeItem($event,food.foodId)" class="cart-action"><i class="fa fa-remove"></i></a></td>
-                            <td>USD{{food.details.quantity*100}}</td>
+                              <a href="" v-on:click="removeItem($event,food.id)" class="cart-action"><i class="fa fa-remove"></i></a></td>
+                            <td>USD {{food.details.quantity*food.details.price}}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -655,35 +655,35 @@ export default {
     }
   },
   methods:{
-    addToCart:function(foodId,quantity){
+    addToCart:function(id,quantity){
       
-      this.helper.addToCart(foodId,quantity,false);
+      this.helper.addToCart(id,quantity,false);
     },
-    increase(foodId,details){
+    increase(id,details){
       details.quantity = parseInt(details.quantity);
       details.quantity += 1;
-      this.helper.addToCart(foodId,details,false);
+      this.helper.addToCart(id,details,false);
     },
-    decrease(foodId,details){
+    decrease(id,details){
       details.quantity = parseInt(details.quantity);
       details.quantity -= 1;
       if(details.quantity<=0){
         details.quantity = 0;
       }
-      this.helper.addToCart(foodId,details,false);
+      this.helper.addToCart(id,details,false);
     },
-    onKeyUp(foodId,details){
+    onKeyUp(id,details){
 
       details.quantity = parseInt(details.quantity);
       if(details.quantity<=0){
         details.quantity = 0;
       }
-      this.helper.addToCart(foodId,details,false);
+      this.helper.addToCart(id,details,false);
     },
     getSubtotal(){
       var total = 0;
       this.cartItems.map((cartItem)=>{
-          total += cartItem.details.quantity * 100;
+          total += cartItem.details.quantity * cartItem.details.price;
       })
       return total;
     },
@@ -699,12 +699,12 @@ export default {
     getTotal(){
       return this.getSubtotal()+this.getTax()+this.getVatAmt();
     },
-    removeItem(e,foodId){
+    removeItem(e,id){
       var newRecord = this.cartItems;
       this.helper.makeCartEmpty();
       newRecord.map((cartItem)=>{
-          if(cartItem.foodId != foodId){
-              this.helper.addToCart(cartItem.foodId,cartItem.details,false);
+          if(cartItem.id != id){
+              this.helper.addToCart(cartItem.id,cartItem.details,false);
           }
       });
       this.helper.showMessage('success','Food has been removed successfully.');
@@ -720,7 +720,7 @@ export default {
             cartItems.map((cartItem)=>{
                 restaurantId = cartItem.details.restaurantId;
                 orderItems.push({
-                    foodId:cartItem.foodId,
+                    id:cartItem.id,
                     quantity:cartItem.details.quantity
                 })
             })

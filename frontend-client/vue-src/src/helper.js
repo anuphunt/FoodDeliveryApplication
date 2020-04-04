@@ -5,12 +5,12 @@ module.exports = class Helper {
         driver:'DRIVER',
         restaurant:'RESTAURANT'
     }
-    addToCart(itemId,details,message){
+    addToCart(id,details,message){
         if(typeof(details) == 'object'){
             details.quantity = parseInt(details.quantity);
             if(this.getCart().length <= 0){
                 var items = [];
-                items.push({foodId:itemId,details:details});
+                items.push({id:id,details:details});
                 localStorage.setItem('cartInfo', JSON.stringify(items));
                 this.changeToHeader();
 
@@ -20,7 +20,7 @@ module.exports = class Helper {
                 var count = 0;
                 var found = false;
                 oldItems.map((oldItem)=>{
-                    if(oldItem.foodId == itemId){
+                    if(oldItem.id == id){
                         oldItems[count].details = details;
                         found = true;
                         localStorage.setItem('cartInfo', JSON.stringify(oldItems));
@@ -30,7 +30,7 @@ module.exports = class Helper {
                     count++;
                 })
                 if(found === false){
-                    oldItems.push({foodId:itemId,details:details});
+                    oldItems.push({id:id,details:details});
                     localStorage.setItem('cartInfo', JSON.stringify(oldItems));
                     this.changeToHeader();
                 }
