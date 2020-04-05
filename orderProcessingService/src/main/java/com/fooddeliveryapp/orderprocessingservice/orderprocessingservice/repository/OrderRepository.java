@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RepositoryRestResource(collectionResourceRel = "Order", path = "order")
 public interface OrderRepository extends MongoRepository<Order, String> {
-    Iterable<Order> findByCustomerId(String customerId);
-    Iterable<Order> findByRestaurantId(String restaurantId);
-    Iterable<Order> findByDriverId(String driverId);
+    List<Order> findByCustomerId(String customerId);
+    List<Order> findByRestaurantId(String restaurantId);
+    List<Order> findByDriverId(String driverId);
 }
