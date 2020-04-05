@@ -14,13 +14,19 @@
                <div class="col-sm-6 col-md-6 mrgb-30 clearfix">
                   <h3>Contact Form</h3>
                   <hr/>
-                  <form action="./" method="post">
+                  <form action="./" method="post" @submit="checkForm">
+                  <p v-if="errors.length" class="text-danger">
+                              <b>Please correct the following error(s):</b>
+                              <ul>
+                                <li v-for="error in errors" :key="error.key">{{ error.value }}</li>
+                              </ul>
+                            </p> 
                      <label for="cName">Name</label>
-                     <input type="text" v-model="name" id="cName" class="form-control mrgb-10 mrgt-10" />
+                     <input type="text" v-model="name" name="name" class="form-control mrgb-10 mrgt-10" />
                      <label for="cName">Email<Required/></label>
-                     <input type="text" v-model="email" name="txtemail" class="form-control mrgb-10 mrgt-10" />
+                     <input type="text" v-model="email" name="email" class="form-control mrgb-10 mrgt-10" />
                      <label for="cName">Message<Required/></label>
-                     <textarea v-model="message" class="form-control mrgb-10 mrgt-10"></textarea>
+                     <textarea v-model="message" name="message" class="form-control mrgb-10 mrgt-10"></textarea>
                      <input type="submit" name="btnsubmit" value="Send" class="btn-all pull-right" />
                   </form>
                </div>
@@ -53,9 +59,60 @@ export default {
         data() {
         return {
           errors:[],
+          name:null,
+          email:null,
+          message:null,
           
         }
+    },
+         methods:{
+    checkForm: function (e) {
+    console.log("here");
+      if (this.email && this.message) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.email) {
+        this.errors.push('Email required.');
+      }
+      if (!this.message) {
+        this.errors.push('Message required.');
+      }
+      if (this.errors.length == 0) {
+            //DRIVER, RESTAURANT, CUSTOMER, ADMIN
+            var formData = new FormData();
+            formData.append('name', this.name);
+            formData.append('message', this.message);
+            formData.append('email', this .email);
+           
+            // formData.append('userID', 2);
+
+          
+
+            this.helper.request({
+                  method: 'post',
+                  withData:'json',
+                  url: this.api.getEditAccountApi()+'/'+this.profile.username,
+                  dataType:'json',
+                  data: formData,
+                  success:()=>{
+                    this.helper.showMessage('success','Sucessfully changed account info!!!');
+                    this.$router.push('/contact-us');
+                  },
+                  error:()=>{
+                    this.helper.showMessage('error','Sorry, Please try again!!!');
+                      this.$router.push('/contact-us');
+                  }
+
+            })
+      }
+
+      e.preventDefault();
     }
+
+}
 }
 </script>
 		

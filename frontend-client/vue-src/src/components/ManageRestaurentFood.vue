@@ -13,7 +13,7 @@
                     <th>Food Name</th>
                     <th>Unit Price</th>
                     <th>Image</th>
-                    <th>Action</th>
+                    <th>Action</th> 
                   </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                     <td><img height="120" v-bind:alt="food.name" src="/dummy-food.jpg"></td>
                     <td width="120">
                       <!-- <a href="" class="btn btn-xs btn-primary">Edit</a> -->
-                      <a href="" class="btn btn-xs btn-danger">Delete</a>
+                      <button v-on:click="deleteFood(food.id,$events)" class="btn btn-xs btn-danger">Delete</button>
                     </td>
                   </tr>
                 </tbody>
@@ -46,13 +46,48 @@ export default {
   data(){
     var apiFoods = []
     return {
-      foods:apiFoods
+      foods:apiFoods,
+      resId:null
     }
   },
   methods:{
-    addToCart:function(foodId,quantity,food){
-      food.quantity = quantity;
-      this.helper.addToCart(foodId,food);
+  
+    deleteFood:function(id,e)
+    {
+
+            this.helper.request({
+                  method: 'post',
+                  withData:'json',
+                  url: this.api.getDeleteFoodApi()+'/'+id,
+                  dataType:'json',
+
+
+                  
+                  success:()=>{
+                    this.helper.showMessage('success','Sucessfully deleted food');
+                    this.helper.request({
+                              type: 'get',
+                              withData:'json',
+                              auth:false,
+                              url: this.api.getRestaurentFoods()+'/'+this.resId,
+                              dataType:'json',
+                              complete:()=>{
+                              },
+                              success:(resp)=>{
+
+                                this.foods = resp;
+                                
+                              }
+
+                        })
+                  },
+                  error:()=>{
+                    this.helper.showMessage('error','Sorry, Please try again!!!');
+                      this.$router.push('/product-management');
+                  }
+
+            })
+            e.preventDefault();
     }
   },
   mounted(){
@@ -64,19 +99,20 @@ export default {
 
         if(this.helper.getUserInfo().role == this.helper.userRole.user || this.helper.getUserInfo().role == this.helper.userRole.restaurant){
 
-                        var resId = this.helper.getUserInfo().id;
+                        this.resId = this.helper.getUserInfo().id;
                         // var resId = 12;
                         this.helper.request({
                               type: 'get',
                               withData:'json',
                               auth:false,
-                              url: this.api.getRestaurentFoods()+'/'+resId,
+                              url: this.api.getRestaurentFoods()+'/'+this.resId,
                               dataType:'json',
                               complete:()=>{
                               },
                               success:(resp)=>{
 
                                 this.foods = resp;
+                                
                               }
 
                         })
