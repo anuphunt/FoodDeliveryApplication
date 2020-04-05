@@ -36,12 +36,12 @@
                         <div class="col-sm-4 col-md-3 mrgb-30">
                             <h3>My Account</h3>
                             <ul>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Signin</a></li>
-                                <li><a href="#">Signup</a></li> 
-                                <li><a href="#">Cart</a></li>
-                                <li><a href="#">Checkout</a></li>
-                                <li><a href="#">Wishlist</a></li>
+                                <li><router-link to="/profile">My Account</router-link></li>
+                                <li><router-link to="/login">Signin</router-link></li>
+                                <li><router-link to="">Signin</router-link></li> 
+                                <li><router-link to="">Cart</router-link></li>
+                                <li><router-link to="">Checkout</router-link></li>
+                                <li><router-link to="">Wishlist</router-link></li>
                             </ul>
                         </div>                      
                         <div class="col-sm-12 col-md-3 mrgb-30">

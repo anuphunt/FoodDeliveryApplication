@@ -36,6 +36,9 @@ module.exports = class Api {
 	getRestaurentAddFoodApi(){
 		return this.getHostUrl()+'/foods/new';
 	}
+	getDeleteFoodApi(){
+		return this.getHostUrl()+'/foods/delete';//+{id}
+	}
 
 	//http://localhost:8081/foods/89
 	//http://localhost:8081/foods/14
