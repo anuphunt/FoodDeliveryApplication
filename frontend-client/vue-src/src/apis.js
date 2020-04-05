@@ -57,6 +57,9 @@ module.exports = class Api {
 	getRestaurentRejectedOrderApi(){
 		return this.getHostUrl()+'/orders/restaurants/reject';//+{restaurantId}
 	}
+	getCustomerOrderApi(){
+		return this.getHostUrl()+'/orders/customers';//+{customerId}
+	}
 
 	//http://localhost:8081/foods/89
 	//http://localhost:8081/foods/14
