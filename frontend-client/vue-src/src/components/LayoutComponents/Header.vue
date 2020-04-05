@@ -60,7 +60,8 @@
                     <div class="row">
                         <div class="col-xs-8 col-sm-3 col-sm-3">
                             <div class="logo">
-                                <router-link to="/"><img src="/logo.png" alt="logo"></router-link>
+
+                                <router-link :to="getHomeLink()"><img src="/logo.png" alt="logo"></router-link>
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -140,6 +141,17 @@
             }
           }
           return false;
+      },
+      getHomeLink:function(){
+        if(this.helper.getUserInfo().userToken == ''){
+            return '/login';
+        }else if(this.helper.getUserInfo().role == this.helper.userRole.user){
+          return '/';
+        }else if(this.helper.getUserInfo().role == this.helper.userRole.restaurant){
+          return '/order/new';
+        }else{
+          return '/driver-dashboard';
+        }
       }
     }
   }
