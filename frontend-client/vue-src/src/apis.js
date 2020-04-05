@@ -31,13 +31,16 @@ module.exports = class Api {
 	}
 	// Order restaurent service
 	getRestaurentPendingOrderApi(){
-		return this.getHostUrl()+'/orders/restaurants/pendingOrders';//+{restaurantId}
+		return this.getHostUrl()+'/orders/restaurants/pending';//+{restaurantId}
 	}
 	getRestaurentAddFoodApi(){
 		return this.getHostUrl()+'/foods/new';
 	}
 	getDeleteFoodApi(){
 		return this.getHostUrl()+'/foods/delete';//+{id}
+	}
+	getAllFoodsByIdsApi(){
+		return this.getHostUrl()+'//foods/foodsByIds';//post method
 	}
 
 	//http://localhost:8081/foods/89

@@ -44,7 +44,63 @@ export default {
 
     return {
       orders:[],
+      foods:[],
+      users:[],
       orderType:this.$route.params.type
+    }
+  },
+  methods:{
+    getAllFoods(orders){
+
+        var foodIds = [];
+        var userIds = [];
+        if(orders.length > 0){
+          orders.map((order)=>{
+            userIds.push(order.customerId);
+            if(order.foods){
+                if(order.foods.length > 0){
+                    order.foods.map((food)=>{
+                      foodIds.push(food.foodId);
+                    })
+                }
+            }                          
+          });
+        }
+        this.helper.request({
+            type: 'post',
+            withData:'json',
+            // auth:false,
+            url: this.api.getAllFoodsByIdsApi(),
+            data:foodIds,
+            dataType:'json',
+            complete:()=>{
+            },
+            success:(resp)=>{
+              this.foods = resp;
+              this.getAllUsers(userIds)              
+            }
+        })
+
+    },
+    getAllUsers(userIds){
+
+        this.helper.request({
+            type: 'post',
+            withData:'json',
+            // auth:false,
+            url: this.api.getAllFoodsByIdsApi(),
+            data:userIds,
+            dataType:'json',
+            complete:()=>{
+            },
+            success:(resp)=>{
+              this.users = resp;              
+            }
+        })
+        
+    },
+    getItemNames(){
+      // this.foods.map(){}
     }
   },
   mounted(){
@@ -71,7 +127,10 @@ export default {
                     complete:()=>{
                     },
                     success:(resp)=>{
-                      this.orders = resp;
+                      //this.orders = resp;
+                      
+                      this.getAllFoods(resp);
+                      
                     }
 
               })

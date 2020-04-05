@@ -61,7 +61,7 @@ public class OrderController {
     }
 
     //All pending orders of restaurant
-    @RequestMapping(path = "/restaurants/pending/{restaurantId}")
+    @RequestMapping(path = "/restaurants/pending/{restaurantId}", method = RequestMethod.GET)
     public Iterable<Order> getPendingOrdersOfRestaurant(@PathVariable String restaurantId) {
         Iterable<Order> allRestaurantOrders = getAllOrdersOfRestaurant(restaurantId);
         List<Order> orders = new ArrayList<Order>();
