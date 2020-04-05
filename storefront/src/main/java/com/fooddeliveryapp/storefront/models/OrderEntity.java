@@ -3,12 +3,12 @@ package com.fooddeliveryapp.storefront.models;
 public class OrderEntity {
     private String id;
     private String foodId;
-    private String Quantity;
+    private int quantity;
 
-    public OrderEntity(String id, String foodId, String quantity) {
+    public OrderEntity(String id, String foodId, int quantity) {
         this.id = id;
         this.foodId = foodId;
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public String getId() {
@@ -27,11 +27,11 @@ public class OrderEntity {
         this.foodId = foodId;
     }
 
-    public String getQuantity() {
-        return Quantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

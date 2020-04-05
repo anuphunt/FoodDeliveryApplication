@@ -7,16 +7,16 @@ import java.util.List;
 public class Order {
     @JsonIgnore
     private String id;
-    private int customerId;
-    private int restaurantId;
+    private String customerId;
+    private String restaurantId;
     private List<OrderEntity> orderItems;
-    private int driverId;
+    private String driverId;
     private OrderState orderState;
-    private int modifiedBy;
+    private String modifiedBy;
 
     public Order(){}
 
-    public Order(String id, int customerId, int restaurantId, List<OrderEntity> orderItems, int driverId, OrderState orderState, int modifiedBy) {
+    public Order(String id, String customerId, String restaurantId, List<OrderEntity> orderItems, String driverId, OrderState orderState, String modifiedBy) {
         this.id = id;
         this.customerId = customerId;
         this.restaurantId = restaurantId;
@@ -24,7 +24,6 @@ public class Order {
         this.driverId = driverId;
         this.orderState = orderState;
         this.modifiedBy = modifiedBy;
-
     }
 
     public String getId() {
@@ -35,19 +34,19 @@ public class Order {
         this.id = id;
     }
 
-    public int getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
-    public int getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(int restaurantId) {
+    public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
     }
 
@@ -59,11 +58,11 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public int getDriverId() {
+    public String getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(int driverId) {
+    public void setDriverId(String driverId) {
         this.driverId = driverId;
     }
 
@@ -75,11 +74,11 @@ public class Order {
         this.orderState = orderState;
     }
 
-    public int getModifiedBy() {
+    public String getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(int modifiedBy) {
+    public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 }
