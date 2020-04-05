@@ -133,7 +133,7 @@ public class OrderController {
 
     //Select pickup
     @RequestMapping(path = "/drivers/selectpickup/{orderId}/{driverId}", method = RequestMethod.GET)
-    public Order selectPickup(@PathVariable String orderId, @PathVariable int driverId){
+    public Order selectPickup(@PathVariable String orderId, @PathVariable String driverId){
         Order order = orderRepository.findById(orderId).orElseThrow(()-> new OrderNotFoundException("Order with id "+ orderId + "not found."));
         order.setDriverId(driverId);
         return orderRepository.save(order);
