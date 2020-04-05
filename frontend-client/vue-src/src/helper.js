@@ -253,19 +253,28 @@ module.exports = class Helper {
                             };
                             if(typeof(params.withData) != 'undefined'){
                                 if(params.withData == 'json'){
+
                                     var object = {};
                                     var cnt = 0;
-                                    formData.forEach(function(value, key){
-                                        object[key] = value;
-                                        cnt++;
-                                    });
-                                    if(cnt > 0){
-                                        ajaxParms['data'] = JSON.stringify(object);
+                                    if(typeof(params.withNotFormData) == 'undefined'){
+                                            formData.forEach(function(value, key){
+                                                object[key] = value;
+                                                cnt++;
+                                            });
+                                            if(cnt > 0){
+                                                ajaxParms['data'] = JSON.stringify(object);
+                                                
+                                            }
+                                    }else{
+                                            ajaxParms['data'] = JSON.stringify(params.data);
                                     }
+                                    
+                                    
                                     ajaxParms['contentType'] = 'application/json';
                                     
                                     window.$.ajax(ajaxParms);
                                 }else{
+
                                     ajaxParms['data'] = params.data;
                                     ajaxParms['cache'] = false;
                                     ajaxParms['contentType'] = false;
@@ -322,3 +331,7 @@ module.exports = class Helper {
     }
 
 }
+
+
+
+
