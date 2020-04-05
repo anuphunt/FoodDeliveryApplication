@@ -3,23 +3,15 @@ package com.fooddeliveryapp.orderprocessingservice.orderprocessingservice.models
 import org.springframework.data.annotation.Id;
 
 public class OrderEntity {
-    @Id
-    String id;
     String foodId;
     int quantity;
 
-    public OrderEntity(String id, String foodId, int quantity) {
-        this.id = id;
+    public OrderEntity() {
+    }
+
+    public OrderEntity( String foodId, int quantity) {
         this.foodId = foodId;
         this.quantity = quantity;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFoodId() {

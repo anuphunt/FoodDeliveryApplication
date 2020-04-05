@@ -727,7 +727,7 @@ export default {
             var formData = {};
             formData['customerId']= this.helper.getUserInfo().id;
             formData['restaurantId']= restaurantId;
-            formData['orderItems']= orderItems;
+            formData['foods']= orderItems;
 
             this.helper.request({
                   method: 'post',

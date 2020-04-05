@@ -30,25 +30,26 @@ public class OrderController {
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public Order addNewOrder(@RequestBody Order order) {
+        order.setOrderState(OrderState.PENDING);
         order.setModifiedBy(order.getCustomerId());
         return orderRepository.save(order);
     }
 
     //All order of specific customer
     @RequestMapping(path = "/customers/{customerId}", method = RequestMethod.GET)
-    public Iterable<Order> getAllOrdersOfCustomer(@PathVariable int customerId) {
+    public Iterable<Order> getAllOrdersOfCustomer(@PathVariable String customerId) {
         return orderRepository.findByCustomerId(customerId);
     }
 
     //All order of specific restaurant
     @RequestMapping(path = "/restaurants/{restaurantId}", method = RequestMethod.GET)
-    public Iterable<Order> getAllOrdersOfRestaurant(@PathVariable int restaurantId) {
+    public Iterable<Order> getAllOrdersOfRestaurant(@PathVariable String restaurantId) {
         return orderRepository.findByRestaurantId(restaurantId);
     }
 
     //All active orders of a customer
     @RequestMapping(path = "/customers/active/{customerId}", method = RequestMethod.GET)
-    public Iterable<Order> getActiveOrdersOfCustomer(@PathVariable int customerId) {
+    public Iterable<Order> getActiveOrdersOfCustomer(@PathVariable String customerId) {
         Iterable<Order> allOrders = getAllOrdersOfCustomer(customerId);
         List<Order> activeOrders = new ArrayList<>();
         for (Order o : allOrders) {
@@ -61,7 +62,7 @@ public class OrderController {
 
     //All pending orders of restaurant
     @RequestMapping(path = "/restaurants/pending/{restaurantId}")
-    public Iterable<Order> getPendingOrdersOfRestaurant(@PathVariable int restaurantId) {
+    public Iterable<Order> getPendingOrdersOfRestaurant(@PathVariable String restaurantId) {
         Iterable<Order> allRestaurantOrders = getAllOrdersOfRestaurant(restaurantId);
         List<Order> orders = new ArrayList<Order>();
         for (Order o : allRestaurantOrders) {
@@ -74,7 +75,7 @@ public class OrderController {
 
     //All active orders of a customer
     @RequestMapping(path = "/restaurants/active/{restaurantId}", method = RequestMethod.GET)
-    public Iterable<Order> getActiveOrdersOfRestaurant(@PathVariable int restaurantId) {
+    public Iterable<Order> getActiveOrdersOfRestaurant(@PathVariable String restaurantId) {
         Iterable<Order> allOrders = getAllOrdersOfRestaurant(restaurantId);
         List<Order> activeOrders = new ArrayList<>();
         for (Order o : allOrders) {
@@ -107,20 +108,20 @@ public class OrderController {
     //All orders waiting pickup
     @RequestMapping(path = "/orders/waitingpickup", method =RequestMethod.GET)
     public Iterable<Order> getAllOrdersWaitingPickup(){
-        return orderRepository.findByDriverId(0);
+        return orderRepository.findByDriverId(null);
     }
 
 
 
     //All orders of a driver
     @RequestMapping(path = "/drivers/{driverId}", method = RequestMethod.GET)
-    public Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
+    public Iterable<Order> getAllOrdersOfDriver(@PathVariable String driverId){
         return orderRepository.findByDriverId(driverId);
     }
 
     //Active orders of driver
     @RequestMapping(path = "/drivers/active/{driverId}", method = RequestMethod.GET)
-    public Iterable<Order> getActiveOrdersOfDriver(@PathVariable int driverId) {
+    public Iterable<Order> getActiveOrdersOfDriver(@PathVariable String driverId) {
         Iterable<Order> allOrders = getAllOrdersOfDriver(driverId);
         List<Order> activeOrders = new ArrayList<>();
         for (Order o : allOrders) {
