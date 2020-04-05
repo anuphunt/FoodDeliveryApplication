@@ -40,7 +40,22 @@ module.exports = class Api {
 		return this.getHostUrl()+'/foods/delete';//+{id}
 	}
 	getAllFoodsByIdsApi(){
-		return this.getHostUrl()+'//foods/foodsByIds';//post method
+		return this.getHostUrl()+'/foods/foodsByIds';//post method
+	}
+	getAllUsersByIdsApi(){
+		return this.getHostUrl()+'/users/usersbyids';//post method
+	}
+	getRestaurentOrderRejectApi(){
+		return this.getHostUrl()+'/orders/restaurants/reject';//{orderId}
+	}
+	getRestaurentOrderAcceptApi(){
+		return this.getHostUrl()+'/orders/restaurants/accept';//{orderId}
+	}
+	getRestaurentActiveOrderApi(){
+		return this.getHostUrl()+'/orders/restaurants/active';//+{restaurantId}
+	}
+	getRestaurentRejectedOrderApi(){
+		return this.getHostUrl()+'/orders/restaurants/reject';//+{restaurantId}
 	}
 
 	//http://localhost:8081/foods/89

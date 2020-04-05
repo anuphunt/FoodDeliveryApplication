@@ -15,13 +15,13 @@
                         </thead>
                         <tbody>
                           <tr v-for="(order,index) in orders" :key="index">
-                            <td>Order Items</td>
+                            <td>{{getItemNames(order)}}</td>
                             <td>09/23/2019</td>
-                            <td>John</td>
-                            <td>$340</td>
+                            <td>{{getUserName(order)}}</td>
+                            <td>USD {{getTotalPrice(order)}}</td>
                             <td>
-                              <a href="" class="btn btn-xs btn-success">Accept</a>
-                              &nbsp;<a href="" class="btn btn-xs btn-danger">Reject</a>
+                              <a href="" v-on:click="acceptOrder(order,$event)" class="btn btn-xs btn-success">Accept</a>
+                              &nbsp;<a href="" v-on:click="rejectOrder(order,$event)" class="btn btn-xs btn-danger">Reject</a>
                             </td>
                           </tr>
                         </tbody>
@@ -41,7 +41,6 @@ export default {
     RestaurentNav
   },
   data(){
-
     return {
       orders:[],
       foods:[],
@@ -49,18 +48,65 @@ export default {
       orderType:this.$route.params.type
     }
   },
+  watch:{
+        $route (to){
+          this.orderType = to.params.type;
+          this.loadData();
+        }
+  },
   methods:{
+    loadData(){
+              if(this.helper.getUserInfo().username == ''){
+                      this.helper.unsetUserInfo();
+                      this.$router.push('/login');
+              }else{
+                
+                  if(this.helper.getUserInfo().role == this.helper.userRole.restaurant){
+                        // var resId = 3;
+                        var apiUrl = '';
+                        var resId = this.helper.getUserInfo().id;
+                        if(this.orderType == 'new'){
+                          apiUrl = this.api.getRestaurentPendingOrderApi()+'/'+resId;
+                        }else if(this.orderType == 'active'){
+                          apiUrl = this.api.getRestaurentActiveOrderApi()+'/'+resId;
+                        }else{
+                          apiUrl = this.api.getRestaurentRejectedOrderApi()+'/'+resId;
+                        }
+                        this.helper.request({
+                              type: 'get',
+                              withData:'json',
+                              auth:false,
+                              url: apiUrl,
+                              dataType:'json',
+                              complete:()=>{
+                              },
+                              success:(resp)=>{
+                                this.getAllFoods(resp);
+                              }
+
+                        })
+
+
+                  }else{
+                     this.helper.unsetUserInfo();
+                     this.$router.push('/login');
+                  }
+                  
+              }
+    },
     getAllFoods(orders){
 
         var foodIds = [];
         var userIds = [];
+        var foodCnt = 0;
+        var userCnt = 0;
         if(orders.length > 0){
           orders.map((order)=>{
-            userIds.push(order.customerId);
+            userIds[userCnt++] = order.customerId;
             if(order.foods){
                 if(order.foods.length > 0){
                     order.foods.map((food)=>{
-                      foodIds.push(food.foodId);
+                      foodIds[foodCnt++] = food.foodId;
                     })
                 }
             }                          
@@ -69,7 +115,8 @@ export default {
         this.helper.request({
             type: 'post',
             withData:'json',
-            // auth:false,
+            auth:false,
+            withNotFormData:true,
             url: this.api.getAllFoodsByIdsApi(),
             data:foodIds,
             dataType:'json',
@@ -77,71 +124,111 @@ export default {
             },
             success:(resp)=>{
               this.foods = resp;
-              this.getAllUsers(userIds)              
+              this.getAllUsers(userIds,orders)              
             }
         })
 
     },
-    getAllUsers(userIds){
+    getAllUsers(userIds,orders){
 
         this.helper.request({
             type: 'post',
             withData:'json',
-            // auth:false,
-            url: this.api.getAllFoodsByIdsApi(),
+            auth:false,
+            withNotFormData:true,
+            url: this.api.getAllUsersByIdsApi(),
             data:userIds,
             dataType:'json',
             complete:()=>{
             },
-            success:(resp)=>{
-              this.users = resp;              
+            success:(resp2)=>{
+              this.users = resp2;
+              this.orders = orders;              
             }
         })
         
     },
-    getItemNames(){
-      // this.foods.map(){}
+    getItemNames(order){
+        var foodNames = [];
+        var cnt = 0;
+        if(order.foods){
+            if(order.foods.length > 0){
+                order.foods.map((ofood)=>{
+                  this.foods.map((food)=>{
+                      if(food.id == ofood.foodId){
+                        foodNames[cnt++] = food.name;
+                      }
+                  })
+                  
+                })
+            }
+        }
+        return foodNames.join(', ');
+    },
+    getUserName(order){
+      var customerName = '';
+        if(order.customerId){
+          this.users.map((user)=>{
+              if(user.id == order.customerId){
+                customerName = user.firstName;
+              }
+          })
+        }
+      return customerName;
+    },
+    getTotalPrice(order){
+        var total_price = 0;
+        if(order.foods){
+            if(order.foods.length > 0){
+                order.foods.map((ofood)=>{
+                  this.foods.map((food)=>{
+                      if(food.id == ofood.foodId){
+                        total_price += food.price*ofood.quantity;
+                      }
+                  })
+                  
+                })
+            }
+        }
+        return total_price;
+    },
+    acceptOrder(order,e){
+            this.helper.request({
+                type: 'get',
+                withData:'json',
+                auth:false,
+                url: this.api.getRestaurentOrderAcceptApi()+'/'+order.id,
+                dataType:'json',
+                complete:()=>{
+                },
+                success:()=>{
+
+                  this.loadData();
+                  
+                }
+            })
+            e.preventDefault();
+    },
+    rejectOrder(order,e){
+            this.helper.request({
+                type: 'get',
+                withData:'json',
+                auth:false,
+                url: this.api.getRestaurentOrderRejectApi()+'/'+order.id,
+                dataType:'json',
+                complete:()=>{
+                },
+                success:()=>{
+
+                  this.loadData();
+                  
+                }
+            })
+            e.preventDefault();
     }
   },
   mounted(){
-    if(this.helper.getUserInfo().username == ''){
-            this.helper.unsetUserInfo();
-            this.$router.push('/login');
-    }else{
-      
-        if(this.helper.getUserInfo().role == this.helper.userRole.restaurant){
-              // var resId = 3;
-              var apiUrl = '';
-              var resId = this.helper.getUserInfo().id;
-              if(this.orderType == 'new'){
-                apiUrl = this.api.getRestaurentPendingOrderApi()+'/'+resId;
-              }else{
-                apiUrl = this.api.getRestaurentPendingOrderApi()+'/'+resId;
-              }
-              this.helper.request({
-                    type: 'get',
-                    withData:'json',
-                    // auth:false,
-                    url: apiUrl,
-                    dataType:'json',
-                    complete:()=>{
-                    },
-                    success:(resp)=>{
-                      //this.orders = resp;
-                      
-                      this.getAllFoods(resp);
-                      
-                    }
-
-              })
-
-
-        }else{
-           this.helper.unsetUserInfo();
-           this.$router.push('/login');
-        }
-        
-    }
+    this.loadData();
   }
 }
 </script>
