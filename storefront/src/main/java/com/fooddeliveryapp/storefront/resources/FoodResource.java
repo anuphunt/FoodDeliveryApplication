@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
+import java.util.List;
+
 import static com.fooddeliveryapp.storefront.Constants.ServicesUrl.foodServiceUrl;
 
 @RestController
@@ -46,5 +48,12 @@ public class FoodResource {
     @RequestMapping(value = "/delete/{foodId}", method = RequestMethod.POST)
     public Food deleteFood(@PathVariable String foodId){
         return restTemplate.getForObject(foodServiceUrl + "/delete/" + foodId, Food.class);
+    }
+
+    @ApiOperation("Find foods by ids.")
+    @RequestMapping(value = "/foodsByIds", method  = RequestMethod.POST)
+    public Iterable<Food> getFoodsByIds(@RequestBody List<String> ids){
+        if(ids == null) throw new NullPointerException();
+        return restTemplate.postForObject(foodServiceUrl + "/getfoodbyids", ids, Iterable.class);
     }
 }

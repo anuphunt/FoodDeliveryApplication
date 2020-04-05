@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "All data regarding users")
@@ -28,7 +30,7 @@ public class UserResource {
 
     @ApiOperation("Get user by id")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/JSON")
-    public User getUserById(@PathVariable int id) {
+    public User getUserById(@PathVariable String id) {
         User user = restTemplate.getForObject(ServicesUrl.userServiceUrl + "/" + id, User.class);
         if (user != null) return user;
         else throw new UserNotFoundException(id);
@@ -64,5 +66,11 @@ public class UserResource {
     @RequestMapping(value = "/update/{username}",method = RequestMethod.POST)
     public User updateUserInfo(@RequestBody User user, @PathVariable String username){
         return restTemplate.postForObject(ServicesUrl.userServiceUrl +"/update/" + username, user, User.class);
+    }
+
+    @ApiOperation("Get users by ids")
+    @PostMapping(value = "/usersbyids")
+    public List<User> getUsersByIds(@RequestBody List<String> ids){
+        return restTemplate.postForObject(ServicesUrl.userServiceUrl + "/usersbyids", ids, List.class);
     }
 }

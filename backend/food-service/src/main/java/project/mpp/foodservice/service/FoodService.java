@@ -31,6 +31,11 @@ public class FoodService {
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
+    public Iterable<Food> findAllById(Iterable<String> ids){
+        return foodPersistence.findAllById(ids);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
     public List<Food> findAll(){
         List<Food> food = new ArrayList<>();
         Iterator<Food> iterator = foodPersistence.findAll().iterator();

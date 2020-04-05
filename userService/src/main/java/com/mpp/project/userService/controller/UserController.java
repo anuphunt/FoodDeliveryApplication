@@ -117,4 +117,11 @@ public class UserController {
 		return user;
 	}
 
+	@PostMapping(value = "/usersbyids")
+	public Iterable<User> getAllUsersByIds(@RequestBody List<String> ids){
+		return userRepo.findAllById(ids);
+	}
+
+
+
 }
