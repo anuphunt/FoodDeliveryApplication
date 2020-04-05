@@ -170,7 +170,7 @@ export default {
                   dataType:'json',
                   data: formData,
                   success:()=>{
-                    this.$router.push('/message');
+                    this.$router.push('/login');
                   },
                   error:()=>{
                       alert('request not completed.');
