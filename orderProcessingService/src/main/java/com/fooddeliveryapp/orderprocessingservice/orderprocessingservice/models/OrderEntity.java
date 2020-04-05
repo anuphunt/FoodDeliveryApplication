@@ -6,9 +6,9 @@ public class OrderEntity {
     @Id
     String id;
     String foodId;
-    String quantity;
+    int quantity;
 
-    public OrderEntity(String id, String foodId, String quantity) {
+    public OrderEntity(String id, String foodId, int quantity) {
         this.id = id;
         this.foodId = foodId;
         this.quantity = quantity;
@@ -30,11 +30,11 @@ public class OrderEntity {
         this.foodId = foodId;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
