@@ -43,33 +43,33 @@ public class OrderResource {
     //Get All Orders of a customer
     @ApiOperation("Get all orders of a specific customer")
     @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getAllOrdersOfCustomer(@PathVariable int customerId){
+    private Iterable<Order> getAllOrdersOfCustomer(@PathVariable String customerId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl + "/customers/" + customerId, Iterable.class);
     }
 
     //Get All Orders of a restaurant
     @ApiOperation("Get all orders of a specific restaurant")
     @RequestMapping(value = "/restaurants/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getAllOrdersOfRestaurant(@PathVariable int restaurantId){
+    private Iterable<Order> getAllOrdersOfRestaurant(@PathVariable String restaurantId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl +"/restaurants/" + restaurantId, Iterable.class);
     }
 
     //Get active orders of a customer
     @ApiOperation("Get active order of a specific customer. Active order of customer means the orders of the customer which are not delivered or rejected. Returns an empty list if there is no active orders, otherwise returns list of orders.")
     @RequestMapping(value = "customers/active/{customerId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getActiveOrdersOfCustomer(@PathVariable int customerId){
+    private Iterable<Order> getActiveOrdersOfCustomer(@PathVariable String customerId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl + "/customers/active/" + customerId, Iterable.class);
     }
 
     @ApiOperation("Get all pending orders of a specific restaurant")
     @RequestMapping(value = "/restaurants/pending/{restaurantId}", method = RequestMethod.GET, produces = "application/json")
-    private Iterable<Order> getPendingOrdersOfRestaurant(@PathVariable int restaurantId){
+    private Iterable<Order> getPendingOrdersOfRestaurant(@PathVariable String restaurantId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl +"/restaurants/pending/" + restaurantId, Iterable.class);
     }
 
     @ApiOperation("Get active order of a specific restaurant. Active oder of a restaurant means all the orders of the restaurant that are accepted by restaurant but not picked up by diver.")
     @RequestMapping(value = "/restaurants/active/{restaurantId}", method = RequestMethod.GET, produces = "application/JSON")
-    public Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable int restaurantId){
+    public Iterable<Order> geActiveOrdersOfRestaurant(@PathVariable String restaurantId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl +"/restaurants/active/" + restaurantId, Iterable.class);
     }
 
@@ -93,13 +93,13 @@ public class OrderResource {
 
     @ApiOperation("Get all orders of a specific driver")
     @RequestMapping(value = "/drivers/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getAllOrdersOfDriver(@PathVariable int driverId){
+    private Iterable<Order> getAllOrdersOfDriver(@PathVariable String driverId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl + "/drivers/{driverId}", Iterable.class);
     }
 
     @ApiOperation("Get active orders of a driver. Active order of drivers means the orders which are selected by driver to pickup, but hasn't delivered yet.")
     @RequestMapping(value = "/drivers/active/{driverId}", method = RequestMethod.GET, produces = "application/JSON")
-    private Iterable<Order> getActiveOrderOfDriver(@PathVariable int driverId){
+    private Iterable<Order> getActiveOrderOfDriver(@PathVariable String driverId){
         return restTemplate.getForObject(ServicesUrl.orderServiceUrl + "/drivers/active/" + driverId, Iterable.class);
     }
 
