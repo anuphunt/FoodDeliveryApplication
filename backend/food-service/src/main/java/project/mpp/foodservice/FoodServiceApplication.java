@@ -30,6 +30,5 @@ public class FoodServiceApplication {
         service.create(new Food(null, "Biryani", 5.00, "Indian Cuisine best for hot weather.", "http://localhost:8081/swagger-ui.html#/food-item-resource", "restaurant1"));
 
         service.create(new Food(null, "Mo:Mo", 3.50, "Nepali Cuisine best for cold weather.", "http://localhost:8081/swagger-ui.html#/food-item-resource", "restaurant1"));
-        //service.create(new Food(null, "Meat Lover Pizza", 20.00, "Perfect pizza for meat lovers.", "https://i.imgur.com/DOKYL0x.jpg", ))
     }
 }
