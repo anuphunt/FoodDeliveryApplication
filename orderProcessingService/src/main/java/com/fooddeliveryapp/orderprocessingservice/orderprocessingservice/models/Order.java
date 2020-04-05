@@ -15,6 +15,9 @@ public class Order {
        private OrderState orderState;
        private String modifiedBy;
 
+       public Order() {
+       }
+
        public Order(String id, String customerId, String restaurantId, List<OrderEntity> foods, String driverId, OrderState orderState, String modifiedBy) {
               this.id = id;
               this.customerId = customerId;

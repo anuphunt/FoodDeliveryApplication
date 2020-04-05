@@ -9,21 +9,29 @@ public class Order {
     private String id;
     private String customerId;
     private String restaurantId;
-    private List<OrderEntity> orderItems;
+    private List<OrderEntity> foods;
     private String driverId;
     private OrderState orderState;
     private String modifiedBy;
 
     public Order(){}
 
-    public Order(String id, String customerId, String restaurantId, List<OrderEntity> orderItems, String driverId, OrderState orderState, String modifiedBy) {
+    public Order(String id, String customerId, String restaurantId, List<OrderEntity> foods, String driverId, OrderState orderState, String modifiedBy) {
         this.id = id;
         this.customerId = customerId;
         this.restaurantId = restaurantId;
-        this.orderItems = orderItems;
+        this.foods = foods;
         this.driverId = driverId;
         this.orderState = orderState;
         this.modifiedBy = modifiedBy;
+    }
+
+    public List<OrderEntity> getFoods() {
+        return foods;
+    }
+
+    public void setFoods(List<OrderEntity> foods) {
+        this.foods = foods;
     }
 
     public String getId() {
@@ -48,14 +56,6 @@ public class Order {
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
-    }
-
-    public List<OrderEntity> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderEntity> orderItems) {
-        this.orderItems = orderItems;
     }
 
     public String getDriverId() {

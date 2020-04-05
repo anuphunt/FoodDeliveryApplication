@@ -720,17 +720,19 @@ export default {
             cartItems.map((cartItem)=>{
                 restaurantId = cartItem.details.restaurantId;
                 orderItems.push({
-                    id:cartItem.id,
+                    foodId:cartItem.id,
                     quantity:cartItem.details.quantity
                 })
             })
-            var formData = new FormData();
-            formData.append('customerId', this.helper.getUserInfo().username);
-            formData.append('restaurantId', restaurantId);
+            var formData = {};
+            formData['customerId']= this.helper.getUserInfo().id;
+            formData['restaurantId']= restaurantId;
+            formData['foods']= orderItems;
 
             this.helper.request({
                   method: 'post',
                   withData:'json',
+                  withNotFormData:true,
                   auth:false,
                   url: this.api.getPlaceOrderApi(),
                   dataType:'json',
