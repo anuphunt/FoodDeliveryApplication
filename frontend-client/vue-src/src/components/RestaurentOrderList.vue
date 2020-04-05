@@ -19,7 +19,11 @@
                             <td>09/23/2019</td>
                             <td>{{getUserName(order)}}</td>
                             <td>USD {{getTotalPrice(order)}}</td>
-                            <td>
+                            <td v-if="order.orderState == 'ACCEPTED'">
+                              <span class="text-success">Accepted</span>
+                              &nbsp;<a href="" v-on:click="rejectOrder(order,$event)" class="btn btn-xs btn-danger">Reject</a>
+                            </td>
+                            <td v-if="order.orderState == 'PENDING'">
                               <a href="" v-on:click="acceptOrder(order,$event)" class="btn btn-xs btn-success">Accept</a>
                               &nbsp;<a href="" v-on:click="rejectOrder(order,$event)" class="btn btn-xs btn-danger">Reject</a>
                             </td>
@@ -193,6 +197,8 @@ export default {
         return total_price;
     },
     acceptOrder(order,e){
+            
+
             this.helper.request({
                 type: 'get',
                 withData:'json',
@@ -202,8 +208,17 @@ export default {
                 complete:()=>{
                 },
                 success:()=>{
-
-                  this.loadData();
+                  this.helper.showMessage('success','You accepted the order.');
+                  window.$(e.target).text('Accepted');
+                  window.$(e.target).css({
+                    'background': 'rgba(255, 255, 255, 0)',
+                    'border': 'rgba(255, 255, 255, 0)',
+                    'color': '#5cb85c'
+                  });
+                  setTimeout(()=>{ 
+                      this.loadData();
+                  }, 900);
+                  
                   
                 }
             })
@@ -219,8 +234,16 @@ export default {
                 complete:()=>{
                 },
                 success:()=>{
-
-                  this.loadData();
+                  this.helper.showMessage('success','You rejected the order.');
+                  window.$(e.target).text('Rejected');
+                  window.$(e.target).css({
+                    'background': 'rgba(255, 255, 255, 0)',
+                    'border': 'rgba(255, 255, 255, 0)',
+                    'color': '#b85c5c'
+                  });
+                  setTimeout(()=>{ 
+                      this.loadData();
+                  }, 900);
                   
                 }
             })
