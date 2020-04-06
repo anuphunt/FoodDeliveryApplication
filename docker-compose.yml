@@ -8,7 +8,7 @@ services:
       context: ./frontend-client
     container_name: webapp-c
     ports:
-      - "8085:8085"
+      - "8080:8080"
 
   api:
     image: api
@@ -22,8 +22,6 @@ services:
       - ~/.m2:/root/.m2
     ports:
       - "8081:8081"
-    depends_on: 
-      - mongo
 
   bk-food:
     image: bk-food
@@ -32,12 +30,8 @@ services:
       context: ./backend
     working_dir: /food-service
     container_name: food-c
-    expose:
-      - "8080"
     ports:
-      - "8090:8080"  
-    depends_on: 
-      - mongo
+      - "8084:8084"
 
   bk-user:
     image: bk-user
@@ -50,8 +44,7 @@ services:
       - ./userService:/userservice
     ports:
       - "8083:8083"
-    depends_on: 
-      - mongo
+    
 
   bk-order:
     image: bk-order
@@ -63,13 +56,7 @@ services:
       - ./orderProcessingService:/orderProcessingService
     ports:
       - "8082:8082"
-    depends_on: 
-      - mongo
 
-  mongo:
-    image: mongo:3.4.1
-    ports:
-      - '27017:27017'
     
 #  bk-order:
 #    image: bk-order

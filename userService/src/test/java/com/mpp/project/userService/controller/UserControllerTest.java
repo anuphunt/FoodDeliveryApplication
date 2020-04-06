@@ -3,6 +3,7 @@ package com.mpp.project.userService.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mpp.project.userService.model.User;
+import com.mpp.project.userService.model.UserRole;
 import com.mpp.project.userService.service.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,8 +46,8 @@ class UserControllerTest {
             user1=new User("1","pradip","password","CUSTOMER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user2=new User("2","hari","password","RESTAURANT","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user3=new User("3","ram","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user4=new User("4","gita","password","DRIVER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user3=new User("3","ram","password", "ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user4=new User("4","gita","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
 
         }
 
