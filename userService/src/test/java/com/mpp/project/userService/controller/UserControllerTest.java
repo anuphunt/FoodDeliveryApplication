@@ -44,7 +44,7 @@ class UserControllerTest {
 
             user1=new User("1","pradip","password","CUSTOMER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user2=new User("2","hari","password","RESTAURANT","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-//            user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user3=new User("3","ram","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user4=new User("4","gita","password","DRIVER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
 
@@ -66,10 +66,9 @@ class UserControllerTest {
 
     @Test
     void updateUser() {
-            String username="hari";
-        Mockito.when(repository.findByUsername(username)).thenReturn(user2);
+        Mockito.when(repository.findByUsername(user2.getUsername())).thenReturn(user2);
         Mockito.when(repository.save(user2)).thenReturn(user2);
-        Assertions.assertThat("shyam").isEqualTo(controller.updateUser(user2s,username).getFirstName());
+        Assertions.assertThat("shyam").isEqualTo(controller.updateUser(user2s,user2.getUsername()).getFirstName());
 
     }
     @Test
