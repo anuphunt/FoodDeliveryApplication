@@ -27,7 +27,7 @@ services:
     image: bk-food
     restart: always
     build:
-      context: ./backend
+      context: ./food-service
     working_dir: /food-service
     container_name: food-c
     ports:
