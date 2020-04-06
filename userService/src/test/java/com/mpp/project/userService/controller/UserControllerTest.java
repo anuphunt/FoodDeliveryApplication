@@ -44,7 +44,7 @@ class UserControllerTest {
 
             user1=new User("1","pradip","password","CUSTOMER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user2=new User("2","hari","password","RESTAURANT","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+//            user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user3=new User("3","ram","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
             user4=new User("4","gita","password","DRIVER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
 
@@ -102,19 +102,19 @@ class UserControllerTest {
         Assertions.assertThat(1).isEqualTo(controller.getAllDrivers().size());
     }
 
-    @Test
-    void getAllCustomers() {
-        Mockito.when(repository.findAll())
-                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
-        Assertions.assertThat(1).isEqualTo(controller.getAllCustomers().size());
-    }
+//    @Test
+//    void getAllCustomers() {
+//        Mockito.when(repository.findAll())
+//                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
+//        Assertions.assertThat(1).isEqualTo(controller.getAllCustomers().size());
+//    }
 
-    @Test
-    void getAllAdmins() {
-        Mockito.when(repository.findAll())
-                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
-        Assertions.assertThat(1).isEqualTo(controller.getAllAdmins().size());
-    }
+//    @Test
+//    void getAllAdmins() {
+//        Mockito.when(repository.findAll())
+//                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
+//        Assertions.assertThat(1).isEqualTo(controller.getAllAdmins().size());
+//    }
 
     @Test
     void deleteUserById() {
