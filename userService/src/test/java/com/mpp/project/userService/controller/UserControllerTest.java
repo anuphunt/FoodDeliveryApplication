@@ -91,8 +91,7 @@ class UserControllerTest {
     @Test
     void getAllRestaurants() {
 
-        Mockito.when(repository.findAll())
-                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
+        Mockito.when(repository.findAll()).thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
         Assertions.assertThat(1).isEqualTo(controller.getAllRestaurants().size());
     }
 
