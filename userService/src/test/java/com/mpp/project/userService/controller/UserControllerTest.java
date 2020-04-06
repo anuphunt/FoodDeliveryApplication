@@ -36,16 +36,17 @@ class UserControllerTest {
         @MockBean
         private UserRepository repository;
 
-        User user1, user2, user3, user4;
+        User user1, user2, user3, user4, user2s;
 
 
         @BeforeEach
         void setup() throws JsonProcessingException {
 
             user1=new User("1","pradip","password","CUSTOMER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user2=new User("2","pradip","password","RESTAURANT","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user3=new User("3","pradip","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
-            user4=new User("4","pradip","password","DRIVER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user2=new User("2","hari","password","RESTAURANT","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user2s=new User("2","shyam","password","RESTAURANT","shyam","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user3=new User("3","ram","password","ADMIN","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
+            user4=new User("4","gita","password","DRIVER","hari","hari","hari@gmail.com","saasa","asasaas","saass",12,"sasas","askjas");
 
         }
 
@@ -65,12 +66,12 @@ class UserControllerTest {
 
     @Test
     void updateUser() {
+            String username="hari";
+        Mockito.when(repository.findByUsername(username)).thenReturn(user2);
+        Mockito.when(repository.save(user2)).thenReturn(user2);
+        Assertions.assertThat("shyam").isEqualTo(controller.updateUser(user2s,username).getFirstName());
 
     }
-
-
-
-
     @Test
     void getUserById() {
         String id = "1";
@@ -81,14 +82,15 @@ class UserControllerTest {
 
     @Test
     void getUserByUsername() {
-        String id = "pradip";
-        Mockito.when(repository.findById(id)).thenReturn(java.util.Optional.ofNullable(user1));
+        String username = "pradip";
+        Mockito.when(repository.findById(username)).thenReturn(java.util.Optional.ofNullable(user1));
 
         Assertions.assertThat(user1).isEqualTo(controller.getUserById("pradip"));
     }
 
     @Test
     void getAllRestaurants() {
+
         Mockito.when(repository.findAll())
                 .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
         Assertions.assertThat(1).isEqualTo(controller.getAllRestaurants().size());
@@ -117,6 +119,9 @@ class UserControllerTest {
 
     @Test
     void deleteUserById() {
+        String id = "1";
+        Mockito.when(repository.findById(id)).thenReturn(java.util.Optional.ofNullable(user1));
+        Assertions.assertThat(user1).isEqualTo(controller.deleteUserById("1"));
     }
 
 
