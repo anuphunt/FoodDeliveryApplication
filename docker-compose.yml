@@ -1,6 +1,19 @@
 version: '3'
 
 services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    build:
+      context: ./mongo
+    ports:
+      - '27017:27017'
+    healthcheck:
+      test: ["CMD", "docker-healthcheck"]
+      interval: 30s
+      timeout: s
+      retries: 3
+
   webapp:
     image: webapp
     restart: always
@@ -33,9 +46,9 @@ services:
     working_dir: /food-service
     container_name: food-c
     expose:
-      - "8080"
+      - "8084"
     ports:
-      - "8090:8080"  
+      - "8084:8084"
     depends_on: 
       - mongo
 
@@ -65,11 +78,6 @@ services:
       - "8082:8082"
     depends_on: 
       - mongo
-
-  mongo:
-    image: mongo:3.4.1
-    ports:
-      - '27017:27017'
     
 #  bk-order:
 #    image: bk-order
