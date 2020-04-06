@@ -23,20 +23,6 @@ services:
     ports:
       - "8081:8081"
 
-  mysql:
-    image: mysql
-    container_name: mysql-c
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_USER: demo_java
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: hello_java
-    volumes:
-      - ./backend/food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - "3318:3306"
-    restart: always
-
   bk-food:
     image: bk-food
     restart: always
@@ -78,8 +64,6 @@ services:
     image: mongo:3.4.1
     ports:
       - '27017:27017'
-    volumes:
-    - mongo:/data/db
     
 #  bk-order:
 #    image: bk-order
