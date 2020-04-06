@@ -180,6 +180,7 @@ if(!this.role=="RESTAURANT"){
                   dataType:'json',
                   data: formData,
                   success:()=>{
+                    this.helper.showMessage('success','Login successfully. Please login.');
                     this.$router.push('/login');
                   },
                   error:()=>{
