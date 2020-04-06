@@ -39,7 +39,6 @@ public class OrderControllerTest {
     private OrderRepository repository;
 
     Order order1, order2, order3, order4;
-    String order1Json, order2Json, order3Json, order4Json;
 
     @BeforeEach
     void setup() throws JsonProcessingException {

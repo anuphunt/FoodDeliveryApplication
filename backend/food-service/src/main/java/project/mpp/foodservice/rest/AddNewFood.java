@@ -12,6 +12,7 @@ public class AddNewFood {
     @Autowired
     private FoodService service;
 
+
     @PostMapping(path="/new")
     public Food addNew(@RequestBody Food food) {
         return service.create(food);
