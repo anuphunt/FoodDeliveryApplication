@@ -12,7 +12,7 @@ services:
       - ./frontend-client/vue-src:/vue-src
       - ~/.m2:/root/.m2
     ports:
-      - "8080:8080"
+      - "8085:8085"
 
   api:
     image: api
