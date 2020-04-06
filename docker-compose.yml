@@ -34,8 +34,6 @@ services:
       - "8080"
     ports:
       - "8090:8080"
-    depends_on:
-      - mysql
 
   bk-user:
     image: bk-user
