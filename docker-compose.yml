@@ -23,33 +23,17 @@ services:
     ports:
       - "8081:8081"
 
-  mysql:
-    image: mysql
-    container_name: mysql-c
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_USER: demo_java
-      MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: hello_java
-    volumes:
-      - ./backend/food-service/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    ports:
-      - "3318:3306"
-    restart: always
-
   bk-food:
     image: bk-food
     restart: always
     build:
-      context: ./backend
+      context: ./food-service
     working_dir: /food-service
     container_name: food-c
-    expose:
-      - "8080"
     ports:
-      - "8090:8080"
-    depends_on:
-      - mysql
+      - "8084:8084"
+    depends_on: 
+      - mongo
 
   bk-user:
     image: bk-user
@@ -62,19 +46,24 @@ services:
       - ./userService:/userservice
     ports:
       - "8083:8083"
+    depends_on: 
+      - mongo
+  
 
-#  bk-order:
-#    image: bk-order
-#    restart: always
-#    build:
-#      context: ./food-service
-#    working_dir: /food-service
-#    container_name: food-service
-#    volumes:
-#      - /Users/bish/.gradle/:/home/gradle/.gradle
-#    expose:
-#      - "8080"
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - mysql-service
+  bk-order:
+    image: bk-order
+    restart: always
+    working_dir: /orderProcessingService
+    build:
+      context: ./orderProcessingService
+    volumes:
+      - ./orderProcessingService:/orderProcessingService
+    ports:
+      - "8082:8082"
+    depends_on: 
+      - mongo
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
