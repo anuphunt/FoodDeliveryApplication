@@ -7,6 +7,9 @@
 ### Java ###
 *.class
 
+# Git #
+.DS_Store
+
 # IntelliJ#
 .idea/
 
