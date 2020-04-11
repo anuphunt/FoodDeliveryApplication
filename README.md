@@ -1,4 +1,3 @@
-###How to run
 
 # FoodDeliveryApplication
 A food delivery application based on microservices. Built with Java and Spring.

@@ -3,6 +3,7 @@ package project.mpp.foodservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import project.mpp.foodservice.domain.Food;
 import project.mpp.foodservice.persistence.FoodRepository;
 import project.mpp.foodservice.service.FoodService;
@@ -11,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @SpringBootApplication
+@EnableCaching
 public class FoodServiceApplication {
 
     @Autowired
