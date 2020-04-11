@@ -20,6 +20,7 @@ public class GetFood {
     @GetMapping("/foods/{id}")
     public Food getFood(@PathVariable String id) {
         Food foodById = service.findById(id);
+        System.out.println("Get food for ID: "+id); // This message will not print twice if Redis is working.
         return new Food(foodById.getId(), foodById.getName(), foodById.getPrice(), foodById.getDescription(), foodById.getImageUrl(), foodById.getRestaurantId());
     }
 }

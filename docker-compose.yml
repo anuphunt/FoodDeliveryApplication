@@ -41,14 +41,13 @@ services:
     working_dir: /userService
     build:
       context: ./userService
-    container_name: userService
+    container_name: user-c
     volumes:
       - ./userService:/userservice
     ports:
       - "8083:8083"
     depends_on: 
       - mongo
-  
 
   bk-order:
     image: bk-order
