@@ -1,16 +1,11 @@
 package project.mpp.foodservice.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import project.mpp.foodservice.domain.Food;
 import project.mpp.foodservice.exceptions.FoodNotFoundException;
 import project.mpp.foodservice.persistence.FoodRepository;
-
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
