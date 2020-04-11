@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 @SpringBootApplication
+@EnableCaching
 public class FoodServiceApplication {
 
     @Autowired
