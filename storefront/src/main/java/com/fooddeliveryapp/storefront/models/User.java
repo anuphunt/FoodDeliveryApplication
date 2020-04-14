@@ -27,6 +27,15 @@ public class User{
     private String phoneNumber;
     private String address;
     private UserRole role;
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     private int rating;
 
     public User() {
