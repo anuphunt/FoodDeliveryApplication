@@ -11,4 +11,4 @@ class AnupFunctionsTest {
     public void sum(){
         assertEquals(4, AnupFunctions.sum.apply(2, 2));
     }
-}
+    }
