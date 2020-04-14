@@ -21,13 +21,14 @@ public class Food {
 
     private int rating;
 
-    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId, int rating) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.restaurantId = restaurantId;
+        this.rating = rating;
     }
 
     public Food() {
