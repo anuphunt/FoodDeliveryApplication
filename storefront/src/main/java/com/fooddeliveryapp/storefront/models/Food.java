@@ -11,13 +11,17 @@ public class Food {
     private String imageUrl;
     private String restaurantId;
 
-    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
+
+
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId,String ratings) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.restaurantId = restaurantId;
+        this.ratings=ratings;
+
     }
 
     public Food() {
