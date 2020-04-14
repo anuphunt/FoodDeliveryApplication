@@ -30,8 +30,8 @@ public class BishwasFunctions {
     static List<Order> allOrders = Arrays.asList(order1, order2, order3);
 
     // Food
-    static Food food1 = new Food("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865");
-    static Food food2 = new Food("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865");
+    static Food food1 = new Food("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", 4);
+    static Food food2 = new Food("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", 2);
 
     List<Food> foodList = Arrays.asList(food1, food2);
 
