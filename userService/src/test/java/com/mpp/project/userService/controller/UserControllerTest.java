@@ -95,12 +95,12 @@ class UserControllerTest {
         Assertions.assertThat(1).isEqualTo(controller.getAllRestaurants().size());
     }
 
-    @Test
-    void getAllDrivers() {
-        Mockito.when(repository.findAll())
-                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
-        Assertions.assertThat(1).isEqualTo(controller.getAllDrivers().size());
-    }
+//    @Test
+//    void getAllDrivers() {
+//        Mockito.when(repository.findAll())
+//                .thenReturn(Stream.of(user1, user2, user3,user4).collect(Collectors.toList()));
+//        Assertions.assertThat(1).isEqualTo(controller.getAllDrivers().size());
+//    }
 
 //    @Test
 //    void getAllCustomers() {
