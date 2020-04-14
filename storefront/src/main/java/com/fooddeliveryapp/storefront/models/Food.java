@@ -11,13 +11,24 @@ public class Food {
     private String imageUrl;
     private String restaurantId;
 
-    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    private int rating;
+
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId, int rating) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.imageUrl = imageUrl;
         this.restaurantId = restaurantId;
+        this.rating = rating;
     }
 
     public Food() {

@@ -1,6 +1,5 @@
 package com.fooddeliveryapp.storefront.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotBlank;
 
@@ -28,10 +27,20 @@ public class User{
     private String address;
     private UserRole role;
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    private int rating;
+
     public User() {
     }
 
-    public User(String id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role) {
+    public User(String id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role, int rating) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,6 +48,7 @@ public class User{
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.role = role;
+        this.rating = rating;
     }
 
     public String getId() {
