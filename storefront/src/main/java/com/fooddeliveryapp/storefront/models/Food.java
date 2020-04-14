@@ -10,6 +10,7 @@ public class Food {
     private String description;
     private String imageUrl;
     private String restaurantId;
+    private int rating;
 
 
 
