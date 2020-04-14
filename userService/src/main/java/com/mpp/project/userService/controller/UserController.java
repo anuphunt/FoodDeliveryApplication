@@ -99,15 +99,8 @@ public class UserController {
 
 	@GetMapping(path ="/admins")
 	public List<User> getAllAdmins(){
-		List<User> admins = new ArrayList<>();
-		List<User> allUsers = userRepo.findAll();
-		for(User u: allUsers){
-			String role = u.getRole();
-			if(role != null && role.equals(UserRole.ADMIN)){
-				admins.add(u);
-			}
-		}
-		return admins;
+		List<User> users =  userRepo.findByRole(UserRole.ADMIN);
+		return users;
 	}
 
 	@GetMapping(value = "/delete/{id}")

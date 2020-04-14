@@ -3,9 +3,10 @@ package project.mpp.foodservice.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Document
-public class Food {
+public class Food implements Serializable {
     @Id
     private String id;
     @NotNull
