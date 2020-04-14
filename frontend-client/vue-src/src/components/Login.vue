@@ -102,14 +102,17 @@
 
                                   setTimeout(()=>{ 
                                       if(resp2.role == this.helper.userRole.restaurant){
+
+                                        //this.$router.push('/order/new');
                                         window.location.href = "/order/new";
                                       }else if(resp2.role == this.helper.userRole.driver){
+                                        //this.$router.push('/driver-dashboard');
                                         window.location.href = '/driver-dashboard';
                                       }else{
                                         window.location.href = "/";
                                       }
                                       
-                                   }, 1000);
+                                   }, 5000);
                                   
                                 }
 
