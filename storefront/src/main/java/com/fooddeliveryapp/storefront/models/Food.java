@@ -10,6 +10,7 @@ public class Food {
     private String description;
     private String imageUrl;
     private String restaurantId;
+    private int rating;
 
     public Food(String id, String name, double price, String description, String imageUrl, String restaurantId) {
         this.id = id;
