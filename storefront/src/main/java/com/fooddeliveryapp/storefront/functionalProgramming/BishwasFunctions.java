@@ -30,16 +30,26 @@ public class BishwasFunctions {
 
     static List<Order> allOrders = Arrays.asList(order1, order2, order3);
 
+    public static Function<List<Food>, List<String>> getAllFoodsForPriceRange =
+            (foodList) ->
+                    foodList
+                    .stream()
+                    .filter(
+                            fixture -> fixture.getPrice() > 1
+                            || fixture.getPrice() < 10)
+                    .map(Food::getId)
+                    .collect(Collectors.toList());
+
     public static BiFunction<List<Food>, String, String> getFoodByRestaurantId =
-            (foodList, restId) -> foodList.
-                    stream()
+            (foodList, restId) -> foodList
+                    .stream()
                     .filter(r -> r.getRestaurantId().equals(restId))
                     .map(food -> food.getId())
                     .collect(Collectors.toList())
                     .toString()
                     ;
 
-    public static BiFunction<List<Food>, List<Order>, List<String>> topFoodForRestaurant =
+    public static BiFunction<List<Food>, List<Order>, List<String>> topFoodsForRestaurant =
             (foodList, orders) -> orders
                     .stream()
                     .collect(
@@ -102,9 +112,9 @@ public class BishwasFunctions {
                         .collect(Collectors.toList());
 
 //    DEV TEST
-//    public static void main(String[] args) {
-//        System.out.println(
-//                topOrdersForRestaurant.apply(foodList, allOrders)
-//        );
-//    }
+    public static void main(String[] args) {
+        System.out.println(
+                getAllFoodsForPriceRange.apply(foodList)
+        );
+    }
 }
