@@ -70,7 +70,7 @@ class SamsherFunctionsTest {
     @Test
     public void getMostCanceledUsers() {
         List<User> result = SamsherFunctions.mostCanceledUsers.apply(allOrders, userList, 1);
-        assertEquals(2, result.size());
+        assertEquals(1, result.size());
     }
     @Test
     public void getTopDrivers() {
