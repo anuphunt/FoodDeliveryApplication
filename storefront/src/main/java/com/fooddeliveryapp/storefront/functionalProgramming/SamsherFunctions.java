@@ -3,10 +3,7 @@ package com.fooddeliveryapp.storefront.functionalProgramming;
 
 import com.fooddeliveryapp.storefront.models.*;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -20,7 +17,12 @@ public class SamsherFunctions {
             .stream()
             .filter((group)->group.getValue()
                     .stream()
-                    .filter((userOrder)->userOrder.getOrderState() == OrderState.REJECTED)
+                    .collect(Collectors.collectingAndThen(Collectors.toList(),(list)->{//reversing the list
+                        Collections.reverse(list);
+                        return list.stream();
+                    }))
+                    .limit(rejectedCount)
+                    .filter((order)->order.getOrderState() == OrderState.REJECTED)
                     .count()>=rejectedCount)
             .map((group)->users
                     .stream()
