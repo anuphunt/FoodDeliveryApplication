@@ -39,7 +39,7 @@ public class BishwasFunctions {
                     .toString()
                     ;
 
-    public static BiFunction<List<Food>, List<Order>, List<String>> topOrdersForRestaurant =
+    public static BiFunction<List<Food>, List<Order>, List<String>> topFoodForRestaurant =
             (foodList, orders) -> orders
                     .stream()
                     .collect(

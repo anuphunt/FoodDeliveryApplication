@@ -18,7 +18,7 @@ class BishwasFunctionsTest {
     }
 
     @Test
-    public void topOrdersForRestaurant(){
+    public void topFoodForRestaurant(){
         List<String> foodResult = BishwasFunctions.topOrdersForRestaurant.apply(foodList, allOrders);
         assertEquals(2, foodResult.size());
     }
