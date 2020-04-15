@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class SamsherFunctions {
 
     //get all users who has already rejected 10 order after order placed
-    static TriFunction<List<Order>,List<User>,Integer,  List<User>> mostCanceledUsers = (orders,users, rejectedCount) -> orders
+    static TriFunction<List<Order>,List<User>,Integer,  List<User>> getMostCanceledUsers = (orders,users, rejectedCount) -> orders
             .stream()
             .collect(Collectors.groupingBy(Order::getCustomerId))
             .entrySet()
@@ -31,7 +31,7 @@ public class SamsherFunctions {
             .collect(Collectors.toList());
 
     //get Top n drivers with deliver/cancel ratio
-    static BiFunction<List<Order>,List<User>, List<User>> topDrivers = (orders,drivers) -> orders
+    static BiFunction<List<Order>,List<User>, List<User>> getAllTopDrivers = (orders,drivers) -> orders
             .stream()
             .filter(order -> order.getDriverId()!= null)//initially driver is not set just order has been placed
             .collect(Collectors.groupingBy(Order::getDriverId))
@@ -56,8 +56,8 @@ public class SamsherFunctions {
         return 6371d * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); // Distance in km
     };
 
-    //get near by reataurents with given radius
-    static TetraFunction<List<User>,Double,Double,Double, List<User>> rearestRestaurents = (restaurents,lat,lng,radius) -> restaurents
+    //get near by restaurants with given radius
+    static TetraFunction<List<User>,Double,Double,Double, List<User>> getAllNearestRestaurants = (restaurants,lat,lng,radius) -> restaurants
             .stream()
             .filter((user)->user.getRole() == UserRole.RESTAURANT)
             .filter((res)->{

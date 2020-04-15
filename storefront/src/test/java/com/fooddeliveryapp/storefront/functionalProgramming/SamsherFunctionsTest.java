@@ -69,13 +69,13 @@ class SamsherFunctionsTest {
     }
     @Test
     public void getMostCanceledUsers() {
-        List<User> result = SamsherFunctions.mostCanceledUsers.apply(allOrders, userList, 1);
+        List<User> result = SamsherFunctions.getMostCanceledUsers.apply(allOrders, userList, 1);
         assertEquals(2, result.size());
     }
     @Test
     public void getTopDrivers() {
 
-        List<User> result = SamsherFunctions.topDrivers.apply(allOrders, userList);
+        List<User> result = SamsherFunctions.getAllTopDrivers.apply(allOrders, userList);
         assertEquals(2, result.size());
     }
     @Test void distanceTest(){
@@ -86,7 +86,7 @@ class SamsherFunctionsTest {
         assertEquals(0.000,distance2);
     }
     @Test void rearestRestaurentsTest(){
-        List<User> restaurents = SamsherFunctions.rearestRestaurents.apply(userList,41.0178239,-91.9678598,20d);//with argiro center as center point
+        List<User> restaurents = SamsherFunctions.getAllNearestRestaurants.apply(userList,41.0178239,-91.9678598,20d);//with argiro center as center point
         //List<User> restaurents = SamsherFunctions.rearestRestaurents.apply(userList,41.0038032,-92.3977244,20d);// with Ottumwa as center point
         assertEquals(4,restaurents.size());
     }
