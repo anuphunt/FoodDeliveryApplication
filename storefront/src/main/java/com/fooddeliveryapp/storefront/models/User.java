@@ -27,6 +27,10 @@ public class User{
     private String address;
     private UserRole role;
 
+    private double lat = 0.00;
+    private double lng = 0.00;
+
+
     public int getRating() {
         return rating;
     }
@@ -49,6 +53,19 @@ public class User{
         this.address = address;
         this.role = role;
         this.rating = rating;
+    }
+
+    public User(String id, String username, String password, String firstName, String lastName, String email, String phoneNumber, String address, UserRole role, int rating,double lat,double lng) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.rating = rating;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public String getId() {
@@ -121,5 +138,21 @@ public class User{
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 }
