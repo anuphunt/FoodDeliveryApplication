@@ -25,6 +25,7 @@ public class Order {
         this.driverId = driverId;
         this.orderState = orderState;
         this.modifiedBy = modifiedBy;
+        this.totalPrice = totalPrice;
     }
 
     public List<OrderEntity> getFoods() {

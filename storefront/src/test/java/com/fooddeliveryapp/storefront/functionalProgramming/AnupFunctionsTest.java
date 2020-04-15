@@ -3,8 +3,6 @@ package com.fooddeliveryapp.storefront.functionalProgramming;
 import com.fooddeliveryapp.storefront.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnupFunctionsTest {
 
-    public List<User> restaurants, customers, drivers;
-    public List<Food> foods;
+    public static List<User> restaurants, customers, drivers;
+    public static List<Food> foods;
+    public static List<Order> orders;
 
     @BeforeEach
     public void setUp() {
@@ -61,9 +60,17 @@ class AnupFunctionsTest {
         OrderEntity orderEntity1 = new OrderEntity("food1", 5);
 
         // Order
-        Order order1 = new Order("order1", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10D);
-        Order order2 = new Order("order2", "customer2", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10D);
-        List<Order> allOrders = Arrays.asList(order1, order2);
+        Order order1 = new Order("order1", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 20.0);
+        Order order2 = new Order("order2", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order3 = new Order("order3", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order4 = new Order("order4", "customer1", "restaurant2", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order5 = new Order("order5", "customer1", "restaurant2", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order6 = new Order("order6", "customer1", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order7 = new Order("order7", "customer2", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10.0);
+        Order order8 = new Order("order8", "customer3", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order9 = new Order("order9", "customer3", "restaurant4", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order10 = new Order("order10", "customer3", "restaurant4", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        orders = Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10);
 
         // Food
         Food food1 = new Food("food1", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "restaurant1", 4, LocalDate.now());
@@ -96,6 +103,22 @@ class AnupFunctionsTest {
     public void getRestaurantsWithFoodCountAndSortByRatingTest3(){
         List<User> result = AnupFunctions.getRestaurantsWithFoodCountAndSortByRating.apply(restaurants, foods, 10);
         assertEquals(0, result.size());
+    }
+
+    @Test
+    public void getSortedRestaurantByBuyingHistoryTest1(){
+        List<User> result = AnupFunctions.getSortedRestaurantByBuyingHistory.apply(restaurants, orders, "customer1");
+        assertEquals(3, result.size());
+        assertEquals( "restaurant1", result.get(0).getId());
+        assertEquals("restaurant3", result.get(2).getId());
+    }
+
+    @Test
+    public void getSortedRestaurantByBuyingHistoryTest2(){
+        List<User> result = AnupFunctions.getSortedRestaurantByBuyingHistory.apply(restaurants, orders, "customer3");
+        assertEquals(2, result.size());
+        assertEquals("restaurant4", result.get(0).getId());
+        assertEquals("restaurant3", result.get(1).getId());
     }
 
 }
