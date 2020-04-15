@@ -14,11 +14,13 @@ class BishwasFunctionsTest {
     @Test
     public void topRestaurantsInTown(){
         assertEquals(Arrays.asList("rest1", "rest2"), BishwasFunctions.topRestaurantsInTown.apply(allOrders, foodList));
+        //assertNotEquals(Arrays.asList("rest2", "rest1"), BishwasFunctions.topRestaurantsInTown.apply(allOrders, foodList));
     }
 
     @Test
     public void topOrdersForRestaurant(){
-        assertEquals(Arrays.asList("rest2", "rest1"), BishwasFunctions.topOrdersForRestaurant.apply(allOrders));
+        List<String> foodResult = BishwasFunctions.topOrdersForRestaurant.apply(foodList, allOrders);
+        assertEquals(2, foodResult.size());
     }
 
     // ******* Dummy Data ******* //

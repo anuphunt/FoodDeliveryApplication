@@ -2,6 +2,7 @@ package com.fooddeliveryapp.storefront.functionalProgramming;
 
 import com.fooddeliveryapp.storefront.models.*;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -11,6 +12,12 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.*;
 
 public class BishwasFunctions {
+    // Food
+    static Food food1 = new Food("food1", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "rest2", 4, LocalDate.now());
+    static Food food2 = new Food("food2", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "rest2", 3, LocalDate.now());
+    static Food food3 = new Food("food3", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "rest1", 4, LocalDate.now());
+
+    static List<Food> foodList = Arrays.asList(food1, food2, food3);
 
     // Order Entity
     static OrderEntity orderEntity1 = new OrderEntity("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", 5);
@@ -23,12 +30,17 @@ public class BishwasFunctions {
 
     static List<Order> allOrders = Arrays.asList(order1, order2, order3);
 
-    // todo -> to get restaurant for its ID
-    public static BiFunction<List<User>, String, Optional<User>> getRestaurantById = (restaurants, id) -> restaurants.stream()
-            .filter(r -> r.getId().equals(id)).findFirst();
+    public static BiFunction<List<Food>, String, String> getFoodByRestaurantId =
+            (foodList, restId) -> foodList.
+                    stream()
+                    .filter(r -> r.getRestaurantId().equals(restId))
+                    .map(food -> food.getId())
+                    .collect(Collectors.toList())
+                    .toString()
+                    ;
 
-    public static Function<List<Order>, List<String>> topOrdersForRestaurant =
-            (orders) -> orders
+    public static BiFunction<List<Food>, List<Order>, List<String>> topOrdersForRestaurant =
+            (foodList, orders) -> orders
                     .stream()
                     .collect(
                             Collectors.groupingBy(
@@ -37,10 +49,9 @@ public class BishwasFunctions {
                     )
                     .entrySet()
                     .stream()
-                    .limit(10)
-                    .map(Map.Entry::getKey)
-                    .collect(Collectors.toList());
-
+                    .map(id -> getFoodByRestaurantId.apply(foodList, id.getKey()))
+                    .collect(Collectors.toList())
+                    ;
     /*
 
         [1 of 3] Get X restaurants whose food items is rated top 10 and make top 10 sales.
@@ -90,9 +101,10 @@ public class BishwasFunctions {
                 )
                         .collect(Collectors.toList());
 
-
 //    DEV TEST
 //    public static void main(String[] args) {
-//        topOrdersForRestaurant(allOrders);
+//        System.out.println(
+//                topOrdersForRestaurant.apply(foodList, allOrders)
+//        );
 //    }
 }
