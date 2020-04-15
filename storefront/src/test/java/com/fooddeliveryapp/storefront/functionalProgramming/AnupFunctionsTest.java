@@ -1,5 +1,6 @@
 package com.fooddeliveryapp.storefront.functionalProgramming;
 
+import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fooddeliveryapp.storefront.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ class AnupFunctionsTest {
     public void setUp() {
         // Restaurants
         User restaurant1 = new User("restaurant1", "sham.sher", "user1", "Shamsher", "Rana", "example@example.com", "9999999999", "Fairfield", UserRole.RESTAURANT, 5);
-        User restaurant2 = new User("restaurant2", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 3);
+        User restaurant2 = new User("restaurant2", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 5);
         User restaurant3 = new User("restaurant3", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 2);
         User restaurant4 = new User("restaurant4", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 1);
         User restaurant5 = new User("restaurant5", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 4);
@@ -73,16 +74,16 @@ class AnupFunctionsTest {
         orders = Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10);
 
         // Food
-        Food food1 = new Food("food1", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "restaurant1", 4, LocalDate.now());
-        Food food2 = new Food("food2", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 5, LocalDate.now());
-        Food food3 = new Food("food3", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 4, LocalDate.now());
-        Food food4 = new Food("food4", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 4, LocalDate.now());
-        Food food5 = new Food("food5", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 3, LocalDate.now());
+        Food food1 = new Food("food1", "Apple Pie", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "restaurant1", 4, LocalDate.now());
+        Food food2 = new Food("food2", "Chicken Sandwich", 25.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 5, LocalDate.now());
+        Food food3 = new Food("food3", "Banana Milk Shake", 15.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 4, LocalDate.now());
+        Food food4 = new Food("food4", "MoMo", 13.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 5, LocalDate.now());
+        Food food5 = new Food("food5", "MoMo", 12.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant1", 3, LocalDate.now());
         Food food6 = new Food("food6", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant2", 2, LocalDate.now());
-        Food food7 = new Food("food7", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant2", 1, LocalDate.now());
-        Food food8 = new Food("food8", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant2", 4, LocalDate.now());
-        Food food9 = new Food("food9", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant3", 3, LocalDate.now());
-        Food food10 = new Food("food10", "MoMo", 5.5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant3", 4, LocalDate.now());
+        Food food7 = new Food("food7", "MoMo", 10, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant2", 1, LocalDate.now());
+        Food food8 = new Food("food8", "MoMo", 5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant2", 4, LocalDate.now());
+        Food food9 = new Food("food9", "MoMo", 5, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant3", 3, LocalDate.now());
+        Food food10 = new Food("food10", "MoMo", 10, "Nepali Food", "https://images.app.goo.gl/vxwvS2qsvcKwXueU8", "restaurant3", 4, LocalDate.now());
         foods = Arrays.asList(food1, food2, food3,food4,food5,food6,food7,food8,food9,food10);
     }
 
@@ -97,6 +98,7 @@ class AnupFunctionsTest {
     public void getRestaurantsWithFoodCountAndSortByRatingTest2(){
         List<User> result = AnupFunctions.getRestaurantsWithFoodCountAndSortByRating.apply(restaurants, foods, 4);
         assertEquals(1, result.size());
+        assertTrue(result.get(0).getId() == "restaurant1");
     }
 
     @Test
@@ -110,7 +112,6 @@ class AnupFunctionsTest {
         List<User> result = AnupFunctions.getSortedRestaurantByBuyingHistory.apply(restaurants, orders, "customer1");
         assertEquals(3, result.size());
         assertEquals( "restaurant1", result.get(0).getId());
-        assertEquals("restaurant3", result.get(2).getId());
     }
 
     @Test
@@ -121,4 +122,18 @@ class AnupFunctionsTest {
         assertEquals("restaurant3", result.get(1).getId());
     }
 
+    @Test
+    public void getAllFoodsBasedOnPriceAndRestaurantRatingsTest1(){
+        List<Food> result = AnupFunctions.getAllFoodsBasedOnPriceAndRestaurantRatings.apply(foods, restaurants, 20.0, 4);
+        assertEquals(7, result.size());
+        assertEquals("Apple Pie", result.get(0).getName());
+        assertEquals("Banana Milk Shake", result.get(1).getName());
+    }
+
+    @Test
+    public void getAllFoodsBasedOnPriceAndRestaurantRatingsTest2(){
+        List<Food> result = AnupFunctions.getAllFoodsBasedOnPriceAndRestaurantRatings.apply(foods, restaurants, 50.0, 1);
+        assertEquals(10, result.size());
+        assertTrue(result.get(9).getName() == "MoMo");
+    }
 }
