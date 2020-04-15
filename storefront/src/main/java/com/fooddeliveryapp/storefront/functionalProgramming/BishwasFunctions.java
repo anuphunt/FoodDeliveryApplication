@@ -26,47 +26,45 @@ public class BishwasFunctions {
                 From Step 2 -> sort with average rating + get top 10 results
 
     */
-
-//      Step 1: From Order -> Group restaurant ID + order by group count.
-        Map<String, Long> groupByTopOrderForRestaurant = allOrders
+    
+        return // Step 1: From Food -> Get restaurant ID with average rating (i.e.: all food rating / total number of food)
+                foodList
                 .stream()
-                .filter(order -> order.getOrderState() == OrderState.DELIVERED)
                 .collect(
                         Collectors.groupingBy(
-                                Order::getRestaurantId, LinkedHashMap::new, counting()
+                                Food::getRestaurantId, Collectors.averagingInt(Food::getRating)
                         )
-                );
-
-//      Step 2: From Food -> Get restaurant ID with average rating (i.e.: all food rating / total number of food)
-        Map<String, Double> groupByMostMostRatedFoodForRestaurant =
-                foodList
-                        .stream()
-                        .collect(
-                                Collectors.groupingBy(
-                                        Food::getRestaurantId, Collectors.averagingInt(Food::getRating)
-                                )
-                        );
-
-//      Step 3: CONCAT
-        return Stream.concat(
-                groupByMostMostRatedFoodForRestaurant
+                )
                         .entrySet()
                         .stream()
                         .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
                         .map(Map.Entry::getKey)
                         .limit(10)
-                ,
-                groupByTopOrderForRestaurant
+                // returns stream
+                .filter(
+                        // Step 2: From Order -> Group restaurant ID + order by group count.
+                        allOrders
+                                .stream()
+                                .filter(order -> order.getOrderState() == OrderState.DELIVERED)
+                                .collect(
+                                        Collectors.groupingBy(
+                                                Order::getRestaurantId, LinkedHashMap::new, counting()
+                                        )
+                                )
                         .entrySet()
                         .stream()
                         .limit(10)
                         .map(Map.Entry::getKey)
-        )
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList())
+                        // returns list
+                        ::contains
+                )
+                        .collect(Collectors.toList());
     }
-}
+
 
 //    DEV TEST
-//    public static void main(String[] args){
+//    public static void main(String[] args) {
 //        topRestaurantsInTown();
 //    }
+}

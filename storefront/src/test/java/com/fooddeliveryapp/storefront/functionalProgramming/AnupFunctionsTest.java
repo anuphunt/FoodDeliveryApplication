@@ -61,8 +61,8 @@ class AnupFunctionsTest {
         OrderEntity orderEntity1 = new OrderEntity("food1", 5);
 
         // Order
-        Order order1 = new Order("order1", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1");
-        Order order2 = new Order("order2", "customer2", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1");
+        Order order1 = new Order("order1", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10D);
+        Order order2 = new Order("order2", "customer2", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10D);
         List<Order> allOrders = Arrays.asList(order1, order2);
 
         // Food
