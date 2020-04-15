@@ -13,10 +13,11 @@ public class Order {
     private String driverId;
     private OrderState orderState;
     private String modifiedBy;
+    private double totalPrice;
 
     public Order(){}
 
-    public Order(String id, String customerId, String restaurantId, List<OrderEntity> foods, String driverId, OrderState orderState, String modifiedBy) {
+    public Order(String id, String customerId, String restaurantId, List<OrderEntity> foods, String driverId, OrderState orderState, String modifiedBy, Double totalPrice) {
         this.id = id;
         this.customerId = customerId;
         this.restaurantId = restaurantId;
@@ -34,6 +35,13 @@ public class Order {
         this.foods = foods;
     }
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
     public String getId() {
         return id;
     }
