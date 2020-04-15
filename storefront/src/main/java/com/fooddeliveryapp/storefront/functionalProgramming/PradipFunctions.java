@@ -30,4 +30,14 @@ public class PradipFunctions {
             .map((restaurantFoods)->restaurants.stream().filter(restaurant->restaurant.getId() == restaurantFoods.getKey()).findFirst().get())
             .filter((res)->res.getRating()<=min_rate)
             .collect(Collectors.toList());
+
+
+    //Get all drivers who has picked order from x Restaurant and Delivered to y customers
+    public static TetraFunction<List<User>,List<Order>,String,Integer,List<User>> noOfDriver=(drivers,orders,restaurentId,no_of_deliveries)->drivers.stream()
+                    .filter(d->d.getRole()==UserRole.DRIVER)
+                    .filter(d->orders.stream().filter(o->o.getDriverId() == d.getId() && o.getRestaurantId() == restaurentId && o.getOrderState() == OrderState.DELIVERED).count()>=no_of_deliveries)
+            .collect(Collectors.toList());
+
+
+
 }
