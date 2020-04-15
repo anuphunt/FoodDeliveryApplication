@@ -77,19 +77,19 @@ class PradipFunctionsTest {
     }
     @Test
     public void highlyRatedFoods1(){
-        List<Food> result = PradipFunctions.highlyRatedFoods.apply(foods, LocalDate.now());
+        List<Food> result = PradipFunctions.getHighlyRatedFoods.apply(foods, LocalDate.now());
         assertEquals(2, result.size());
 
     }
     @Test
     public void lowRatedRestaurants1(){
-        List<User> result = PradipFunctions.lowRatedRestaurants.apply(restaurants,foods,5,5);
+        List<User> result = PradipFunctions.getLowRatedRestaurants.apply(restaurants,foods,5,5);
         assertEquals(1, result.size());
 
     }
        @Test
      public void noOfDriverTest(){
-         List<User> result = PradipFunctions.noOfDriver.apply(drivers,orders,"restaurant1",3);
+         List<User> result = PradipFunctions.getAllDriversWithXDeliveriesFromARestaurant.apply(drivers,orders,"restaurant1",3);
          assertEquals(1, result.size());
 
      }                                                                                           }
