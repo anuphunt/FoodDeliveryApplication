@@ -2,6 +2,7 @@ package com.fooddeliveryapp.storefront.models;
 
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 public class Food {
     private String id;
@@ -10,18 +11,12 @@ public class Food {
     private String description;
     private String imageUrl;
     private String restaurantId;
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     private int rating;
+    private LocalDate date;
 
-    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId, int rating) {
+    public Food() {
+    }
+    public Food(String id, String name, double price, String description, String imageUrl, String restaurantId, int rating, LocalDate date) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -29,9 +24,15 @@ public class Food {
         this.imageUrl = imageUrl;
         this.restaurantId = restaurantId;
         this.rating = rating;
+        this.date = date;
     }
 
-    public Food() {
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getId() {
@@ -80,5 +81,12 @@ public class Food {
 
     public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
