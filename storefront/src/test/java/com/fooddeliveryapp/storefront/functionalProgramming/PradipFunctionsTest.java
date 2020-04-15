@@ -21,7 +21,9 @@ import java.util.stream.Stream;
 class PradipFunctionsTest {
     public List<Food> foods;
 
-    public List<User> restaurants;
+    public List<User> restaurants,drivers;
+    public List<Order> orders;
+    public OrderEntity orderEntity1;
     @BeforeEach
     public void setUp() {
         Food food1 = new Food("food1", "Pizza", 15.5, "Italian Food", "https://images.app.goo.gl/vebgTeEk7Y4Dj2Lg7", "restaurant2", 5, LocalDate.now());
@@ -47,6 +49,31 @@ class PradipFunctionsTest {
         User restaurant9 = new User("restaurant9", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 4);
         User restaurant10 = new User("restaurant10", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 3);
         restaurants = Arrays.asList(restaurant1, restaurant2, restaurant3,restaurant4,restaurant5,restaurant6,restaurant7,restaurant8,restaurant9,restaurant10 );
+
+        Order order1 = new Order("order1", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 20.0);
+        Order order2 = new Order("order2", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order3 = new Order("order3", "customer1", "restaurant1", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order4 = new Order("order4", "customer1", "restaurant2", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order5 = new Order("order5", "customer1", "restaurant2", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order6 = new Order("order6", "customer1", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order7 = new Order("order7", "customer2", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 10.0);
+        Order order8 = new Order("order8", "customer3", "restaurant3", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order9 = new Order("order9", "customer3", "restaurant4", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        Order order10 = new Order("order10", "customer3", "restaurant4", Arrays.asList(orderEntity1), "driver1", OrderState.DELIVERED, "driver1", 40.0);
+        orders = Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10);
+
+
+        User driver1 = new User("driver1", "sham.sher", "user1", "Shamsher", "Rana", "example@example.com", "9999999999", "Fairfield", UserRole.DRIVER, 5);
+        User driver2 = new User("driver2", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 3);
+        User driver3 = new User("driver3", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 1);
+        User driver4 = new User("driver4", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 3);
+        User driver5 = new User("driver5", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 4);
+        User driver6 = new User("driver6", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 5);
+        User driver7 = new User("driver7", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 2);
+        User driver8 = new User("driver8", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 1);
+        User driver9 = new User("driver9", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.DRIVER, 5);
+        User driver10 = new User("driver10", "navin.paudel", "user2", "Navin", "Paudel", "example@example.com", "9999999999", "Des Moines", UserRole.RESTAURANT, 3);
+        drivers = Arrays.asList(driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver8, driver9, driver10);
     }
     @Test
     public void highlyRatedFoods1(){
@@ -60,7 +87,9 @@ class PradipFunctionsTest {
         assertEquals(1, result.size());
 
     }
+       @Test
+     public void noOfDriverTest(){
+         List<User> result = PradipFunctions.noOfDriver.apply(drivers,orders,"restaurant1",3);
+         assertEquals(1, result.size());
 
-
-
-    }
+     }                                                                                           }
