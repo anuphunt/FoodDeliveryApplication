@@ -12,7 +12,7 @@ class BishwasFunctionsTest {
 
     @Test
     public void topRestaurantsInTown(){
-        assertEquals(, BishwasFunctions.topRestaurantsInTown(allOrders, foodList));
+        assertEquals(Arrays.asList("rest1", "rest2"), BishwasFunctions.topRestaurantsInTown(allOrders, foodList));
     }
 
     // ******* Dummy Data ******* //
