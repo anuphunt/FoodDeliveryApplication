@@ -30,9 +30,9 @@ class BishwasFunctionsTest {
     static OrderEntity orderEntity2 = new OrderEntity("4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865", 10);
 
     // Order
-    static Order order1 = new Order("order1", "", "rest2", Arrays.asList(orderEntity1), "", OrderState.DELIVERED, "", 10D);
-    static Order order2 = new Order("order2", "", "rest1", Arrays.asList(orderEntity1), "", OrderState.DELIVERED, "", 20D);
-    static Order order3 = new Order("order3", "", "rest2", Arrays.asList(orderEntity2), "", OrderState.DELIVERED, "", 30D);
+    static Order order1 = new Order("order1", "", "rest2", Arrays.asList(orderEntity1),"driver1", OrderState.DELIVERED, "", 10D);
+    static Order order2 = new Order("order2", "", "rest1", Arrays.asList(orderEntity1),"driver1", OrderState.DELIVERED, "", 20D);
+    static Order order3 = new Order("order3", "", "rest2", Arrays.asList(orderEntity2),"driver1", OrderState.DELIVERED, "", 30D);
 
     static List<Order> allOrders = Arrays.asList(order1, order2, order3);
 
