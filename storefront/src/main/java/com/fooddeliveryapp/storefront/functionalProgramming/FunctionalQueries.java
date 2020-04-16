@@ -70,7 +70,7 @@ public class FunctionalQueries {
             (foodList) ->
                     foodList
                             .stream()
-                            .filter(fixture -> fixture.getPrice() > 1 || fixture.getPrice() < 10)
+                            .filter(fixture -> fixture.getPrice() > 1 && fixture.getPrice() < 10)
                             .map(Food::getId)
                             .collect(Collectors.toList());
 

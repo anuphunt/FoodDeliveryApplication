@@ -43,21 +43,21 @@ public class AdminResource {
     //endregion
 
     //region BISHWAS
-    @ApiOperation("Get All food ids for a price range 1 -10$")
+    @ApiOperation("Get All food Ids for a price range from $1 to $10")
     @RequestMapping(value = "/Query4", method= RequestMethod.GET)
     public List<String> getAllFoodsForPriceRange(){
         populateData();
         return  FunctionalQueries.getAllFoodsForPriceRange.apply(foods);
     }
 
-    @ApiOperation("Get all top food ids for restaurant")
+    @ApiOperation("Sort and get all food IDs of a restaurant with the most order to the least order")
     @RequestMapping(value = "/Query5", method = RequestMethod.GET)
     public List<String> getAllTopFoodForRestaurant(){
         populateData();
         return FunctionalQueries.topFoodsForRestaurant.apply(foods, orders);
     }
 
-    @ApiOperation("Get all ids of top restaurants in town")
+    @ApiOperation("Get all restaurant IDs whose 'total foods average rating' is among top 10 of all restaurants and that restaurant is also among the 'top 10 ordered' from restaurant")
     @RequestMapping(value = "/Query6", method = RequestMethod.GET)
     public List<String> getAllTopRestaurantsInTown(){
         populateData();
