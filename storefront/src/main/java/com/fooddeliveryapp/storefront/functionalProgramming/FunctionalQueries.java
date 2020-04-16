@@ -148,19 +148,17 @@ public class FunctionalQueries {
     public static BiFunction<List<Order>,List<User>, List<User>> getAllTopDrivers = (orders,drivers) -> orders
             .stream()
             .filter(order -> order.getDriverId()!= null)//initially driver is not set just order has been placed
-            .collect(Collectors.groupingBy(Order::getDriverId))
+            .collect(groupingBy(Order::getDriverId))
             .entrySet()
             .stream()
-            .sorted(Comparator.comparing((entrySet)->{//basis of delivered to rejected ratio
-                int rejected = (int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.REJECTED).count();
-                int delivered = (int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.DELIVERED).count();
-                return (rejected == 0 && delivered == 0)?0:(delivered/(delivered+rejected));
-            }))
+            //basis of delivered to rejected ratio
+            .sorted(Comparator.comparing((entrySet)-> ((int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.REJECTED).count() == 0 && (int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.DELIVERED).count() == 0)?0:((int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.DELIVERED).count()/((int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.DELIVERED).count()+(int) entrySet.getValue().stream().filter(order -> order.getOrderState() == OrderState.REJECTED).count()))
+            ))
             .map((group)->drivers
                     .stream()
                     .filter((user)->user.getId() == group.getKey())
                     .findFirst().get())
-            .collect(Collectors.toList());
+            .collect(toList());
 
 
     static TetraFunction<Double,Double,Double,Double,Double> distanceFormula = (lat1,lon1,lat2,lon2)->{
