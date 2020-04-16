@@ -160,7 +160,7 @@ class FunctionalQueriesTest {
 
     @Test
     public void getAllFoodsForPriceRange(){
-        assertEquals(10, FunctionalQueries.getAllFoodsForPriceRange.apply(foods).size());
+        assertEquals(3, FunctionalQueries.getAllFoodsForPriceRange.apply(foods).size());
     }
     //endregion
 
