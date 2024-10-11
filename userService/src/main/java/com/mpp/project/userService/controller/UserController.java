@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @RestController
 public class UserController {
@@ -68,6 +70,7 @@ public class UserController {
 				restaurants.add(u);
 			}
 		}
+
 		return restaurants;
 	}
 
